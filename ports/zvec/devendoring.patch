@@ -1,0 +1,109 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 294af340c5..e8f7f84114 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -28,9 +28,74 @@ message(STATUS "BUILD_PYTHON_BINDINGS:${BUILD_PYTHON_BINDINGS}")
+ option(BUILD_TOOLS "Build tools" ON)
+ message(STATUS "BUILD_TOOLS:${BUILD_TOOLS}")
+ 
+-cc_directory(thirdparty)
++find_package(Arrow CONFIG REQUIRED)
++find_package(Parquet CONFIG REQUIRED)
++find_package(ArrowCompute CONFIG REQUIRED)
++find_package(ArrowAcero CONFIG REQUIRED)
++find_package(ArrowDataset CONFIG REQUIRED)
++find_package(glog CONFIG REQUIRED)
++find_package(gflags CONFIG REQUIRED)
++find_package(roaring CONFIG REQUIRED)
++find_package(RocksDB CONFIG REQUIRED)
++find_package(Protobuf CONFIG REQUIRED)
++find_package(antlr4-runtime CONFIG REQUIRED)
++
++if(TARGET gflags::gflags AND NOT TARGET gflags)
++    add_library(gflags ALIAS gflags::gflags)
++elseif(TARGET gflags::gflags_static AND NOT TARGET gflags)
++    add_library(gflags ALIAS gflags::gflags_static)
++elseif(NOT TARGET gflags)
++    message(FATAL_ERROR "Neither gflags::gflags nor gflags::gflags_static was found")
++endif()
++
++if(TARGET glog::glog AND NOT TARGET glog)
++    add_library(glog ALIAS glog::glog)
++endif()
++if(TARGET roaring::roaring AND NOT TARGET roaring)
++    add_library(roaring ALIAS roaring::roaring)
++endif()
++if(TARGET RocksDB::rocksdb AND NOT TARGET rocksdb)
++    add_library(rocksdb ALIAS RocksDB::rocksdb)
++endif()
++
++if(TARGET Parquet::parquet_static AND NOT TARGET Arrow::parquet_static)
++    add_library(Arrow::parquet_static INTERFACE IMPORTED)
++    target_link_libraries(Arrow::parquet_static INTERFACE Parquet::parquet_static)
++endif()
++if(TARGET ArrowCompute::arrow_compute_static AND NOT TARGET Arrow::arrow_compute)
++    add_library(Arrow::arrow_compute INTERFACE IMPORTED)
++    target_link_libraries(Arrow::arrow_compute INTERFACE ArrowCompute::arrow_compute_static)
++elseif(TARGET ArrowCompute::arrow_compute_shared AND NOT TARGET Arrow::arrow_compute)
++    add_library(Arrow::arrow_compute INTERFACE IMPORTED)
++    target_link_libraries(Arrow::arrow_compute INTERFACE ArrowCompute::arrow_compute_shared)
++endif()
++if(TARGET ArrowAcero::arrow_acero_static AND NOT TARGET Arrow::arrow_acero)
++    add_library(Arrow::arrow_acero INTERFACE IMPORTED)
++    target_link_libraries(Arrow::arrow_acero INTERFACE ArrowAcero::arrow_acero_static)
++elseif(TARGET ArrowAcero::arrow_acero_shared AND NOT TARGET Arrow::arrow_acero)
++    add_library(Arrow::arrow_acero INTERFACE IMPORTED)
++    target_link_libraries(Arrow::arrow_acero INTERFACE ArrowAcero::arrow_acero_shared)
++endif()
++if(TARGET ArrowDataset::arrow_dataset_static AND NOT TARGET Arrow::arrow_dataset)
++    add_library(Arrow::arrow_dataset INTERFACE IMPORTED)
++    target_link_libraries(Arrow::arrow_dataset INTERFACE ArrowDataset::arrow_dataset_static)
++elseif(TARGET ArrowDataset::arrow_dataset_shared AND NOT TARGET Arrow::arrow_dataset)
++    add_library(Arrow::arrow_dataset INTERFACE IMPORTED)
++    target_link_libraries(Arrow::arrow_dataset INTERFACE ArrowDataset::arrow_dataset_shared)
++endif()
++
++if(NOT TARGET sparsehash)
++    add_library(sparsehash INTERFACE)
++endif()
++if(NOT TARGET magic_enum)
++    add_library(magic_enum INTERFACE)
++endif()
++
++if(TARGET antlr4_static AND NOT TARGET antlr4)
++    add_library(antlr4 ALIAS antlr4_static)
++endif()
++
+ cc_directories(src)
+-cc_directories(tests)
+ 
+ if(BUILD_TOOLS)
+     cc_directories(tools)
+diff --git a/src/db/common/concurrent_roaring_bitmap.h b/src/db/common/concurrent_roaring_bitmap.h
+index 8d5f106b7a..a0e97645c2 100644
+--- a/src/db/common/concurrent_roaring_bitmap.h
++++ b/src/db/common/concurrent_roaring_bitmap.h
+@@ -16,8 +16,8 @@
+ #include <mutex>
+ #include <shared_mutex>
+ #include <sstream>
+-#include <roaring.hh>
+-#include <roaring64map.hh>
++#include <roaring/roaring.hh>
++#include <roaring/roaring64map.hh>
+ #include <roaring/roaring.h>
+ #include <zvec/ailego/internal/platform.h>
+ #include <zvec/ailego/io/file.h>
+diff --git a/src/db/index/segment/segment_helper.cc b/src/db/index/segment/segment_helper.cc
+index 45b2dfb303..f41d4eb4dd 100644
+--- a/src/db/index/segment/segment_helper.cc
++++ b/src/db/index/segment/segment_helper.cc
+@@ -30,7 +30,7 @@
+ #include "db/index/common/index_filter.h"
+ #include "db/index/common/meta.h"
+ #include "db/index/storage/forward_writer.h"
+-#include "roaring.hh"
++#include <roaring/roaring.hh>
+ 
+ namespace zvec {
+ 

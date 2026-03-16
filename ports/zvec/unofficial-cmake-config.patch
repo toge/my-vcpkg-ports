@@ -1,0 +1,51 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -100,8 +100,47 @@ if(BUILD_TOOLS)
+     cc_directories(tools)
+ endif()
+ 
++include(GNUInstallDirs)
++
++if(TARGET zvec_ailego)
++    set_property(TARGET zvec_ailego PROPERTY EXPORT_NAME ailego)
++endif()
++if(TARGET zvec_core)
++    set_property(TARGET zvec_core PROPERTY EXPORT_NAME core)
++endif()
++
++install(
++    TARGETS zvec_ailego zvec_core sparsehash magic_enum
++    EXPORT unofficial-zvec-targets
++    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
++    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
++    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
++    INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
++)
++
++install(
++    DIRECTORY ${PROJECT_ROOT_DIR}/src/include/
++    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
++)
++
++set(_zvec_config_file "${CMAKE_CURRENT_BINARY_DIR}/unofficial-zvec-config.cmake")
++file(WRITE "${_zvec_config_file}" [=[include("${CMAKE_CURRENT_LIST_DIR}/unofficial-zvec-targets.cmake")
++]=])
++
++install(
++    FILES "${_zvec_config_file}"
++    DESTINATION "share/unofficial-zvec"
++)
++
++install(
++    EXPORT unofficial-zvec-targets
++    FILE unofficial-zvec-targets.cmake
++    NAMESPACE unofficial::zvec::
++    DESTINATION "share/unofficial-zvec"
++)
++
+ git_version(GIT_SRCS_VER ${PROJECT_ROOT_DIR})
+ set(CPACK_PACKAGE_VERSION ${GIT_SRCS_VER})
+ set(CPACK_PACKAGE_NAME zvec)
+ include(CPack)
+

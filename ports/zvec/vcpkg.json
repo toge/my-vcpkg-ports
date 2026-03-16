@@ -1,0 +1,35 @@
+{
+  "name": "zvec",
+  "version": "0.2.0",
+  "description": "A lightweight, lightning-fast, in-process vector database",
+  "homepage": "https://github.com/alibaba/zvec",
+  "license": "Apache-2.0",
+  "dependencies": [
+    "antlr4",
+    {
+      "name": "arrow",
+      "features": [
+        "acero",
+        "compute",
+        "dataset",
+        "parquet"
+      ]
+    },
+    "gflags",
+    "glog",
+    "gtest",
+    "magic-enum",
+    "protobuf",
+    "roaring",
+    "rocksdb",
+    "sparsehash",
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    },
+    {
+      "name": "vcpkg-cmake-config",
+      "host": true
+    }
+  ]
+}

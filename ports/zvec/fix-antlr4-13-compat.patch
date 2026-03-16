@@ -1,0 +1,162 @@
+diff --git a/src/db/sqlengine/antlr/gen/SQLLexer.cc b/src/db/sqlengine/antlr/gen/SQLLexer.cc
+index 8e7a77014d..715111c195 100644
+--- a/src/db/sqlengine/antlr/gen/SQLLexer.cc
++++ b/src/db/sqlengine/antlr/gen/SQLLexer.cc
+@@ -10,7 +10,7 @@ using namespace antlr4;
+ using namespace antlr4;
+ 
+ SQLLexer::SQLLexer(CharStream *input) : Lexer(input) {
+-  _interpreter = new atn::LexerATNSimulator(this, _atn, _decisionToDFA,
++  _interpreter = new atn::LexerATNSimulator(this, *_atn, _decisionToDFA,
+                                             _sharedContextCache);
+ }
+ 
+@@ -42,12 +42,12 @@ dfa::Vocabulary &SQLLexer::getVocabulary() const {
+   return _vocabulary;
+ }
+ 
+-const std::vector<uint16_t> SQLLexer::getSerializedATN() const {
++antlr4::atn::SerializedATNView SQLLexer::getSerializedATN() const {
+   return _serializedATN;
+ }
+ 
+ const atn::ATN &SQLLexer::getATN() const {
+-  return _atn;
++  return *_atn;
+ }
+ 
+ 
+@@ -56,8 +56,8 @@ std::vector<dfa::DFA> SQLLexer::_decisionToDFA;
+ atn::PredictionContextCache SQLLexer::_sharedContextCache;
+ 
+ // We own the ATN which in turn owns the ATN states.
+-atn::ATN SQLLexer::_atn;
+-std::vector<uint16_t> SQLLexer::_serializedATN;
++std::unique_ptr<atn::ATN> SQLLexer::_atn;
++std::vector<int32_t> SQLLexer::_serializedATN;
+ 
+ std::vector<std::string> SQLLexer::_ruleNames = {"OR",
+                                                  "AND",
+@@ -246,7 +246,7 @@ SQLLexer::Initializer::Initializer() {
+   // This code could be in a static initializer lambda, but VS doesn't allow
+   // access to private class members from there.
+   for (size_t i = 0; i < _symbolicNames.size(); ++i) {
+-    std::string name = _vocabulary.getLiteralName(i);
++    std::string name(_vocabulary.getLiteralName(i));
+     if (name.empty()) {
+       name = _vocabulary.getSymbolicName(i);
+     }
+@@ -684,10 +684,10 @@ SQLLexer::Initializer::Initializer() {
+   atn::ATNDeserializer deserializer;
+   _atn = deserializer.deserialize(_serializedATN);
+ 
+-  size_t count = _atn.getNumberOfDecisions();
++  size_t count = _atn->getNumberOfDecisions();
+   _decisionToDFA.reserve(count);
+   for (size_t i = 0; i < count; i++) {
+-    _decisionToDFA.emplace_back(_atn.getDecisionState(i), i);
++    _decisionToDFA.emplace_back(_atn->getDecisionState(i), i);
+   }
+ }
+ 
+diff --git a/src/db/sqlengine/antlr/gen/SQLLexer.h b/src/db/sqlengine/antlr/gen/SQLLexer.h
+index be48f10b7f..f319438f06 100644
+--- a/src/db/sqlengine/antlr/gen/SQLLexer.h
++++ b/src/db/sqlengine/antlr/gen/SQLLexer.h
+@@ -82,10 +82,10 @@ class SQLLexer : public antlr4::Lexer {
+   virtual const std::vector<std::string> &getChannelNames() const override;
+   virtual const std::vector<std::string> &getModeNames() const override;
+   virtual const std::vector<std::string> &getTokenNames()
+-      const override;  // deprecated, use vocabulary instead
++      const;  // deprecated, use vocabulary instead
+   virtual antlr4::dfa::Vocabulary &getVocabulary() const override;
+ 
+-  virtual const std::vector<uint16_t> getSerializedATN() const override;
++  virtual antlr4::atn::SerializedATNView getSerializedATN() const override;
+   virtual const antlr4::atn::ATN &getATN() const override;
+ 
+  private:
+@@ -99,8 +99,8 @@ class SQLLexer : public antlr4::Lexer {
+   static std::vector<std::string> _literalNames;
+   static std::vector<std::string> _symbolicNames;
+   static antlr4::dfa::Vocabulary _vocabulary;
+-  static antlr4::atn::ATN _atn;
+-  static std::vector<uint16_t> _serializedATN;
++  static std::unique_ptr<antlr4::atn::ATN> _atn;
++  static std::vector<int32_t> _serializedATN;
+ 
+ 
+   // Individual action functions triggered by action() above.
+diff --git a/src/db/sqlengine/antlr/gen/SQLParser.cc b/src/db/sqlengine/antlr/gen/SQLParser.cc
+index 0a8c12bf24..82b3a0e021 100644
+--- a/src/db/sqlengine/antlr/gen/SQLParser.cc
++++ b/src/db/sqlengine/antlr/gen/SQLParser.cc
+@@ -11,7 +11,7 @@ using namespace antlr4;
+ using namespace antlr4;
+ 
+ SQLParser::SQLParser(TokenStream *input) : Parser(input) {
+-  _interpreter = new atn::ParserATNSimulator(this, _atn, _decisionToDFA,
++  _interpreter = new atn::ParserATNSimulator(this, *_atn, _decisionToDFA,
+                                              _sharedContextCache);
+ }
+ 
+@@ -3175,8 +3175,8 @@ std::vector<dfa::DFA> SQLParser::_decisionToDFA;
+ atn::PredictionContextCache SQLParser::_sharedContextCache;
+ 
+ // We own the ATN which in turn owns the ATN states.
+-atn::ATN SQLParser::_atn;
+-std::vector<uint16_t> SQLParser::_serializedATN;
++std::unique_ptr<atn::ATN> SQLParser::_atn;
++std::vector<int32_t> SQLParser::_serializedATN;
+ 
+ std::vector<std::string> SQLParser::_ruleNames = {"swallow_to_semi",
+                                                   "compilation_unit",
+@@ -3336,7 +3336,7 @@ std::vector<std::string> SQLParser::_tokenNames;
+ 
+ SQLParser::Initializer::Initializer() {
+   for (size_t i = 0; i < _symbolicNames.size(); ++i) {
+-    std::string name = _vocabulary.getLiteralName(i);
++    std::string name(_vocabulary.getLiteralName(i));
+     if (name.empty()) {
+       name = _vocabulary.getSymbolicName(i);
+     }
+@@ -3664,10 +3664,10 @@ SQLParser::Initializer::Initializer() {
+   atn::ATNDeserializer deserializer;
+   _atn = deserializer.deserialize(_serializedATN);
+ 
+-  size_t count = _atn.getNumberOfDecisions();
++  size_t count = _atn->getNumberOfDecisions();
+   _decisionToDFA.reserve(count);
+   for (size_t i = 0; i < count; i++) {
+-    _decisionToDFA.emplace_back(_atn.getDecisionState(i), i);
++    _decisionToDFA.emplace_back(_atn->getDecisionState(i), i);
+   }
+ }
+ 
+diff --git a/src/db/sqlengine/antlr/gen/SQLParser.h b/src/db/sqlengine/antlr/gen/SQLParser.h
+index 61fa5ee8d7..2b4c70895a 100644
+--- a/src/db/sqlengine/antlr/gen/SQLParser.h
++++ b/src/db/sqlengine/antlr/gen/SQLParser.h
+@@ -119,9 +119,9 @@ class SQLParser : public antlr4::Parser {
+ 
+   virtual std::string getGrammarFileName() const override;
+   virtual const antlr4::atn::ATN &getATN() const override {
+-    return _atn;
++    return *_atn;
+   };
+-  virtual const std::vector<std::string> &getTokenNames() const override {
++  virtual const std::vector<std::string> &getTokenNames() const {
+     return _tokenNames;
+   };  // deprecated: use vocabulary instead.
+   virtual const std::vector<std::string> &getRuleNames() const override;
+@@ -798,8 +798,8 @@ class SQLParser : public antlr4::Parser {
+   static std::vector<std::string> _literalNames;
+   static std::vector<std::string> _symbolicNames;
+   static antlr4::dfa::Vocabulary _vocabulary;
+-  static antlr4::atn::ATN _atn;
+-  static std::vector<uint16_t> _serializedATN;
++  static std::unique_ptr<antlr4::atn::ATN> _atn;
++  static std::vector<int32_t> _serializedATN;
+ 
+ 
+   struct Initializer {

@@ -1,0 +1,108 @@
+diff --git a/third_party/CMakeLists.txt b/third_party/CMakeLists.txt
+index 5554d77..390496a 100644
+--- a/third_party/CMakeLists.txt
++++ b/third_party/CMakeLists.txt
+@@ -4,25 +4,72 @@ endif()
+ 
+ add_subdirectory(alp)
+ add_subdirectory(antlr4_cypher)
+-add_subdirectory(antlr4_runtime)
+-set(BROTLI_BUNDLED_MODE ON)
+-add_subdirectory(brotli)
+-add_subdirectory(fast_float)
++find_package(antlr4-runtime CONFIG REQUIRED)
++add_library(antlr4_runtime INTERFACE IMPORTED GLOBAL)
++set_property(TARGET antlr4_runtime PROPERTY INTERFACE_LINK_LIBRARIES antlr4_static)
++
++find_package(unofficial-brotli CONFIG REQUIRED)
++set(BROTLI_BUNDLED_MODE OFF)
++add_library(brotlidec INTERFACE IMPORTED GLOBAL)
++set_property(TARGET brotlidec PROPERTY INTERFACE_LINK_LIBRARIES unofficial::brotli::brotlidec)
++add_library(brotlicommon INTERFACE IMPORTED GLOBAL)
++set_property(TARGET brotlicommon PROPERTY INTERFACE_LINK_LIBRARIES unofficial::brotli::brotlicommon)
++
++find_package(FastFloat CONFIG REQUIRED)
++add_library(fast_float INTERFACE IMPORTED GLOBAL)
++set_property(TARGET fast_float PROPERTY INTERFACE_LINK_LIBRARIES FastFloat::fast_float)
+ add_subdirectory(fastpfor)
+-add_subdirectory(glob)
+-add_subdirectory(lz4)
+-add_subdirectory(mbedtls)
+-add_subdirectory(miniz)
+-add_subdirectory(parquet)
++find_package(Glob CONFIG REQUIRED)
++set_property(TARGET Glob PROPERTY IMPORTED_GLOBAL TRUE)
++
++find_package(lz4 CONFIG REQUIRED)
++add_library(lz4 INTERFACE IMPORTED GLOBAL)
++set_property(TARGET lz4 PROPERTY INTERFACE_LINK_LIBRARIES LZ4::lz4_static)
++
++find_package(MbedTLS CONFIG REQUIRED)
++add_library(mbedtls INTERFACE IMPORTED GLOBAL)
++set_property(TARGET mbedtls PROPERTY INTERFACE_LINK_LIBRARIES MbedTLS::mbedtls)
++
++find_package(miniz CONFIG REQUIRED)
++add_library(miniz INTERFACE IMPORTED GLOBAL)
++set_property(TARGET miniz PROPERTY INTERFACE_LINK_LIBRARIES miniz::miniz)
++
++find_package(Parquet CONFIG REQUIRED)
++add_library(parquet INTERFACE IMPORTED GLOBAL)
++set_property(TARGET parquet PROPERTY INTERFACE_LINK_LIBRARIES Parquet::parquet_static)
+ if(${BUILD_PYTHON})
+     add_subdirectory(pybind11)
+ endif()
+-add_subdirectory(re2)
+-add_subdirectory(roaring_bitmap)
+-add_subdirectory(simsimd)
+-add_subdirectory(snappy)
+-add_subdirectory(thrift)
+-add_subdirectory(utf8proc)
+-add_subdirectory(yyjson)
+-add_subdirectory(zstd)
++find_package(re2 CONFIG REQUIRED)
++add_library(re2 INTERFACE IMPORTED GLOBAL)
++set_property(TARGET re2 PROPERTY INTERFACE_LINK_LIBRARIES re2::re2)
++
++find_package(roaring CONFIG REQUIRED)
++add_library(roaring_bitmap INTERFACE IMPORTED GLOBAL)
++set_property(TARGET roaring_bitmap PROPERTY INTERFACE_LINK_LIBRARIES roaring::roaring)
++find_package(unofficial-simsimd CONFIG QUIET)
++if(NOT TARGET simsimd)
++    add_library(simsimd INTERFACE IMPORTED GLOBAL)
++endif()
++if(TARGET unofficial::simsimd::simsimd_shared)
++    set_property(TARGET simsimd PROPERTY INTERFACE_LINK_LIBRARIES unofficial::simsimd::simsimd_shared)
++endif()
++find_package(Snappy CONFIG REQUIRED)
++add_library(snappy INTERFACE IMPORTED GLOBAL)
++set_property(TARGET snappy PROPERTY INTERFACE_LINK_LIBRARIES Snappy::snappy)
++
++find_package(Thrift CONFIG REQUIRED)
++add_library(thrift INTERFACE IMPORTED GLOBAL)
++set_property(TARGET thrift PROPERTY INTERFACE_LINK_LIBRARIES thrift::thrift)
++
++find_package(unofficial-utf8proc CONFIG REQUIRED)
++set_property(TARGET utf8proc PROPERTY IMPORTED_GLOBAL TRUE)
++
++find_package(yyjson CONFIG REQUIRED)
++add_library(yyjson INTERFACE IMPORTED GLOBAL)
++set_property(TARGET yyjson PROPERTY INTERFACE_LINK_LIBRARIES yyjson::yyjson)
++
++find_package(zstd CONFIG REQUIRED)
++add_library(zstd INTERFACE IMPORTED GLOBAL)
++set_property(TARGET zstd PROPERTY INTERFACE_LINK_LIBRARIES zstd::libzstd_static)
+ add_subdirectory(cppjieba)
+
+diff --git a/src/common/file_system/local_file_system.cpp b/src/common/file_system/local_file_system.cpp
+index 58f9470..34ca565 100644
+--- a/src/common/file_system/local_file_system.cpp
++++ b/src/common/file_system/local_file_system.cpp
+@@ -5,7 +5,7 @@
+ #include "common/string_format.h"
+ #include "common/string_utils.h"
+ #include "common/system_message.h"
+-#include "glob/glob.hpp"
++#include "glob/glob.h"
+ #include "main/client_context.h"
+ #include "main/settings.h"
+

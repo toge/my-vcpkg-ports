@@ -1,0 +1,43 @@
+{
+  "name": "ladybugdb-ladybug",
+  "version": "0.14.1",
+  "description": "Ladybug is an embedded graph database built for query speed and scalability.",
+  "homepage": "https://github.com/ladybugdb/ladybug",
+  "license": "MIT",
+  "dependencies": [
+    "antlr4",
+    {
+      "name": "arrow",
+      "features": [
+        "parquet"
+      ]
+    },
+    "brotli",
+    "fast-float",
+    "lz4",
+    "mbedtls",
+    "miniz",
+    "p-ranav-glob",
+    "re2",
+    "roaring",
+    "simsimd",
+    "snappy",
+    "thrift",
+    "utf8proc",
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    },
+    {
+      "name": "vcpkg-cmake-config",
+      "host": true
+    },
+    "yyjson",
+    "zstd"
+  ],
+  "features": {
+    "shell": {
+      "description": "Build Interactive Shell"
+    }
+  }
+}

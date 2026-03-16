@@ -12,6 +12,10 @@
       "baseline": "3.1.1.92",
       "port-version": 0
     },
+    "nitro-gl": {
+      "baseline": "2025-07-11",
+      "port-version": 0
+    },
     "plotlypp": {
       "baseline": "2026-02-06",
       "port-version": 0

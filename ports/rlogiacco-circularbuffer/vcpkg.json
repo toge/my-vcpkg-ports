@@ -1,0 +1,6 @@
+{
+  "name": "rlogiacco-circularbuffer",
+  "version": "1.4.0",
+  "description": "Arduino circular buffer library ",
+  "license": "LGPL-3.0"
+}

@@ -20,6 +20,10 @@
       "baseline": "2026-02-06",
       "port-version": 0
     },
+    "rlogiacco-circularbuffer": {
+      "baseline": "1.4.0",
+      "port-version": 0
+    },
     "teascript-cpp-library": {
       "baseline": "0.16.0",
       "port-version": 0

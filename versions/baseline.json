@@ -8,6 +8,10 @@
       "baseline": "3.1.1.92",
       "port-version": 0
     },
+    "plotlypp": {
+      "baseline": "2026-02-06",
+      "port-version": 0
+    },
     "wxwidgets": {
       "baseline": "3.3.1",
       "port-version": 2

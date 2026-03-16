@@ -1,0 +1,13 @@
+diff --git a/include/teascript/JsonAdapterPico.hpp b/include/teascript/JsonAdapterPico.hpp
+index 0440821..4ec6584 100644
+--- a/include/teascript/JsonAdapterPico.hpp
++++ b/include/teascript/JsonAdapterPico.hpp
+@@ -22,7 +22,7 @@
+ // we need int64_t support
+ #define PICOJSON_USE_INT64    1
+ 
+-#include "thirdparty/picojson.h"
++#include "picojson/picojson.h"
+ 
+ 
+ namespace teascript {

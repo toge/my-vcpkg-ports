@@ -1,0 +1,10 @@
+{
+  "name": "teascript-cpp-library",
+  "version": "0.16.0",
+  "description": "embedded scripting language for C++ Applications",
+  "homepage": "https://github.com/Florian-Thake/TeaScript-Cpp-Library",
+  "license": "MPL-2.0",
+  "dependencies": [
+    "picojson"
+  ]
+}

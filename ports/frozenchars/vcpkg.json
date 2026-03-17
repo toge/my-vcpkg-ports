@@ -1,0 +1,17 @@
+{
+  "name": "frozenchars",
+  "version-date": "2026-03-17",
+  "description": "constexpr char array and string manipulation library",
+  "homepage": "https://github.com/toge/frozenchars",
+  "license": "MIT",
+  "dependencies": [
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    },
+    {
+      "name": "vcpkg-cmake-config",
+      "host": true
+    }
+  ]
+}

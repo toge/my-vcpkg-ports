@@ -1,0 +1,22 @@
+{
+  "name": "jpegli",
+  "version-date": "2026-03-16",
+  "description": "an improved JPEG encoder and decoder implementation",
+  "homepage": "https://github.com/google/jpegli",
+  "license": "BSD-3-Clause",
+  "dependencies": [
+    "brotli",
+    "highway",
+    "lcms",
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    }
+  ],
+  "features": {
+    "tools": {
+      "description": "Build user tools: cjpegli and djpegli",
+      "supports": "!uwp"
+    }
+  }
+}

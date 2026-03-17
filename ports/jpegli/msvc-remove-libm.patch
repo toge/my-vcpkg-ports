@@ -1,0 +1,19 @@
+diff --git a/lib/jxl_cms.cmake b/lib/jxl_cms.cmake
+index a939c66..9c24797 100644
+--- a/lib/jxl_cms.cmake
++++ b/lib/jxl_cms.cmake
+@@ -71,10 +71,14 @@ install(TARGETS jxl_cms
+ 
+ if (BUILD_SHARED_LIBS)
+   set(JPEGXL_REQUIRES_TYPE "Requires.private")
++  if (NOT MSVC)
+   set(JPEGXL_CMS_PRIVATE_LIBS "-lm ${PKGCONFIG_CXX_LIB}")
++  endif()
+ else()
+   set(JPEGXL_REQUIRES_TYPE "Requires")
++  if (NOT MSVC)
+   set(JPEGXL_CMS_PRIVATE_LIBS "-lm ${PKGCONFIG_CXX_LIB}")
++  endif()
+ endif()
+ 
+ configure_file("${CMAKE_CURRENT_SOURCE_DIR}/cms/libjxl_cms.pc.in"

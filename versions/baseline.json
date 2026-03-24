@@ -4,6 +4,10 @@
       "baseline": "2026-03-25",
       "port-version": 0
     },
+    "glz-util": {
+      "baseline": "2026-03-25",
+      "port-version": 0
+    },
     "jpegli": {
       "baseline": "2026-03-16",
       "port-version": 0

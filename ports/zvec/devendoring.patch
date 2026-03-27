@@ -1,10 +1,10 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 294af340c5..e8f7f84114 100644
+index 52a5975..a5ccbda 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -28,9 +28,74 @@ message(STATUS "BUILD_PYTHON_BINDINGS:${BUILD_PYTHON_BINDINGS}")
- option(BUILD_TOOLS "Build tools" ON)
- message(STATUS "BUILD_TOOLS:${BUILD_TOOLS}")
+@@ -34,9 +34,74 @@ if(DEFINED ENV{USE_OSS_MIRROR} AND NOT "$ENV{USE_OSS_MIRROR}" STREQUAL "")
+ endif()
+ message(STATUS "USE_OSS_MIRROR:${USE_OSS_MIRROR}")
  
 -cc_directory(thirdparty)
 +find_package(Arrow CONFIG REQUIRED)
@@ -79,8 +79,15 @@ index 294af340c5..e8f7f84114 100644
  
  if(BUILD_TOOLS)
      cc_directories(tools)
+@@ -64,4 +129,4 @@ if(BUILD_PYTHON_BINDINGS)
+ 
+     message(STATUS "Zvec install path: ${ZVEC_PY_INSTALL_DIR}")
+     install(TARGETS _zvec LIBRARY DESTINATION ${ZVEC_PY_INSTALL_DIR})
+-endif()
+\ No newline at end of file
++endif()
 diff --git a/src/db/common/concurrent_roaring_bitmap.h b/src/db/common/concurrent_roaring_bitmap.h
-index 8d5f106b7a..a0e97645c2 100644
+index 8d5f106..a0e9764 100644
 --- a/src/db/common/concurrent_roaring_bitmap.h
 +++ b/src/db/common/concurrent_roaring_bitmap.h
 @@ -16,8 +16,8 @@
@@ -95,7 +102,7 @@ index 8d5f106b7a..a0e97645c2 100644
  #include <zvec/ailego/internal/platform.h>
  #include <zvec/ailego/io/file.h>
 diff --git a/src/db/index/segment/segment_helper.cc b/src/db/index/segment/segment_helper.cc
-index 45b2dfb303..f41d4eb4dd 100644
+index 45b2dfb..5b2132d 100644
 --- a/src/db/index/segment/segment_helper.cc
 +++ b/src/db/index/segment/segment_helper.cc
 @@ -30,7 +30,7 @@
@@ -107,3 +114,10 @@ index 45b2dfb303..f41d4eb4dd 100644
  
  namespace zvec {
  
+@@ -827,4 +827,4 @@ Status SegmentHelper::ExecuteDropScalarIndexTask(DropScalarIndexTask &task) {
+       &task.output_scalar_indexer_);
+ }
+ 
+-}  // namespace zvec
+\ No newline at end of file
++}  // namespace zvec

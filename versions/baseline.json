@@ -64,6 +64,10 @@
       "baseline": "0.2.1",
       "port-version": 0
     },
+    "zxc": {
+      "baseline": "0.9.1",
+      "port-version": 2
+    },
     "zxcpp": {
       "baseline": "2026-03-27",
       "port-version": 0

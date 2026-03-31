@@ -1,9 +1,22 @@
+diff --git a/src/common/file_system/local_file_system.cpp b/src/common/file_system/local_file_system.cpp
+index fef412c..703b74f 100644
+--- a/src/common/file_system/local_file_system.cpp
++++ b/src/common/file_system/local_file_system.cpp
+@@ -4,7 +4,7 @@
+ #include "common/exception/io.h"
+ #include "common/string_utils.h"
+ #include "common/system_message.h"
+-#include "glob/glob.hpp"
++#include "glob/glob.h"
+ #include "main/client_context.h"
+ #include "main/settings.h"
+
 diff --git a/third_party/CMakeLists.txt b/third_party/CMakeLists.txt
-index 5554d77..390496a 100644
+index 5554d77..c281dd8 100644
 --- a/third_party/CMakeLists.txt
 +++ b/third_party/CMakeLists.txt
 @@ -4,25 +4,72 @@ endif()
- 
+
  add_subdirectory(alp)
  add_subdirectory(antlr4_cypher)
 -add_subdirectory(antlr4_runtime)
@@ -92,17 +105,3 @@ index 5554d77..390496a 100644
 +add_library(zstd INTERFACE IMPORTED GLOBAL)
 +set_property(TARGET zstd PROPERTY INTERFACE_LINK_LIBRARIES zstd::libzstd_static)
  add_subdirectory(cppjieba)
-
-diff --git a/src/common/file_system/local_file_system.cpp b/src/common/file_system/local_file_system.cpp
-index 58f9470..34ca565 100644
---- a/src/common/file_system/local_file_system.cpp
-+++ b/src/common/file_system/local_file_system.cpp
-@@ -5,7 +5,7 @@
- #include "common/string_format.h"
- #include "common/string_utils.h"
- #include "common/system_message.h"
--#include "glob/glob.hpp"
-+#include "glob/glob.h"
- #include "main/client_context.h"
- #include "main/settings.h"
-

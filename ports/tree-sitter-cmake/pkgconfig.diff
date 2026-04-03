@@ -22,3 +22,14 @@ index 8175e17..a23d519 100644
  install(TARGETS tree-sitter-cmake
          LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}")
  
+diff --git a/bindings/c/tree-sitter-cmake.pc.in b/bindings/c/tree-sitter-cmake.pc.in
+index 9afffa9..409533c 100644
+--- a/bindings/c/tree-sitter-cmake.pc.in
++++ b/bindings/c/tree-sitter-cmake.pc.in
+@@ -6,5 +6,6 @@ Name: tree-sitter-cmake
+ Description: @PROJECT_DESCRIPTION@
+ URL: @PROJECT_HOMEPAGE_URL@
+ Version: @PROJECT_VERSION@
++Requires: tree-sitter
+ Libs: -L${libdir} -ltree-sitter-cmake
+ Cflags: -I${includedir}

@@ -1,6 +1,7 @@
 {
   "name": "tree-sitter-cmake",
   "version": "0.7.2",
+  "port-version": 1,
   "description": "A Tree-sitter parser for CMake",
   "homepage": "https://github.com/uyha/tree-sitter-cmake",
   "license": "MIT",

@@ -1,0 +1,16 @@
+set(VCPKG_BUILD_TYPE release) # header only library
+
+vcpkg_from_github(
+    OUT_SOURCE_PATH SOURCE_PATH
+    REPO LiosK/uuidv7-h
+    REF "v${VERSION}"
+    SHA512 08228e7422f66d4b09cb798e3570416160667fa834c730000264c589973c3d9586094068153c743abd3d1588a10137c47a2bb62ee0dccc42e1cd04f8ff87f3d4
+    HEAD_REF main
+)
+
+include(CMakePackageConfigHelpers)
+
+file(INSTALL "${SOURCE_PATH}/uuidv7.h"
+  DESTINATION "${CURRENT_PACKAGES_DIR}/include")
+file(INSTALL "${SOURCE_PATH}/LICENSE" DESTINATION
+  "${CURRENT_PACKAGES_DIR}/share/${PORT}" RENAME copyright)

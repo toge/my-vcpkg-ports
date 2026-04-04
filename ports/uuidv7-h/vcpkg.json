@@ -1,0 +1,7 @@
+{
+  "name": "uuidv7-h",
+  "version": "0.1.6",
+  "description": "Single-file C/C++ UUIDv7 Library",
+  "homepage": "https://github.com/LiosK/uuidv7-h",
+  "license": "Apache-2.0"
+}

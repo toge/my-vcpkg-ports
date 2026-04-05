@@ -81,7 +81,7 @@
       "port-version": 1
     },
     "zvec": {
-      "baseline": "0.2.1",
+      "baseline": "0.3.0",
       "port-version": 0
     },
     "zxc": {

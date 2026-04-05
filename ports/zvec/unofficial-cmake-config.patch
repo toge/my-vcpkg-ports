@@ -15,7 +15,7 @@ diff --git a/CMakeLists.txt b/CMakeLists.txt
 +endif()
 +
 +install(
-+    TARGETS zvec_ailego zvec_core sparsehash magic_enum
++    TARGETS zvec_ailego zvec_core zvec_turbo sparsehash magic_enum
 +    EXPORT unofficial-zvec-targets
 +    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
 +    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}

@@ -2,7 +2,7 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO alibaba/zvec
     REF v${VERSION}
-    SHA512 1fcb6376020188b0d158c0480fad68c1a0737478e452b4504475927ce68c3a9335534301bf910547adce512bcd08f92a2150ba71d0c2de682271f6e52ee7a71c
+    SHA512 6de1810e1d99a56000ba307e1b93bbc0a84cd7b72b3a96f2fb2f85c4da2bc197b655fd0b9d0d1b4d9cd23cf798283b3b91c08fbdb79a0d126b1ff54cf381cb5d
     HEAD_REF main
     PATCHES
         fix-add-library-macro-conflict.patch
@@ -11,7 +11,14 @@ vcpkg_from_github(
         unofficial-cmake-config.patch
 )
 
-set(VCPKG_POLICY_EMPTY_INCLUDE_FOLDER enabled)
+vcpkg_from_github(
+    OUT_SOURCE_PATH RABITQ_SOURCE_PATH
+    REPO VectorDB-NTU/RaBitQ-Library
+    REF 89480d88748cdee87c7b4cdd6194ce4b9ff250d8
+    SHA512 74016824d7eba1131a25dec2df25989df47c0c3bec5879ad0725b41e928dbdaf9622b50e99870279282eba261d6e7a23e3259b28d28f219f687538c36c75e54a
+    HEAD_REF main
+)
+file(RENAME "${RABITQ_SOURCE_PATH}" "${SOURCE_PATH}/thirdparty/RaBitQ-Library/RaBitQ-Library-0.1")
 
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"

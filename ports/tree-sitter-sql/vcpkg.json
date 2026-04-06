@@ -1,0 +1,18 @@
+{
+  "name": "tree-sitter-sql",
+  "version-date": "2026-03-03",
+  "description": "SQL grammar for tree-sitter",
+  "homepage": "https://github.com/derekstride/tree-sitter-sql",
+  "license": "MIT",
+  "dependencies": [
+    "tree-sitter",
+    {
+      "name": "tree-sitter-cli",
+      "host": true
+    },
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    }
+  ]
+}

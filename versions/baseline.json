@@ -56,6 +56,10 @@
       "baseline": "0.7.2",
       "port-version": 1
     },
+    "tree-sitter-sql": {
+      "baseline": "2026-03-03",
+      "port-version": 0
+    },
     "uuid7pp": {
       "baseline": "2026-04-04",
       "port-version": 0

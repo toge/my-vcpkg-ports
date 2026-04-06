@@ -5,24 +5,6 @@
   "homepage": "https://github.com/cwida/fsst",
   "license": "Apache-2.0",
   "dependencies": [
-    "antlr4",
-    {
-      "name": "arrow",
-      "features": [
-        "acero",
-        "compute",
-        "dataset",
-        "parquet"
-      ]
-    },
-    "gflags",
-    "glog",
-    "gtest",
-    "magic-enum",
-    "protobuf",
-    "roaring",
-    "rocksdb",
-    "sparsehash",
     {
       "name": "vcpkg-cmake",
       "host": true

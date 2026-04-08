@@ -1,0 +1,18 @@
+{
+  "name": "tree-sitter-go",
+  "version": "0.25.0",
+  "description": "Go grammar for tree-sitter",
+  "homepage": "https://github.com/tree-sitter/tree-sitter-go",
+  "license": "MIT",
+  "dependencies": [
+    "tree-sitter",
+    {
+      "name": "tree-sitter-cli",
+      "host": true
+    },
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    }
+  ]
+}

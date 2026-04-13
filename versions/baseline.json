@@ -5,7 +5,7 @@
       "port-version": 0
     },
     "frozenchars": {
-      "baseline": "2026-04-10",
+      "baseline": "2026-04-13",
       "port-version": 0
     },
     "fsst": {
@@ -13,7 +13,7 @@
       "port-version": 0
     },
     "glz-util": {
-      "baseline": "2026-04-01",
+      "baseline": "2026-04-12",
       "port-version": 0
     },
     "jpegli": {
@@ -29,7 +29,7 @@
       "port-version": 0
     },
     "lexborpp": {
-      "baseline": "2026-03-30",
+      "baseline": "2026-04-12",
       "port-version": 0
     },
     "libvips": {
@@ -69,7 +69,7 @@
       "port-version": 0
     },
     "uuid7pp": {
-      "baseline": "2026-04-04",
+      "baseline": "2026-04-12",
       "port-version": 0
     },
     "uuidv7-h": {
@@ -85,7 +85,7 @@
       "port-version": 0
     },
     "yase-json": {
-      "baseline": "2026-04-10",
+      "baseline": "2026-04-11",
       "port-version": 0
     },
     "zlib-ng": {
@@ -101,7 +101,7 @@
       "port-version": 2
     },
     "zxcpp": {
-      "baseline": "2026-03-27",
+      "baseline": "2026-04-13",
       "port-version": 0
     }
   }

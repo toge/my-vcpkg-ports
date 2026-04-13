@@ -3,8 +3,8 @@ set(VCPKG_BUILD_TYPE release) # header only library
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO toge/lexborpp
-    REF 3dfc4c7ddefca25b9ece6260801ff6fbb8e57a11
-    SHA512 c7dec526dbaf15ce21203cfe4a6dde1a1854304c00a14804c99c21a4da0c46a5cf40cddbc3d4b7e22ad25e8d4e8480a6cf86fc08a2b966a0e3709af3f07565f0
+    REF 146a2649439fa6c03ba6041b915fb2c958d21f42
+    SHA512 c81a2aa2c2c71e0f25a0118f38daae49829a792520dbcf9364028f5133dd9418ce96b0c3c4630855bf1d1233bd73df7be36ce103e2bc5d5bbb355932e79bc787
     HEAD_REF main
 )
 

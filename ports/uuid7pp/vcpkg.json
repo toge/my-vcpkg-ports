@@ -1,6 +1,6 @@
 {
   "name": "uuid7pp",
-  "version-date": "2026-04-04",
+  "version-date": "2026-04-12",
   "description": "C++ UUIDv7 header only library",
   "homepage": "https://github.com/toge/uuid7pp",
   "license": "MIT",

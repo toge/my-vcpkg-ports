@@ -1,6 +1,6 @@
 {
   "name": "zxcpp",
-  "version-date": "2026-03-27",
+  "version-date": "2026-04-13",
   "description": "A C++ wrapper for zxc library",
   "homepage": "https://github.com/toge/zxcpp",
   "license": "MIT",

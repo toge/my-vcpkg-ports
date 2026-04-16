@@ -1,0 +1,22 @@
+{
+  "name": "slothdb",
+  "version": "0.1.1",
+  "description": "An embedded analytical database engine built in C++20.",
+  "homepage": "https://github.com/SouravRoy-ETL/slothdb",
+  "license": "MIT",
+  "dependencies": [
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    },
+    {
+      "name": "vcpkg-cmake-config",
+      "host": true
+    }
+  ],
+  "features": {
+    "util": {
+      "description": "Build CLI shell"
+    }
+  }
+}

@@ -1,0 +1,64 @@
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 9f22787..c2699bc 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -14,10 +14,11 @@ file(GLOB_RECURSE SLOTHDB_SOURCES
+ )
+ 
+ add_library(slothdb_lib STATIC ${SLOTHDB_SOURCES})
+-set_target_properties(slothdb_lib PROPERTIES OUTPUT_NAME "slothdb")
++set_target_properties(slothdb_lib PROPERTIES OUTPUT_NAME "slothdb"  EXPORT_NAME "slothdb")
+ 
+ target_include_directories(slothdb_lib PUBLIC
+-    ${CMAKE_SOURCE_DIR}/include
++    "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>"
++    "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
+ )
+ 
+ # CLI
+@@ -26,3 +27,45 @@ if(SLOTHDB_BUILD_SHELL)
+     target_link_libraries(slothdb PRIVATE slothdb_lib)
+     target_include_directories(slothdb PRIVATE ${CMAKE_SOURCE_DIR}/include)
+ endif()
++
++include(GNUInstallDirs)
++
++install(
++    TARGETS slothdb_lib
++    EXPORT unofficial-slothdb-targets
++    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
++    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
++    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
++)
++
++install(
++    DIRECTORY
++        ${CMAKE_CURRENT_SOURCE_DIR}/../include
++    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
++)
++
++set(_slothdb_config_file "${CMAKE_CURRENT_BINARY_DIR}/unofficial-slothdb-config.cmake")
++file(WRITE "${_slothdb_config_file}" [=[include("${CMAKE_CURRENT_LIST_DIR}/unofficial-slothdb-targets.cmake")
++]=])
++
++install(
++    FILES "${_slothdb_config_file}"
++    DESTINATION "share/unofficial-slothdb"
++)
++
++install(
++    EXPORT unofficial-slothdb-targets
++    FILE unofficial-slothdb-targets.cmake
++    NAMESPACE unofficial::slothdb::
++    DESTINATION "share/unofficial-slothdb"
++)
++
++if(SLOTHDB_BUILD_SHELL)
++    install(
++        TARGETS slothdb
++        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
++        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
++        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
++        INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
++    )
++endif()

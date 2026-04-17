@@ -1,6 +1,7 @@
 {
   "name": "slothdb",
   "version": "0.1.1",
+  "port-version": 1,
   "description": "An embedded analytical database engine built in C++20.",
   "homepage": "https://github.com/SouravRoy-ETL/slothdb",
   "license": "MIT",

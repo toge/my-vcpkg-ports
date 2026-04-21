@@ -1,6 +1,6 @@
 {
   "name": "lexborpp",
-  "version-date": "2026-04-12",
+  "version-date": "2026-04-21",
   "description": "C++ wrapper for Lexbor",
   "homepage": "https://github.com/toge/lexborpp",
   "license": "MIT",

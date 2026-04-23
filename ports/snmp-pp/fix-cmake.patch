@@ -1,0 +1,120 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index eb9ffe7..7c067b5 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -369,10 +369,10 @@ check_include_files (malloc.h HAVE_MALLOC_H LANGUAGE CXX)
+ check_include_files ("sys/param.h;sys/mount.h" HAVE_SYS_MOUNT_H LANGUAGE CXX)
+ check_function_exists ("strcasecmp" HAVE_STRCASECMP)
+ 
+-configure_file (${CMAKE_CURRENT_SOURCE_DIR}/cmake_config.h.in ${CMAKE_CURRENT_SOURCE_DIR}/config.h)
+-configure_file (${CMAKE_CURRENT_SOURCE_DIR}/cmake_libsnmp.h.in ${CMAKE_CURRENT_SOURCE_DIR}/libsnmp.h)
+-configure_file (${CMAKE_CURRENT_SOURCE_DIR}/cmake_libsnmp.h.in ${CMAKE_CURRENT_SOURCE_DIR}/include/system/libsnmp.h)
+-configure_file (${CMAKE_CURRENT_SOURCE_DIR}/include/snmp_pp/config_snmp_pp.h.in ${CMAKE_CURRENT_SOURCE_DIR}/include/snmp_pp/config_snmp_pp.h)
++configure_file (cmake_config.h.in config.h)
++configure_file (cmake_libsnmp.h.in libsnmp.h)
++configure_file (cmake_libsnmp.h.in include/system/libsnmp.h)
++configure_file (include/snmp_pp/config_snmp_pp.h.in include/snmp_pp/config_snmp_pp.h)
+ 
+ set (CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -DHAVE_CONFIG_H")
+ 
+@@ -481,6 +481,7 @@ else ()
+   set (CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
+ endif ()
+ 
++if(BUILD_SHARED_LIBS)
+ add_library (snmp++ SHARED
+   ${MY_HEADER_FILES}
+   ${MY_HEADER_LIB_FILES}
+@@ -491,46 +492,28 @@ add_library (snmp++ SHARED
+ set_property (TARGET snmp++ PROPERTY POSITION_INDEPENDENT_CODE 1)
+ # Set .so version as autoconf does: snmp++ version 1.2.3 will go to .so.12.0.3!
+ set_target_properties (snmp++ PROPERTIES VERSION ${PROJECT_VERSION_MAJOR}${PROJECT_VERSION_MINOR}.0.${PROJECT_VERSION_PATCH} SOVERSION ${PROJECT_VERSION_MAJOR}${PROJECT_VERSION_MINOR})
+-
+-set (EXAMPLE_SOURCE_FILES
+-  consoleExamples/receive_trap.cpp
+-  consoleExamples/snmpBulk.cpp
+-  consoleExamples/snmpDiscover.cpp
+-  consoleExamples/snmpGet.cpp
+-  consoleExamples/snmpInform.cpp
+-  consoleExamples/snmpNext.cpp
+-  consoleExamples/snmpNextAsync.cpp
+-  consoleExamples/snmpPasswd.cpp
+-  consoleExamples/snmpSet.cpp
+-  consoleExamples/snmpTraps.cpp
+-  consoleExamples/snmpWalk.cpp
+-  consoleExamples/test_app.cpp
++target_include_directories(snmp++ PUBLIC
++  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
++  $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>
++  $<INSTALL_INTERFACE:include>
+ )
+-if (NOT WIN32)
+-  set (EXAMPLE_SOURCE_FILES ${EXAMPLE_SOURCE_FILES} consoleExamples/snmpWalkThreads.cpp)
+-endif ()
+-
+-
+-foreach (examplesourcefile ${EXAMPLE_SOURCE_FILES})
+-    string (REPLACE ".cpp" "" examplename ${examplesourcefile})
+-    string (REPLACE "consoleExamples/" "" examplename ${examplename})
+-    add_executable (${examplename} ${examplesourcefile})
+-    target_link_libraries (${examplename} snmp++_static)
+-    if (WITH_THREADS)
+-      if (NOT APPLE)
+-        target_link_libraries (${examplename} Threads::Threads)
+-      endif (NOT APPLE)
+-    endif ()
+-
+-endforeach (examplesourcefile ${EXAMPLE_SOURCE_FILES})
++else()
+ 
+ add_library (snmp++_static STATIC
+   ${MY_HEADER_FILES}
+   ${MY_SRC_FILES}
+ )
+-
++target_include_directories(snmp++_static PUBLIC
++  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
++  $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>
++  $<INSTALL_INTERFACE:include>
++)
++endif()
++if(BUILD_SHARED_LIBS)
+ install (TARGETS snmp++ EXPORT snmp++Targets DESTINATION lib)
++else()
+ install (TARGETS snmp++_static EXPORT snmp++Targets DESTINATION lib)
++endif()
+ install (FILES ${MY_HEADER_LIB_FILES} DESTINATION include)
+ install (FILES ${MY_HEADER_FILES} DESTINATION include/snmp_pp)
+ 
+@@ -541,6 +524,12 @@ write_basic_package_version_file(
+     COMPATIBILITY AnyNewerVersion
+ )
+ 
++configure_package_config_file(
++    "${CMAKE_CURRENT_SOURCE_DIR}/cmake/snmp++Config.cmake.in"
++    "${CMAKE_CURRENT_BINARY_DIR}/snmp++Config.cmake"
++    INSTALL_DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/snmp++"
++)
++
+ install(
+     EXPORT snmp++Targets
+     FILE snmp++Targets.cmake
+@@ -549,6 +538,6 @@ install(
+ )
+ 
+ install(
+-    FILES cmake/snmp++Config.cmake ${CMAKE_CURRENT_BINARY_DIR}/snmp++ConfigVersion.cmake
++    FILES ${CMAKE_CURRENT_BINARY_DIR}/snmp++Config.cmake ${CMAKE_CURRENT_BINARY_DIR}/snmp++ConfigVersion.cmake
+     DESTINATION "lib/cmake/snmp++"
+ )
+diff --git b/cmake/snmp++Config.cmake.in b/cmake/snmp++Config.cmake.in
+new file mode 100644
+index 0000000..6a6157d
+--- /dev/null
++++ b/cmake/snmp++Config.cmake.in
+@@ -0,0 +1,5 @@
++@PACKAGE_INIT@
++
++include("${CMAKE_CURRENT_LIST_DIR}/snmp++Targets.cmake")
++
++check_required_components(snmp++)

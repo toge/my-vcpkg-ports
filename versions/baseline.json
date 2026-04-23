@@ -60,6 +60,10 @@
       "baseline": "0.1.1",
       "port-version": 2
     },
+    "snmp-pp": {
+      "baseline": "3.6.3",
+      "port-version": 0
+    },
     "teascript-cpp-library": {
       "baseline": "0.16.0",
       "port-version": 0

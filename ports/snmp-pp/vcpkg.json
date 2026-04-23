@@ -1,0 +1,17 @@
+{
+  "name": "snmp-pp",
+  "version": "3.6.3",
+  "description": "SNMP++ is a C++ library for SNMP",
+  "homepage": "https://www.agentpp.com/api/cpp/snmp_pp.html",
+  "dependencies": [
+    "openssl",
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    },
+    {
+      "name": "vcpkg-cmake-config",
+      "host": true
+    }
+  ]
+}

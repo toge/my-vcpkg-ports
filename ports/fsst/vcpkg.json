@@ -1,6 +1,6 @@
 {
   "name": "fsst",
-  "version-date": "2026-04-01",
+  "version-date": "2026-04-06",
   "description": "Fast Static Symbol Table (FSST): efficient random-access string compression",
   "homepage": "https://github.com/cwida/fsst",
   "license": "Apache-2.0",

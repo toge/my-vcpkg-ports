@@ -68,6 +68,10 @@
       "baseline": "0.16.0",
       "port-version": 0
     },
+    "tiny-skia-cpp": {
+      "baseline": "2026-04-12",
+      "port-version": 0
+    },
     "tree-sitter-cmake": {
       "baseline": "0.7.2",
       "port-version": 1

@@ -1,0 +1,49 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index b7fda51..d45d7ea 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -97,6 +97,7 @@ function(add_tiny_skia_target TARGET_NAME SIMD_DEFINE)
+
+   target_include_directories(${TARGET_NAME} PUBLIC
+     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
++    $<INSTALL_INTERFACE:include>
+   )
+
+   target_compile_features(${TARGET_NAME} PUBLIC cxx_std_20)
+@@ -148,3 +149,36 @@ if(TINY_SKIA_BUILD_EXAMPLES)
+   endforeach()
+ endif()
+
++install(TARGETS tiny_skia tiny_skia_scalar
++  EXPORT unofficial-tiny-skia-cppTargets
++  RUNTIME DESTINATION bin
++  LIBRARY DESTINATION lib
++  ARCHIVE DESTINATION lib
++)
++
++install(DIRECTORY src/tiny_skia
++  DESTINATION include
++  FILES_MATCHING PATTERN "*.h"
++)
++
++install(EXPORT unofficial-tiny-skia-cppTargets
++  FILE unofficial-tiny-skia-cppTargets.cmake
++  NAMESPACE unofficial::tiny-skia-cpp::
++  DESTINATION share/unofficial-tiny-skia-cpp
++)
++
++include(CMakePackageConfigHelpers)
++file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/unofficial-tiny-skia-cppConfig.cmake.in"
++[[
++@PACKAGE_INIT@
++include("${CMAKE_CURRENT_LIST_DIR}/unofficial-tiny-skia-cppTargets.cmake")
++]])
++configure_package_config_file(
++  "${CMAKE_CURRENT_BINARY_DIR}/unofficial-tiny-skia-cppConfig.cmake.in"
++  "${CMAKE_CURRENT_BINARY_DIR}/unofficial-tiny-skia-cppConfig.cmake"
++  INSTALL_DESTINATION share/unofficial-tiny-skia-cpp
++)
++
++install(FILES "${CMAKE_CURRENT_BINARY_DIR}/unofficial-tiny-skia-cppConfig.cmake"
++  DESTINATION share/unofficial-tiny-skia-cpp
++)

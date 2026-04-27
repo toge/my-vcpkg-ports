@@ -1,0 +1,19 @@
+{
+  "name": "openrasterpp",
+  "version-date": "2026-04-27",
+  "description": "C++ library for reading and writing OpenRaster images",
+  "homepage": "https://github.com/toge/openrasterpp",
+  "license": "MIT",
+  "dependencies": [
+    "lodepng",
+    "minizip-ng",
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    },
+    {
+      "name": "vcpkg-cmake-config",
+      "host": true
+    }
+  ]
+}

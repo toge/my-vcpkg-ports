@@ -2,7 +2,7 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO alibaba/zvec
     REF v${VERSION}
-    SHA512 6de1810e1d99a56000ba307e1b93bbc0a84cd7b72b3a96f2fb2f85c4da2bc197b655fd0b9d0d1b4d9cd23cf798283b3b91c08fbdb79a0d126b1ff54cf381cb5d
+    SHA512 fb49b8a232b2c3734130313651b3eea286c01a3e0420e9fc189101fd4a36f1b0f8542ec11e074120864d2b8708452440d6dd8fd0b2c7e0f7a50bb587576ee118
     HEAD_REF main
     PATCHES
         fix-add-library-macro-conflict.patch

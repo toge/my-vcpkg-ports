@@ -5,7 +5,7 @@
       "port-version": 0
     },
     "frozenchars": {
-      "baseline": "2026-04-27",
+      "baseline": "2026-04-28",
       "port-version": 0
     },
     "fsst": {
@@ -49,7 +49,7 @@
       "port-version": 0
     },
     "openrasterpp": {
-      "baseline": "2026-04-27",
+      "baseline": "2026-04-28",
       "port-version": 0
     },
     "plotlypp": {

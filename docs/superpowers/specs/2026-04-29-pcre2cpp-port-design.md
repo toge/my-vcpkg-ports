@@ -133,9 +133,15 @@ because those files already encode the component targets and dependency behavior
 
 ### Patch policy
 
-Start with no patch files.
+`mstd` should start with no patch files unless packaging exposes a concrete install issue.
 
-Only add minimal patches if needed to fix one of these blocking issues:
+`pcre2cpp` should assume one small compatibility patch is likely needed in its installed
+config layer, because upstream expects `pcre2-8`, `pcre2-16`, and `pcre2-32` targets
+while the vcpkg `pcre2` port documents `PCRE2::8BIT`, `PCRE2::16BIT`, `PCRE2::32BIT`,
+and `PCRE2::POSIX`.
+
+Beyond that known translation gap, only add minimal patches if needed to fix one of
+these blocking issues:
 
 - broken installation layout under vcpkg
 - dependency discovery failure in installed config files
@@ -145,13 +151,16 @@ Do not introduce unrelated cleanups or broader refactors.
 
 ### Validation
 
-Validate by installing the new port through the overlay registry on `x64-linux`.
+Validate by installing the new port through the overlay registry on `x64-linux`, then
+run a downstream CMake smoke test that calls `find_package(mstd CONFIG REQUIRED)` and
+`find_package(pcre2cpp CONFIG REQUIRED)` and links against the exported targets.
 
 Success means:
 
 - `mstd` installs cleanly
 - `pcre2cpp` installs cleanly with `mstd` and `pcre2`
 - installed package configs remain discoverable through vcpkg
+- the downstream smoke test resolves the `pcre2cpp` package without target-name breakage
 
 ## Notes for planning
 

@@ -1,9 +1,8 @@
 diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
-index 9f22787..c2699bc 100644
+index c98bf0c..b5e631a 100644
 --- a/src/CMakeLists.txt
 +++ b/src/CMakeLists.txt
-@@ -14,10 +14,14 @@ file(GLOB_RECURSE SLOTHDB_SOURCES
- )
+@@ -29,6 +29,9 @@ endif()
  
  add_library(slothdb_lib STATIC ${SLOTHDB_SOURCES})
  set_target_properties(slothdb_lib PROPERTIES OUTPUT_NAME "slothdb")
@@ -11,16 +10,46 @@ index 9f22787..c2699bc 100644
 +
 +include(GNUInstallDirs)
  
+ if(SLOTHDB_EDGE)
+     target_compile_definitions(slothdb_lib PUBLIC SLOTHDB_EDGE=1)
+@@ -75,8 +78,8 @@ set(SLOTHDB_ZSTD_SOURCES
+     ${SLOTHDB_ZSTD_DIR}/decompress/zstd_decompress.c
+     ${SLOTHDB_ZSTD_DIR}/decompress/zstd_decompress_block.c
+ )
+-add_library(slothdb_zstd STATIC ${SLOTHDB_ZSTD_SOURCES})
+-target_include_directories(slothdb_zstd PUBLIC ${SLOTHDB_ZSTD_DIR})
++add_library(slothdb_zstd OBJECT ${SLOTHDB_ZSTD_SOURCES})
++target_include_directories(slothdb_zstd PRIVATE ${SLOTHDB_ZSTD_DIR})
+ target_compile_definitions(slothdb_zstd PRIVATE
+     ZSTD_DISABLE_ASM=1
+     ZSTD_MULTITHREAD=0
+@@ -87,11 +90,12 @@ else()
+     target_compile_options(slothdb_zstd PRIVATE -w)
+ endif()
+ set_target_properties(slothdb_zstd PROPERTIES POSITION_INDEPENDENT_CODE ON)
+-target_link_libraries(slothdb_lib PRIVATE slothdb_zstd)
++target_sources(slothdb_lib PRIVATE $<TARGET_OBJECTS:slothdb_zstd>)
+ target_include_directories(slothdb_lib PRIVATE ${SLOTHDB_ZSTD_DIR})
+ 
  target_include_directories(slothdb_lib PUBLIC
 -    ${CMAKE_SOURCE_DIR}/include
 +    "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>"
 +    "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
  )
  
- # CLI
-@@ -26,3 +30,44 @@ if(SLOTHDB_BUILD_SHELL)
-     target_link_libraries(slothdb PRIVATE slothdb_lib)
-     target_include_directories(slothdb PRIVATE ${CMAKE_SOURCE_DIR}/include)
+ # Shared library variant for Python ctypes / Node / dlopen consumers.
+@@ -108,7 +112,7 @@ if(SLOTHDB_BUILD_SHARED AND NOT EMSCRIPTEN)
+     target_include_directories(slothdb_shared PUBLIC
+         ${CMAKE_SOURCE_DIR}/include
+     )
+-    target_link_libraries(slothdb_shared PRIVATE slothdb_zstd)
++    target_sources(slothdb_shared PRIVATE $<TARGET_OBJECTS:slothdb_zstd>)
+     target_include_directories(slothdb_shared PRIVATE ${SLOTHDB_ZSTD_DIR})
+     if(SLOTHDB_EDGE)
+         target_compile_definitions(slothdb_shared PUBLIC SLOTHDB_EDGE=1)
+@@ -197,3 +201,44 @@ if(SLOTHDB_BUILD_SHELL)
+         target_compile_definitions(slothdb PRIVATE SLOTHDB_HAS_LINENOISE=1)
+     endif()
  endif()
 +
 +install(

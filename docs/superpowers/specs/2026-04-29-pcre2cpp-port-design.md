@@ -100,6 +100,9 @@ the moving `main` branch tip.
 - `mstd`
 - `pcre2`
 
+The implementation must preserve the base package and documented component behavior for
+`pcre2cpp`, not just bare `find_package(pcre2cpp CONFIG REQUIRED)`.
+
 ### Build configuration
 
 Treat both packages as header-only/interface libraries.
@@ -141,10 +144,10 @@ through installed imported targets.
 `mstd` should start with a minimal consumer-interface cleanup patch if packaging confirms
 that its installed imported target exports build-only warning or link flags.
 
-`pcre2cpp` should assume one small compatibility patch is likely needed in its installed
-config layer, because upstream expects `pcre2-8`, `pcre2-16`, and `pcre2-32` targets
-while the vcpkg `pcre2` port documents `PCRE2::8BIT`, `PCRE2::16BIT`, `PCRE2::32BIT`,
-and `PCRE2::POSIX`.
+`pcre2cpp` should assume one small compatibility patch is likely needed across both its
+build tree and installed config layer, because upstream configure and package logic
+expect `pcre2-8`, `pcre2-16`, and `pcre2-32` targets while the vcpkg `pcre2` port
+documents `PCRE2::8BIT`, `PCRE2::16BIT`, `PCRE2::32BIT`, and `PCRE2::POSIX`.
 
 `pcre2cpp` should also assume a minimal consumer-interface cleanup patch if its exported
 targets leak build-only warning or static link flags to consumers.
@@ -163,7 +166,8 @@ Do not introduce unrelated cleanups or broader refactors.
 Validate by installing the new port through the overlay registry on `x64-linux`, then
 run a downstream CMake smoke test that calls `find_package(mstd CONFIG REQUIRED)` and
 `find_package(pcre2cpp CONFIG REQUIRED)`, links against the exported targets, and builds
-an actual consumer executable.
+an actual consumer executable. The smoke test should also cover at least one documented
+`pcre2cpp` component target so component export behavior is validated, not assumed.
 
 Success means:
 
@@ -173,6 +177,7 @@ Success means:
 - the downstream smoke test resolves the `pcre2cpp` package without target-name breakage
 - the downstream smoke test does not inherit inappropriate consumer flags such as
   warning-as-error or forced static link options from `mstd` or `pcre2cpp`
+- at least one documented `pcre2cpp` component target resolves and links successfully
 
 ## Notes for planning
 

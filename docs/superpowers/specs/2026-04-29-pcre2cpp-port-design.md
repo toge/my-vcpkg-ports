@@ -130,18 +130,27 @@ standard location. The portfiles should therefore run `vcpkg_cmake_config_fixup(
 
 The design intentionally keeps upstream-generated package config and targets files,
 because those files already encode the component targets and dependency behavior.
+However, both upstream projects currently export consumer-facing interface compile and
+link options that are appropriate for building the library itself but not for downstream
+users, such as warning-as-error flags and static-link flags. The implementation plan
+must therefore include minimal patches so those options stay build-only and do not leak
+through installed imported targets.
 
 ### Patch policy
 
-`mstd` should start with no patch files unless packaging exposes a concrete install issue.
+`mstd` should start with a minimal consumer-interface cleanup patch if packaging confirms
+that its installed imported target exports build-only warning or link flags.
 
 `pcre2cpp` should assume one small compatibility patch is likely needed in its installed
 config layer, because upstream expects `pcre2-8`, `pcre2-16`, and `pcre2-32` targets
 while the vcpkg `pcre2` port documents `PCRE2::8BIT`, `PCRE2::16BIT`, `PCRE2::32BIT`,
 and `PCRE2::POSIX`.
 
-Beyond that known translation gap, only add minimal patches if needed to fix one of
-these blocking issues:
+`pcre2cpp` should also assume a minimal consumer-interface cleanup patch if its exported
+targets leak build-only warning or static link flags to consumers.
+
+Beyond those known issues, only add minimal patches if needed to fix one of these
+blocking issues:
 
 - broken installation layout under vcpkg
 - dependency discovery failure in installed config files
@@ -153,7 +162,8 @@ Do not introduce unrelated cleanups or broader refactors.
 
 Validate by installing the new port through the overlay registry on `x64-linux`, then
 run a downstream CMake smoke test that calls `find_package(mstd CONFIG REQUIRED)` and
-`find_package(pcre2cpp CONFIG REQUIRED)` and links against the exported targets.
+`find_package(pcre2cpp CONFIG REQUIRED)`, links against the exported targets, and builds
+an actual consumer executable.
 
 Success means:
 
@@ -161,11 +171,13 @@ Success means:
 - `pcre2cpp` installs cleanly with `mstd` and `pcre2`
 - installed package configs remain discoverable through vcpkg
 - the downstream smoke test resolves the `pcre2cpp` package without target-name breakage
+- the downstream smoke test does not inherit inappropriate consumer flags such as
+  warning-as-error or forced static link options from `mstd` or `pcre2cpp`
 
 ## Notes for planning
 
 - `pcre2cpp` depends on `mstd`, so `mstd` must be created first
 - both ports are cross-platform CMake packages and should preserve upstream install/export
   behavior as much as possible
-- if upstream config files assume targets that differ from the vcpkg-provided `pcre2`
-  targets, patch only that translation layer
+- patch only the known translation and consumer-interface issues unless a concrete new
+  packaging failure appears

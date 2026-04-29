@@ -1,0 +1,36 @@
+diff -ruN a/mstd/include/arithmetic/mstd/bit_operations.hpp b/mstd/include/arithmetic/mstd/bit_operations.hpp
+--- a/mstd/include/arithmetic/mstd/bit_operations.hpp	2026-04-29 22:45:03.752434098 +0900
++++ b/mstd/include/arithmetic/mstd/bit_operations.hpp	2026-04-29 22:45:04.474956417 +0900
+@@ -13,6 +13,8 @@
+ 
+ 	#include <mstd/config.hpp>
+ 
++	#include <cstdint>
++
+ 	#if !_MSTD_HAS_CXX17
+ _MSTD_WARNING("this is only available for c++17 and greater!");
+ 	#else
+diff -ruN a/mstd/include/arithmetic/mstd/math_functions.hpp b/mstd/include/arithmetic/mstd/math_functions.hpp
+--- a/mstd/include/arithmetic/mstd/math_functions.hpp	2026-04-29 22:45:04.062429933 +0900
++++ b/mstd/include/arithmetic/mstd/math_functions.hpp	2026-04-29 22:45:04.475085357 +0900
+@@ -13,6 +13,8 @@
+ 
+ 	#include <mstd/config.hpp>
+ 
++	#include <cstdint>
++
+ 	#if !_MSTD_HAS_CXX17
+ _MSTD_WARNING("this is only available for c++17 and greater!");
+ 	#else
+diff -ruN a/mstd/include/functions/mstd/function_view.hpp b/mstd/include/functions/mstd/function_view.hpp
+--- a/mstd/include/functions/mstd/function_view.hpp	2026-04-29 22:45:04.453424681 +0900
++++ b/mstd/include/functions/mstd/function_view.hpp	2026-04-29 22:45:04.475208697 +0900
+@@ -20,6 +20,8 @@
+ 		#include <mstd/functions_types.hpp>
+ 		#include <mstd/is_same_function.hpp>
+ 
++		#include <utility>
++
+ namespace mstd {
+ 	namespace utils {
+ 		#pragma region VALIDITY_CHECKS

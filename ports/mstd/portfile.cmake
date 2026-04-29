@@ -6,6 +6,7 @@ vcpkg_from_github(
     HEAD_REF main
     PATCHES
         fix-consumer-interface.patch
+        fix-missing-standard-includes.patch
 )
 
 set(VCPKG_BUILD_TYPE release)

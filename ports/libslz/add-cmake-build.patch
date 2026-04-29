@@ -1,0 +1,71 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+new file mode 100644
+--- /dev/null
++++ b/CMakeLists.txt
+@@ -0,0 +1,58 @@
++cmake_minimum_required(VERSION 3.16)
++project(libslz VERSION 1.2.2 LANGUAGES C)
++
++include(GNUInstallDirs)
++include(CMakePackageConfigHelpers)
++
++add_library(slz src/slz.c)
++
++target_include_directories(slz
++    PUBLIC
++        "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>"
++        "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
++)
++
++set_target_properties(slz PROPERTIES
++    C_STANDARD 99
++    C_EXTENSIONS ON
++    EXPORT_NAME slz
++    OUTPUT_NAME slz
++    PUBLIC_HEADER src/slz.h
++)
++
++install(
++    TARGETS slz
++    EXPORT unofficial-libslz-targets
++    RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
++    LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
++    ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
++    PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
++)
++
++configure_package_config_file(
++    cmake/unofficial-libslz-config.cmake.in
++    "${CMAKE_CURRENT_BINARY_DIR}/unofficial-libslzConfig.cmake"
++    INSTALL_DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/unofficial-libslz"
++    NO_SET_AND_CHECK_MACRO
++    NO_CHECK_REQUIRED_COMPONENTS_MACRO
++)
++
++write_basic_package_version_file(
++    "${CMAKE_CURRENT_BINARY_DIR}/unofficial-libslzConfigVersion.cmake"
++    VERSION "${PROJECT_VERSION}"
++    COMPATIBILITY SameMajorVersion
++)
++
++install(
++    FILES
++        "${CMAKE_CURRENT_BINARY_DIR}/unofficial-libslzConfig.cmake"
++        "${CMAKE_CURRENT_BINARY_DIR}/unofficial-libslzConfigVersion.cmake"
++    DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/unofficial-libslz"
++)
++
++install(
++    EXPORT unofficial-libslz-targets
++    FILE unofficial-libslzTargets.cmake
++    NAMESPACE unofficial::libslz::
++    DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/unofficial-libslz"
++)
+diff --git a/cmake/unofficial-libslz-config.cmake.in b/cmake/unofficial-libslz-config.cmake.in
+new file mode 100644
+--- /dev/null
++++ b/cmake/unofficial-libslz-config.cmake.in
+@@ -0,0 +1,3 @@
++@PACKAGE_INIT@
++
++include("${CMAKE_CURRENT_LIST_DIR}/unofficial-libslzTargets.cmake")

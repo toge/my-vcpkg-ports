@@ -2,7 +2,7 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO MeshInspector/MeshLib
     REF v${VERSION}
-    SHA512 ec4eb605c3fb1dcddc6d2219baa6eb9402bf57b1840d601bcc92b82b9b48a4d8bd8221b2589cc0677eef9185977a0afdde1464d74dccd964c4ff2dc5a1742be9
+    SHA512 4b1a3dc117844fe64f73323479015f7bb34bd04067cf454fa50ef54d6fb9ebfb0a6a0cac31008981bb3bf6473bbc3025bc201539d79f0150a7816060966e4f18
     HEAD_REF master
     PATCHES
         devendoring.patch

@@ -1,3 +1,8 @@
+if(VCPKG_TARGET_IS_LINUX OR VCPKG_TARGET_IS_BSD)
+    # libslz.so is healthy before vcpkg's ELF RUNPATH rewrite and crashes after it.
+    set(VCPKG_FIXUP_ELF_RPATH OFF)
+endif()
+
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO wtarreau/libslz

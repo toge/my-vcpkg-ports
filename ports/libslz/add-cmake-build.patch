@@ -2,7 +2,7 @@ diff --git a/CMakeLists.txt b/CMakeLists.txt
 new file mode 100644
 --- /dev/null
 +++ b/CMakeLists.txt
-@@ -0,0 +1,58 @@
+@@ -0,0 +1,63 @@
 +cmake_minimum_required(VERSION 3.16)
 +project(libslz VERSION 1.2.2 LANGUAGES C)
 +
@@ -15,6 +15,11 @@ new file mode 100644
 +    PUBLIC
 +        "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>"
 +        "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
++)
++
++target_compile_definitions(slz
++    PRIVATE
++        "$<$<BOOL:${BUILD_SHARED_LIBS}>:PRECOMPUTE_TABLES>"
 +)
 +
 +set_target_properties(slz PROPERTIES

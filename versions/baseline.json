@@ -32,6 +32,10 @@
       "baseline": "2026-04-29",
       "port-version": 0
     },
+    "libslz": {
+      "baseline": "1.2.2",
+      "port-version": 0
+    },
     "libvips": {
       "baseline": "8.18.0",
       "port-version": 0

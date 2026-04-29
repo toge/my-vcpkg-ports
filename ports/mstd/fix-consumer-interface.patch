@@ -1,0 +1,34 @@
+--- a/mstd/CMakeLists.txt
++++ b/mstd/CMakeLists.txt
+@@ -71,6 +71,7 @@
+ 
+ # region COMPILE_OPTIONS
+ target_compile_options(${PROJECT_NAME} INTERFACE
++    $<BUILD_INTERFACE:
+     # MSVC/clang with MSVC frontend
+     $<$<OR:$<CXX_COMPILER_ID:MSVC>,$<AND:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_FRONTEND_VARIANT:MSVC>>>:
+         $<$<CONFIG:Release>:
+@@ -98,6 +99,7 @@
+         -Werror
+         -fno-strict-aliasing
+     >
++    >
+     $<BUILD_INTERFACE:$<$<AND:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_FRONTEND_VARIANT:GNU>,$<BOOL:${MSTD_BUILD_COVERAGE}>>:
+         --coverage
+         -fcoverage-mcdc
+@@ -109,6 +111,7 @@
+ 
+ # region LINK_OPTIONS
+ target_link_options(${PROJECT_NAME} INTERFACE
++    $<BUILD_INTERFACE:
+     # MSVC/clang with MSVC frontend
+     $<$<OR:$<CXX_COMPILER_ID:MSVC>,$<AND:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_FRONTEND_VARIANT:MSVC>>>:
+         $<$<CONFIG:Release>:/LTCG>
+@@ -119,6 +122,7 @@
+         $<$<CONFIG:Release>:-flto>
+         -static
+     >
++    >
+     $<BUILD_INTERFACE:$<$<AND:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_FRONTEND_VARIANT:GNU>,$<BOOL:${MSTD_BUILD_COVERAGE}>>:
+         -fprofile-instr-generate
+     >>

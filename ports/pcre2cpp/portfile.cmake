@@ -2,7 +2,7 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO MAIPA01/pcre2cpp
     REF "v${VERSION}"
-    SHA512 359d2b1a62eec1bd80521aa4c105946d6f7fc64c7c041aa0aeffa01933b1a10e40057f44d4137c33ba184224ae96ec332ca41deaa65d1463d234a1309e719ef5
+    SHA512 32e468b020ed15bd41c08c6b7486573afa09ff43252449411b40a9c1d3102ccb94bcfe766cf2de8adbadf620b05b919296d06c610abf460bfdb0727749e7f6a4
     HEAD_REF main
     PATCHES
         fix-pcre2-targets-and-consumer-interface.patch

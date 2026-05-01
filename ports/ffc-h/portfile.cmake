@@ -1,12 +1,11 @@
+set(VCPKG_BUILD_TYPE release) # header-only port
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO kolemannix/ffc.h
     REF "v${VERSION}"
-    SHA512 fb2fd817dfca69de206924b439f6500d20226db3b0326b517de5ee005cef1c00812f58b89963d23f14bfbb62f580e78c3aa97ba558edd6dca63f8ef33cc7ef79
+    SHA512 a1a9a2f5c5af2062c0f2477df0e3cb59ed7733e7dc56bb5dade69a8d47b1a4f5a6f0fc397c02ebf78f4a6d77fc5a543f6dda1a837b73a6bee5e5d729a51df976
     HEAD_REF main
 )
-
-set(VCPKG_BUILD_TYPE release) # header-only port
 
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"

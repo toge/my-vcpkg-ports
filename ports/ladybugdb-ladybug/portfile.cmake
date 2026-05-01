@@ -2,7 +2,7 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO LadybugDB/ladybug
     REF v${VERSION}
-    SHA512 a0f08cad52d14598fc34fac900ed5236f6adea317b6ee232ba73b98699bfadbe47c661197b3089dbadc7b2e513c55f6810dd1327afa1d09c6352474fb2372c34
+    SHA512 ad829a481d28e5194f41e1c90f845afbe7acdba1d28704ca3203f3d795ff93b2f417a560870bad63065c8e82583ceaacc3076eb92061bcbee4179c60aad5454a
     HEAD_REF master
     PATCHES
         prefer-system-thirdparty.patch

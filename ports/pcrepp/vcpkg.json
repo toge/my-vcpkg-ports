@@ -1,6 +1,6 @@
 {
   "name": "pcrepp",
-  "version": "2026-05-04",
+  "version": "2026-05-08",
   "description": "A lightweight C++20 wrapper for PCRE2",
   "homepage": "https://github.com/toge/pcrepp",
   "license": "MIT",

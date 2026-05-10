@@ -1,5 +1,9 @@
 {
   "default": {
+    "budouxpp": {
+      "baseline": "2026-05-10",
+      "port-version": 0
+    },
     "ffc-h": {
       "baseline": "26.04.01",
       "port-version": 0

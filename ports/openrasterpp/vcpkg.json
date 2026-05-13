@@ -1,11 +1,10 @@
 {
   "name": "openrasterpp",
-  "version-date": "2026-04-28",
+  "version-date": "2026-05-13",
   "description": "C++ library for reading and writing OpenRaster images",
   "homepage": "https://github.com/toge/openrasterpp",
   "license": "MIT",
   "dependencies": [
-    "lodepng",
     "minizip-ng",
     {
       "name": "vcpkg-cmake",
@@ -15,5 +14,40 @@
       "name": "vcpkg-cmake-config",
       "host": true
     }
-  ]
+  ],
+  "default-features": [
+    "libspng"
+  ],
+  "features": {
+    "fpng": {
+      "description": "Enable fpng backend",
+      "dependencies": [
+        "fpng"
+      ]
+    },
+    "libpng": {
+      "description": "Enable libpng backend",
+      "dependencies": [
+        "libpng"
+      ]
+    },
+    "libspng": {
+      "description": "Enable libspng backend",
+      "dependencies": [
+        "libspng"
+      ]
+    },
+    "loadpng": {
+      "description": "Enable lodepng backend",
+      "dependencies": [
+        "lodepng"
+      ]
+    },
+    "stb": {
+      "description": "Enable stb backend",
+      "dependencies": [
+        "stb"
+      ]
+    }
+  }
 }

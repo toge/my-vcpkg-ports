@@ -1,17 +1,25 @@
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO toge/openrasterpp
-    REF 02170cdf5d89949ab6c16442e26fdc8c81c12341
-    SHA512 15eb8cc2e623133ed7c53099951f505ca1176ac0fbd8d2c479bca0578f18c45128a33715f4341d6f45e155ceb4e21d6c4302a0bdd11d9b6ddc59abbc4b2ece36
+    REF 2aaca5cb0d7bd74cce6ee542801a94d189bf7625
+    SHA512 3fbc6a1c9f320edc2e031df78770f47dd5bd9a2bda3ef9da830ac379a4f64c68e7594cbc84e6d373a8e5977ca83aad0096f3675629bc14f64726b1df686e55b9
     HEAD_REF main
-    PATCHES
-        disable-tests.patch
+)
+
+vcpkg_check_features(OUT_FEATURE_OPTIONS FEATURE_OPTIONS
+    FEATURES
+        loadpng OPENRASTERPP_ENABLE_LODEPNG
+        libspng OPENRASTERPP_ENABLE_LIBSPNG
+        libpng  OPENRASTERPP_ENABLE_LIBPNG
+        stb     OPENRASTERPP_ENABLE_STB
+        fpng    OPENRASTERPP_ENABLE_FPNG
 )
 
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"
     OPTIONS
-        -DBUILD_TESTING=OFF
+        -DENABLE_TESTS=OFF
+        ${FEATURE_OPTIONS}
 )
 
 vcpkg_cmake_install()

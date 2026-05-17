@@ -1,18 +1,19 @@
 diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
-index c98bf0c..b5e631a 100644
+index f274d69..c85a374 100644
 --- a/src/CMakeLists.txt
 +++ b/src/CMakeLists.txt
-@@ -29,6 +29,9 @@ endif()
+@@ -30,7 +30,9 @@ if(SLOTHDB_EDGE)
+ endif()
  
  add_library(slothdb_lib STATIC ${SLOTHDB_SOURCES})
- set_target_properties(slothdb_lib PROPERTIES OUTPUT_NAME "slothdb")
+-set_target_properties(slothdb_lib PROPERTIES OUTPUT_NAME "slothdb")
 +set_target_properties(slothdb_lib PROPERTIES EXPORT_NAME "slothdb")
 +
 +include(GNUInstallDirs)
  
- if(SLOTHDB_EDGE)
-     target_compile_definitions(slothdb_lib PUBLIC SLOTHDB_EDGE=1)
-@@ -75,8 +78,8 @@ set(SLOTHDB_ZSTD_SOURCES
+ # AVX2 codegen for the analytics core (parquet + planner). AVX2 has been
+ # the practical x86 baseline since 2013 (Haswell+). Every intrinsic path is
+@@ -108,8 +110,8 @@ set(SLOTHDB_ZSTD_SOURCES
      ${SLOTHDB_ZSTD_DIR}/decompress/zstd_decompress.c
      ${SLOTHDB_ZSTD_DIR}/decompress/zstd_decompress_block.c
  )
@@ -23,13 +24,57 @@ index c98bf0c..b5e631a 100644
  target_compile_definitions(slothdb_zstd PRIVATE
      ZSTD_DISABLE_ASM=1
      ZSTD_MULTITHREAD=0
-@@ -87,11 +90,12 @@ else()
+@@ -120,16 +122,16 @@ else()
      target_compile_options(slothdb_zstd PRIVATE -w)
  endif()
  set_target_properties(slothdb_zstd PROPERTIES POSITION_INDEPENDENT_CODE ON)
 -target_link_libraries(slothdb_lib PRIVATE slothdb_zstd)
 +target_sources(slothdb_lib PRIVATE $<TARGET_OBJECTS:slothdb_zstd>)
  target_include_directories(slothdb_lib PRIVATE ${SLOTHDB_ZSTD_DIR})
+ 
+ # FastPFor bitpacking: per-bit-width specialized 32-element unpackers.
+ # Replaces the scalar bit-pack loop in RleDecoder::NextBatch with a
+ # vectorizable fixed-shift unrolled body. Licensed Apache 2.0, vendored
+ # from DuckDB's third_party/fastpforlib.
+-add_library(slothdb_fastpfor STATIC
++add_library(slothdb_fastpfor OBJECT
+     ${CMAKE_SOURCE_DIR}/third_party/fastpforlib/bitpacking.cpp)
+-target_include_directories(slothdb_fastpfor PUBLIC
++target_include_directories(slothdb_fastpfor PRIVATE
+     ${CMAKE_SOURCE_DIR}/third_party/fastpforlib)
+ if(MSVC)
+     target_compile_options(slothdb_fastpfor PRIVATE /w)
+@@ -137,7 +139,7 @@ else()
+     target_compile_options(slothdb_fastpfor PRIVATE -w)
+ endif()
+ set_target_properties(slothdb_fastpfor PROPERTIES POSITION_INDEPENDENT_CODE ON)
+-target_link_libraries(slothdb_lib PRIVATE slothdb_fastpfor)
++target_sources(slothdb_lib PRIVATE $<TARGET_OBJECTS:slothdb_fastpfor>)
+ target_include_directories(slothdb_lib PRIVATE
+     ${CMAKE_SOURCE_DIR}/third_party/fastpforlib)
+ 
+@@ -146,12 +148,12 @@ target_include_directories(slothdb_lib PRIVATE
+ # back-ref loop in SnappyDecompressBody for VARCHAR-heavy ClickBench queries
+ # (Q15/Q22/Q23/Q26 — URL/Title/SearchPhrase with high back-ref density).
+ set(SLOTHDB_SNAPPY_DIR ${CMAKE_SOURCE_DIR}/third_party/snappy)
+-add_library(slothdb_snappy STATIC
++add_library(slothdb_snappy OBJECT
+     ${SLOTHDB_SNAPPY_DIR}/snappy.cc
+     ${SLOTHDB_SNAPPY_DIR}/snappy-sinksource.cc
+     ${SLOTHDB_SNAPPY_DIR}/snappy-stubs-internal.cc
+     ${SLOTHDB_SNAPPY_DIR}/snappy-c.cc)
+-target_include_directories(slothdb_snappy PUBLIC ${SLOTHDB_SNAPPY_DIR})
++target_include_directories(slothdb_snappy PRIVATE ${SLOTHDB_SNAPPY_DIR})
+ # AVX2 enables BMI2 (PEXT) for the back-ref offset extraction and SSSE3 for
+ # the 16-byte vector-byte-shuffle in literal copy. Dropped on non-x86
+ # builds; snappy's portable path covers them.
+@@ -163,11 +165,12 @@ else()
+     target_compile_options(slothdb_snappy PRIVATE -w)
+ endif()
+ set_target_properties(slothdb_snappy PROPERTIES POSITION_INDEPENDENT_CODE ON)
+-target_link_libraries(slothdb_lib PRIVATE slothdb_snappy)
++target_sources(slothdb_lib PRIVATE $<TARGET_OBJECTS:slothdb_snappy>)
+ target_include_directories(slothdb_lib PRIVATE ${SLOTHDB_SNAPPY_DIR})
  
  target_include_directories(slothdb_lib PUBLIC
 -    ${CMAKE_SOURCE_DIR}/include
@@ -38,16 +83,20 @@ index c98bf0c..b5e631a 100644
  )
  
  # Shared library variant for Python ctypes / Node / dlopen consumers.
-@@ -108,7 +112,7 @@ if(SLOTHDB_BUILD_SHARED AND NOT EMSCRIPTEN)
-     target_include_directories(slothdb_shared PUBLIC
-         ${CMAKE_SOURCE_DIR}/include
-     )
--    target_link_libraries(slothdb_shared PRIVATE slothdb_zstd)
-+    target_sources(slothdb_shared PRIVATE $<TARGET_OBJECTS:slothdb_zstd>)
-     target_include_directories(slothdb_shared PRIVATE ${SLOTHDB_ZSTD_DIR})
-     if(SLOTHDB_EDGE)
-         target_compile_definitions(slothdb_shared PUBLIC SLOTHDB_EDGE=1)
-@@ -197,3 +201,44 @@ if(SLOTHDB_BUILD_SHELL)
+@@ -198,8 +201,10 @@ if(SLOTHDB_BUILD_SHARED AND NOT EMSCRIPTEN)
+     # slothdb_shared compiles the same sources as slothdb_lib, so it needs
+     # the same third-party decoders: parquet.cpp includes fastpforlib's
+     # bitpackinghelpers.h, and the snappy / zstd codecs.
+-    target_link_libraries(slothdb_shared PRIVATE
+-        slothdb_zstd slothdb_fastpfor slothdb_snappy)
++    target_sources(slothdb_shared PRIVATE
++        $<TARGET_OBJECTS:slothdb_zstd>
++        $<TARGET_OBJECTS:slothdb_fastpfor>
++        $<TARGET_OBJECTS:slothdb_snappy>)
+     target_include_directories(slothdb_shared PRIVATE
+         ${SLOTHDB_ZSTD_DIR}
+         ${CMAKE_SOURCE_DIR}/third_party/fastpforlib
+@@ -291,3 +296,44 @@ if(SLOTHDB_BUILD_SHELL)
          target_compile_definitions(slothdb PRIVATE SLOTHDB_HAS_LINENOISE=1)
      endif()
  endif()

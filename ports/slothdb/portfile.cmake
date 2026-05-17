@@ -2,7 +2,7 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO SouravRoy-ETL/slothdb
     REF v${VERSION}
-    SHA512 53044e4cde3a6c5c3d3b405b9b875b2aa4687718212f287dc888b6d865c2b5f0c559e78c33d3ef44673e0455875eb0f892f05ed7bb8abecc4f5a7fb317c5aa41
+    SHA512 04f313f3875ec9eb41fb09587c3c2cfb58f9a05337aaae0ec3720bac6d30c4bd842a5f1c6d84368e462bd33d7428fa481f7648b4b2e332c8df920d23e51dd1ce
     HEAD_REF master
     PATCHES
         unofficial-cmake-config.patch

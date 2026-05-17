@@ -1,0 +1,48 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index f7bf2e8..17d70f4 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -30,7 +30,7 @@ set(LIBRARY_SOURCES
+     src/main/cpp/ulight.cpp
+ )
+ 
+-if(DEFINED EMSCRIPTEN)
++if(0)
+     # https://stunlock.gg/posts/emscripten_with_cmake/
+     add_executable(ulight-wasm ${LIBRARY_SOURCES})
+     target_include_directories(ulight-wasm PRIVATE "${CMAKE_CURRENT_LIST_DIR}/include")
+@@ -74,7 +74,10 @@ else(NOT DEFINED EMSCRIPTEN)
+     enable_testing()
+ 
+     add_library(ulight STATIC ${LIBRARY_SOURCES})
+-    target_include_directories(ulight PUBLIC "${CMAKE_CURRENT_LIST_DIR}/include")
++    target_include_directories(ulight PUBLIC
++        $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include>
++        $<INSTALL_INTERFACE:include>
++    )
+ 
+     target_compile_options(ulight PUBLIC ${WARNING_OPTIONS} ${SANITIZER_OPTIONS})
+     target_link_options(ulight PUBLIC ${SANITIZER_OPTIONS})
+@@ -95,3 +98,22 @@ else(NOT DEFINED EMSCRIPTEN)
+     target_link_libraries(ulight-cli ulight)
+     target_link_libraries(ulight-test ulight GTest::GTest GTest::Main)
+ endif()
++
++include(GNUInstallDirs)
++install(TARGETS ulight
++    EXPORT unofficial-ulight-targets
++    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
++    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
++    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
++)
++install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
++install(EXPORT unofficial-ulight-targets
++    FILE unofficial-ulight-targets.cmake
++    NAMESPACE unofficial::ulight::
++    DESTINATION ${CMAKE_INSTALL_DATADIR}/unofficial-ulight
++)
++file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/unofficial-ulight-config.cmake"
++"include(CMakeFindDependencyMacro)
++include(\"\${CMAKE_CURRENT_LIST_DIR}/unofficial-ulight-targets.cmake\")
++")
++install(FILES "${CMAKE_CURRENT_BINARY_DIR}/unofficial-ulight-config.cmake" DESTINATION ${CMAKE_INSTALL_DATADIR}/unofficial-ulight)

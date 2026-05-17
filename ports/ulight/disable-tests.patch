@@ -1,0 +1,35 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 17d70f4..1dd2f38 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -70,8 +70,6 @@ if(0)
+         COMMENT "Copying ulight.wasm and function.wasm to ${COPY_DESTINATION}"
+     )
+ else(NOT DEFINED EMSCRIPTEN)
+-    find_package(GTest REQUIRED)
+-    enable_testing()
+ 
+     add_library(ulight STATIC ${LIBRARY_SOURCES})
+     target_include_directories(ulight PUBLIC
+@@ -82,21 +80,6 @@ else(NOT DEFINED EMSCRIPTEN)
+     target_compile_options(ulight PUBLIC ${WARNING_OPTIONS} ${SANITIZER_OPTIONS})
+     target_link_options(ulight PUBLIC ${SANITIZER_OPTIONS})
+ 
+-    add_executable(ulight-cli ${HEADERS}
+-        src/main/cpp/main.cpp
+-    )
+-
+-    add_executable(ulight-test ${HEADERS}
+-        src/test/cpp/io.cpp
+-        src/test/cpp/main.cpp
+-        src/test/cpp/test_buffer.cpp
+-        src/test/cpp/test_chars_strings.cpp
+-        src/test/cpp/test_highlight.cpp
+-        src/test/cpp/test_unicode.cpp
+-    )
+-
+-    target_link_libraries(ulight-cli ulight)
+-    target_link_libraries(ulight-test ulight GTest::GTest GTest::Main)
+ endif()
+ 
+ include(GNUInstallDirs)

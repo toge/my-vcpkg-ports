@@ -2,11 +2,12 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO LadybugDB/ladybug
     REF v${VERSION}
-    SHA512 ad829a481d28e5194f41e1c90f845afbe7acdba1d28704ca3203f3d795ff93b2f417a560870bad63065c8e82583ceaacc3076eb92061bcbee4179c60aad5454a
+    SHA512 dd5d61fbd3b444e66dc8b783735ee8e2f0f1790eb0e6aa25ebcc9ebcdfa8b8dc66f2991932291540bfa1fdf2553393e3a7576d4a9e82339470d200629171ab9f
     HEAD_REF master
     PATCHES
         prefer-system-thirdparty.patch
         unofficial-cmake-config.patch
+        include-cstdint.patch
 )
 
 vcpkg_check_features(

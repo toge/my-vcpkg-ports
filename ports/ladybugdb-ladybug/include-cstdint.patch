@@ -1,0 +1,26 @@
+diff --git a/third_party/thrift/protocol/TProtocol.h b/third_party/thrift/protocol/TProtocol.h
+index adb1673..c540413 100755
+--- a/third_party/thrift/protocol/TProtocol.h
++++ b/third_party/thrift/protocol/TProtocol.h
+@@ -29,7 +29,7 @@
+ #include "protocol/TProtocolException.h"
+ 
+ #include <memory>
+-
++#include <cstdint>
+ #ifdef HAVE_NETINET_IN_H
+ #include <netinet/in.h>
+ #endif
+diff --git a/third_party/thrift/transport/TTransport.h b/third_party/thrift/transport/TTransport.h
+index 47757d8..ec3e36d 100755
+--- a/third_party/thrift/transport/TTransport.h
++++ b/third_party/thrift/transport/TTransport.h
+@@ -24,7 +24,7 @@
+ #include "transport/TTransportException.h"
+ #include <memory>
+ #include <string>
+-
++#include <cstdint>
+ namespace lbug_apache {
+ namespace thrift {
+ namespace transport {

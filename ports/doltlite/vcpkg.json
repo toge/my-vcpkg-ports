@@ -1,0 +1,23 @@
+{
+  "name": "doltlite",
+  "version": "0.10.8",
+  "description": "DoltLite is a version controlled SQLite.",
+  "homepage": "https://github.com/dolthub/doltlite",
+  "license": "Apache-2.0",
+  "dependencies": [
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    },
+    {
+      "name": "vcpkg-cmake-config",
+      "host": true
+    },
+    "zlib"
+  ],
+  "features": {
+    "sqlite3-compat": {
+      "description": "Provide sqlite3.h for drop-in compatibility with SQLite"
+    }
+  }
+}

@@ -1,0 +1,92 @@
+diff --git a/src/ailego/utility/file_helper.cc b/src/ailego/utility/file_helper.cc
+index 5026f40..706de83 100644
+--- a/src/ailego/utility/file_helper.cc
++++ b/src/ailego/utility/file_helper.cc
+@@ -79,7 +79,7 @@ fs::path FileHelper::PathFromUtf8(const std::string &s) {
+ }
+ 
+ std::string FileHelper::PathToUtf8(const fs::path &p) {
+-  return p.u8string();
++  return p.string();
+ }
+ 
+ #if defined(_WIN32) || defined(_WIN64)
+diff --git a/src/db/common/file_helper.cc b/src/db/common/file_helper.cc
+index 3302e9a..343548d 100644
+--- a/src/db/common/file_helper.cc
++++ b/src/db/common/file_helper.cc
+@@ -65,7 +65,7 @@ void FileHelper::CleanupDirectory(const std::string &backup_dir,
+   std::error_code ec;
+   for (const auto &entry : std::filesystem::directory_iterator(
+            ailego::FileHelper::PathFromUtf8(backup_dir), ec)) {
+-    std::string name = entry.path().filename().u8string();
++    std::string name = entry.path().filename().string();
+     if (name.compare(0, prefix_len, prefix_name) == 0) {
+       candidates.emplace_back(name);
+     }
+@@ -84,4 +84,4 @@ void FileHelper::CleanupDirectory(const std::string &backup_dir,
+   }
+ }
+ 
+-}  // namespace zvec
+\ No newline at end of file
++}  // namespace zvec
+diff --git a/src/db/index/common/version_manager.cc b/src/db/index/common/version_manager.cc
+index 1ca095d..e124c82 100644
+--- a/src/db/index/common/version_manager.cc
++++ b/src/db/index/common/version_manager.cc
+@@ -212,12 +212,12 @@ Result<VersionManager::Ptr> VersionManager::Recovery(const std::string &path) {
+ 
+   for (const auto &entry : fs::directory_iterator(u8path)) {
+     if (entry.is_regular_file()) {
+-      std::string filename = entry.path().filename().u8string();
++      std::string filename = entry.path().filename().string();
+       if (std::regex_match(filename, match, regex)) {
+         uint64_t id = std::stoull(match[1].str());
+         if (id > max_id || max_id == UINT64_MAX) {
+           max_id = id;
+-          version_path = entry.path().u8string();
++          version_path = entry.path().string();
+         }
+       }
+     }
+@@ -301,4 +301,4 @@ Status VersionManager::flush() {
+ }
+ 
+ 
+-}  // namespace zvec
+\ No newline at end of file
++}  // namespace zvec
+diff --git a/src/db/index/storage/store_helper.h b/src/db/index/storage/store_helper.h
+index f930e42..edf0425 100644
+--- a/src/db/index/storage/store_helper.h
++++ b/src/db/index/storage/store_helper.h
+@@ -41,7 +41,7 @@ namespace zvec {
+ 
+ inline FileFormat InferFileFormat(const std::string &file_path) {
+   std::string ext =
+-      ailego::FileHelper::PathFromUtf8(file_path).extension().u8string();
++      ailego::FileHelper::PathFromUtf8(file_path).extension().string();
+   std::transform(ext.begin(), ext.end(), ext.begin(), ::tolower);
+   if (ext == ".parquet") {
+     return FileFormat::PARQUET;
+diff --git a/src/db/index/storage/wal/wal_file.h b/src/db/index/storage/wal/wal_file.h
+index 2d95f22..9feafa1 100644
+--- a/src/db/index/storage/wal/wal_file.h
++++ b/src/db/index/storage/wal/wal_file.h
+@@ -15,7 +15,7 @@
+ 
+ #include <memory>
+ #include <string>
+-
++#include <cstdint>
+ 
+ namespace zvec {
+ 
+@@ -64,4 +64,4 @@ class WalFile {
+   virtual bool has_record() = 0;
+ };
+ 
+-};  // namespace zvec
+\ No newline at end of file
++};  // namespace zvec

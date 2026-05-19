@@ -2,13 +2,14 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO alibaba/zvec
     REF v${VERSION}
-    SHA512 fb49b8a232b2c3734130313651b3eea286c01a3e0420e9fc189101fd4a36f1b0f8542ec11e074120864d2b8708452440d6dd8fd0b2c7e0f7a50bb587576ee118
+    SHA512 4f65de2346961834510b9d9eb7bacf7fd4ab6ccbb54f6e102a4eae32139d29d803c7aeeecfe185e1bcc69fcd3aa335fc009c4ffc702cda987a73f6bc0704f3be
     HEAD_REF main
     PATCHES
         fix-add-library-macro-conflict.patch
         devendoring.patch
         fix-antlr4-13-compat.patch
         unofficial-cmake-config.patch
+        fix-u8string.patch
 )
 
 vcpkg_from_github(

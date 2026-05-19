@@ -1,8 +1,8 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index ad9df29..f4e1878 100644
+index a33e61e..c1e8c78 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -99,9 +99,74 @@ if(DEFINED ENV{USE_OSS_MIRROR} AND NOT "$ENV{USE_OSS_MIRROR}" STREQUAL "")
+@@ -115,9 +115,74 @@ if(DEFINED ENV{USE_OSS_MIRROR} AND NOT "$ENV{USE_OSS_MIRROR}" STREQUAL "")
  endif()
  message(STATUS "USE_OSS_MIRROR:${USE_OSS_MIRROR}")
  
@@ -79,34 +79,8 @@ index ad9df29..f4e1878 100644
  
  if(BUILD_TOOLS)
      cc_directories(tools)
-diff --git b/CMakeLists.txt.rej b/CMakeLists.txt.rej
-new file mode 100644
-index 0000000..159e4b8
---- /dev/null
-+++ b/CMakeLists.txt.rej
-@@ -0,0 +1,7 @@
-+--- CMakeLists.txt
-++++ CMakeLists.txt
-+@@ -129,4 +194,4 @@ if(BUILD_PYTHON_BINDINGS)
-+ 
-+     message(STATUS "Zvec install path: ${ZVEC_PY_INSTALL_DIR}")
-+     install(TARGETS _zvec LIBRARY DESTINATION ${ZVEC_PY_INSTALL_DIR})
-+-endif()+endif()
-diff --git a/src/binding/c/CMakeLists.txt b/src/binding/c/CMakeLists.txt
-index 3007478..8fc09f7 100644
---- a/src/binding/c/CMakeLists.txt
-+++ b/src/binding/c/CMakeLists.txt
-@@ -136,7 +136,7 @@ elseif(APPLE)
-             Arrow::arrow_acero
-             rocksdb
-             glog
--            libprotobuf
-+            protobuf::libprotobuf
-             antlr4
-     )
-     
 diff --git a/src/core/CMakeLists.txt b/src/core/CMakeLists.txt
-index 76bebd9..15e72fe 100644
+index 76bebd9..1817537 100644
 --- a/src/core/CMakeLists.txt
 +++ b/src/core/CMakeLists.txt
 @@ -42,7 +42,7 @@ endif()
@@ -114,7 +88,7 @@ index 76bebd9..15e72fe 100644
      NAME zvec_core STATIC STRICT PACKED
      SRCS ${ALL_CORE_SRCS}
 -    LIBS zvec_ailego zvec_turbo sparsehash magic_enum rabitqlib
-+    LIBS zvec_ailego zvec_turbo sparsehash magic_enum 
++    LIBS zvec_ailego zvec_turbo sparsehash magic_enum
      INCS . ${PROJECT_ROOT_DIR}/src/core
      VERSION "${GIT_SRCS_VER}"
  )
@@ -134,7 +108,7 @@ index ed547dc..aaba4f6 100644
 \ No newline at end of file
 +  )
 diff --git a/src/core/interface/CMakeLists.txt b/src/core/interface/CMakeLists.txt
-index 9e1a2f6..06d6e12 100644
+index 9e1a2f6..82b4fa7 100644
 --- a/src/core/interface/CMakeLists.txt
 +++ b/src/core/interface/CMakeLists.txt
 @@ -5,6 +5,6 @@ cc_library(
@@ -142,7 +116,7 @@ index 9e1a2f6..06d6e12 100644
          SRCS *.cc indexes/*.cc
          INCS . ${PROJECT_ROOT_DIR}/src/ ${PROJECT_ROOT_DIR}/src/core
 -        LIBS zvec_ailego core_framework sparsehash magic_enum rabitqlib
-+        LIBS zvec_ailego core_framework sparsehash magic_enum 
++        LIBS zvec_ailego core_framework sparsehash magic_enum
          VERSION "${PROXIMA_ZVEC_VERSION}"
  )
 diff --git a/src/db/CMakeLists.txt b/src/db/CMakeLists.txt
@@ -165,7 +139,7 @@ index b268927..32dd449 100644
 \ No newline at end of file
 +)
 diff --git a/src/db/common/concurrent_roaring_bitmap.h b/src/db/common/concurrent_roaring_bitmap.h
-index 8d5f106..a0e9764 100644
+index d1c6bd4..7c96404 100644
 --- a/src/db/common/concurrent_roaring_bitmap.h
 +++ b/src/db/common/concurrent_roaring_bitmap.h
 @@ -16,8 +16,8 @@

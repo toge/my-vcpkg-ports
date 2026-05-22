@@ -1,6 +1,6 @@
 {
   "name": "doltlite",
-  "version": "0.10.10",
+  "version": "0.10.11",
   "description": "DoltLite is a version controlled SQLite.",
   "homepage": "https://github.com/dolthub/doltlite",
   "license": "Apache-2.0",

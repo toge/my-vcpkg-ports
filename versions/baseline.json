@@ -81,8 +81,8 @@
       "port-version": 1
     },
     "pcrepp": {
-      "baseline": "2026-05-13",
-      "port-version": 1
+      "baseline": "2026-05-24",
+      "port-version": 0
     },
     "plotlypp": {
       "baseline": "2026-02-06",

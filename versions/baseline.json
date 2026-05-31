@@ -45,7 +45,7 @@
       "port-version": 0
     },
     "lexborpp": {
-      "baseline": "2026-05-26",
+      "baseline": "2026-05-31",
       "port-version": 0
     },
     "libslz": {
@@ -82,6 +82,10 @@
     },
     "pcrepp": {
       "baseline": "2026-05-29",
+      "port-version": 0
+    },
+    "pinocchio": {
+      "baseline": "4.0.0",
       "port-version": 0
     },
     "plotlypp": {

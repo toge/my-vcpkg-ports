@@ -1,5 +1,5 @@
 diff --git a/src/common/file_system/local_file_system.cpp b/src/common/file_system/local_file_system.cpp
-index fef412c..703b74f 100644
+index 2cee342..3c46978 100644
 --- a/src/common/file_system/local_file_system.cpp
 +++ b/src/common/file_system/local_file_system.cpp
 @@ -4,7 +4,7 @@
@@ -10,57 +10,80 @@ index fef412c..703b74f 100644
 +#include "glob/glob.h"
  #include "main/client_context.h"
  #include "main/settings.h"
-
+ 
 diff --git a/third_party/CMakeLists.txt b/third_party/CMakeLists.txt
-index 5554d77..c281dd8 100644
+index 5554d77..fbe4f1e 100644
 --- a/third_party/CMakeLists.txt
 +++ b/third_party/CMakeLists.txt
-@@ -4,25 +4,72 @@ endif()
-
+@@ -1,28 +1,90 @@
+-if(NOT MSVC)
+-    add_compile_options(-Wno-extra)
+-endif()
++function(lbug_alias_imported alias source)
++    if(NOT TARGET ${alias})
++        if(TARGET ${source})
++            get_target_property(_src_type ${source} TYPE)
++            if(_src_type STREQUAL "INTERFACE_LIBRARY")
++                add_library(${alias} INTERFACE IMPORTED GLOBAL)
++                get_target_property(_inc ${source} INTERFACE_INCLUDE_DIRECTORIES)
++                if(_inc)
++                    set_property(TARGET ${alias} PROPERTY INTERFACE_INCLUDE_DIRECTORIES "${_inc}")
++                endif()
++                get_target_property(_link ${source} INTERFACE_LINK_LIBRARIES)
++                if(_link)
++                    set_property(TARGET ${alias} PROPERTY INTERFACE_LINK_LIBRARIES "${_link}")
++                endif()
++                return()
++            endif()
++        endif()
++        add_library(${alias} STATIC IMPORTED GLOBAL)
++    endif()
++    foreach(_suffix IN ITEMS "" _RELEASE _DEBUG _RELWITHDEBINFO _MINSIZEREL)
++        get_target_property(_loc ${source} IMPORTED_LOCATION${_suffix})
++        if(_loc)
++            set_property(TARGET ${alias} PROPERTY IMPORTED_LOCATION${_suffix} "${_loc}")
++        endif()
++    endforeach()
++endfunction()
+ 
  add_subdirectory(alp)
  add_subdirectory(antlr4_cypher)
 -add_subdirectory(antlr4_runtime)
--set(BROTLI_BUNDLED_MODE ON)
++find_package(antlr4-runtime CONFIG REQUIRED)
++lbug_alias_imported(antlr4_runtime antlr4_static)
++
+ set(BROTLI_BUNDLED_MODE ON)
 -add_subdirectory(brotli)
 -add_subdirectory(fast_float)
-+find_package(antlr4-runtime CONFIG REQUIRED)
-+add_library(antlr4_runtime INTERFACE IMPORTED GLOBAL)
-+set_property(TARGET antlr4_runtime PROPERTY INTERFACE_LINK_LIBRARIES antlr4_static)
-+
 +find_package(unofficial-brotli CONFIG REQUIRED)
 +set(BROTLI_BUNDLED_MODE OFF)
-+add_library(brotlidec INTERFACE IMPORTED GLOBAL)
-+set_property(TARGET brotlidec PROPERTY INTERFACE_LINK_LIBRARIES unofficial::brotli::brotlidec)
-+add_library(brotlicommon INTERFACE IMPORTED GLOBAL)
-+set_property(TARGET brotlicommon PROPERTY INTERFACE_LINK_LIBRARIES unofficial::brotli::brotlicommon)
++lbug_alias_imported(brotlidec unofficial::brotli::brotlidec)
++lbug_alias_imported(brotlicommon unofficial::brotli::brotlicommon)
 +
 +find_package(FastFloat CONFIG REQUIRED)
-+add_library(fast_float INTERFACE IMPORTED GLOBAL)
-+set_property(TARGET fast_float PROPERTY INTERFACE_LINK_LIBRARIES FastFloat::fast_float)
++lbug_alias_imported(fast_float FastFloat::fast_float)
  add_subdirectory(fastpfor)
 -add_subdirectory(glob)
 -add_subdirectory(lz4)
 -add_subdirectory(mbedtls)
 -add_subdirectory(miniz)
 -add_subdirectory(parquet)
++
 +find_package(Glob CONFIG REQUIRED)
 +set_property(TARGET Glob PROPERTY IMPORTED_GLOBAL TRUE)
 +
 +find_package(lz4 CONFIG REQUIRED)
-+add_library(lz4 INTERFACE IMPORTED GLOBAL)
-+set_property(TARGET lz4 PROPERTY INTERFACE_LINK_LIBRARIES LZ4::lz4_static)
++lbug_alias_imported(lz4 LZ4::lz4_static)
 +
 +find_package(MbedTLS CONFIG REQUIRED)
-+add_library(mbedtls INTERFACE IMPORTED GLOBAL)
-+set_property(TARGET mbedtls PROPERTY INTERFACE_LINK_LIBRARIES MbedTLS::mbedtls)
++lbug_alias_imported(mbedtls MbedTLS::mbedtls)
 +
 +find_package(miniz CONFIG REQUIRED)
-+add_library(miniz INTERFACE IMPORTED GLOBAL)
-+set_property(TARGET miniz PROPERTY INTERFACE_LINK_LIBRARIES miniz::miniz)
++lbug_alias_imported(miniz miniz::miniz)
 +
 +find_package(Parquet CONFIG REQUIRED)
-+add_library(parquet INTERFACE IMPORTED GLOBAL)
-+set_property(TARGET parquet PROPERTY INTERFACE_LINK_LIBRARIES Parquet::parquet_static)
++lbug_alias_imported(parquet Parquet::parquet_static)
++
  if(${BUILD_PYTHON})
      add_subdirectory(pybind11)
  endif()
@@ -72,36 +95,33 @@ index 5554d77..c281dd8 100644
 -add_subdirectory(utf8proc)
 -add_subdirectory(yyjson)
 -add_subdirectory(zstd)
++
 +find_package(re2 CONFIG REQUIRED)
-+add_library(re2 INTERFACE IMPORTED GLOBAL)
-+set_property(TARGET re2 PROPERTY INTERFACE_LINK_LIBRARIES re2::re2)
++lbug_alias_imported(re2 re2::re2)
 +
 +find_package(roaring CONFIG REQUIRED)
-+add_library(roaring_bitmap INTERFACE IMPORTED GLOBAL)
-+set_property(TARGET roaring_bitmap PROPERTY INTERFACE_LINK_LIBRARIES roaring::roaring)
++lbug_alias_imported(roaring_bitmap roaring::roaring)
++
 +find_package(unofficial-simsimd CONFIG QUIET)
-+if(NOT TARGET simsimd)
-+    add_library(simsimd INTERFACE IMPORTED GLOBAL)
-+endif()
 +if(TARGET unofficial::simsimd::simsimd_shared)
-+    set_property(TARGET simsimd PROPERTY INTERFACE_LINK_LIBRARIES unofficial::simsimd::simsimd_shared)
++    lbug_alias_imported(simsimd unofficial::simsimd::simsimd_shared)
++else()
++    add_subdirectory(simsimd)
 +endif()
++
 +find_package(Snappy CONFIG REQUIRED)
-+add_library(snappy INTERFACE IMPORTED GLOBAL)
-+set_property(TARGET snappy PROPERTY INTERFACE_LINK_LIBRARIES Snappy::snappy)
++lbug_alias_imported(snappy Snappy::snappy)
 +
 +find_package(Thrift CONFIG REQUIRED)
-+add_library(thrift INTERFACE IMPORTED GLOBAL)
-+set_property(TARGET thrift PROPERTY INTERFACE_LINK_LIBRARIES thrift::thrift)
++lbug_alias_imported(thrift thrift::thrift)
 +
-+find_package(unofficial-utf8proc CONFIG REQUIRED)
-+set_property(TARGET utf8proc PROPERTY IMPORTED_GLOBAL TRUE)
++find_package(utf8proc CONFIG REQUIRED)
++lbug_alias_imported(utf8proc utf8proc::utf8proc)
 +
 +find_package(yyjson CONFIG REQUIRED)
-+add_library(yyjson INTERFACE IMPORTED GLOBAL)
-+set_property(TARGET yyjson PROPERTY INTERFACE_LINK_LIBRARIES yyjson::yyjson)
++lbug_alias_imported(yyjson yyjson::yyjson)
 +
 +find_package(zstd CONFIG REQUIRED)
-+add_library(zstd INTERFACE IMPORTED GLOBAL)
-+set_property(TARGET zstd PROPERTY INTERFACE_LINK_LIBRARIES zstd::libzstd_static)
++lbug_alias_imported(zstd zstd::libzstd_static)
++
  add_subdirectory(cppjieba)

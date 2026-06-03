@@ -1,8 +1,10 @@
 diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 91c6153..a028f01 100644
 --- a/src/CMakeLists.txt
 +++ b/src/CMakeLists.txt
-@@ -59,3 +59,26 @@
- install(TARGETS lbug lbug_shared)
+@@ -122,6 +122,29 @@ endif()
+ 
+ install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/include/c_api/lbug.h TYPE INCLUDE)
  
 +set(_lbug_targets_file "${CMAKE_CURRENT_BINARY_DIR}/unofficial-ladybugdb-ladybug-targets.cmake")
 +file(WRITE "${_lbug_targets_file}" [=[
@@ -28,4 +30,5 @@ diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
 +)
 +
  if(${BUILD_SINGLE_FILE_HEADER})
-         # Create a command to generate lbug.hpp, and then create a target that is
+         install(FILES ${CMAKE_CURRENT_BINARY_DIR}/lbug.hpp  TYPE INCLUDE)
+ endif()

@@ -1,6 +1,6 @@
 {
   "name": "meshlib",
-  "version": "3.1.1.211",
+  "version": "3.1.2.192",
   "description": "Mesh processing library",
   "homepage": "https://meshlib.io/",
   "license": null,
@@ -18,6 +18,7 @@
     "libjpeg-turbo",
     "libzip",
     "mbedtls",
+    "meshinspector-fastmcpp",
     "opencascade",
     "openvdb",
     "parallel-hashmap",

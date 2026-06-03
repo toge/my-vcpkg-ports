@@ -1,0 +1,20 @@
+diff --git a/source/MRIOExtras/MRStep.cpp b/source/MRIOExtras/MRStep.cpp
+index 0bbe273..f030081 100644
+--- a/source/MRIOExtras/MRStep.cpp
++++ b/source/MRIOExtras/MRStep.cpp
+@@ -42,6 +42,7 @@ MR_SUPPRESS_WARNING( "-Wdeprecated-enum-enum-conversion", 5054 )
+ #include <opencascade/StepData_StepWriter.hxx>
+ #include <opencascade/TDataStd_Name.hxx>
+ #include <opencascade/TDF_ChildIterator.hxx>
++#include <opencascade/TDF_LabelSequence.hxx>
+ #include <opencascade/TDocStd_Document.hxx>
+ #include <opencascade/TopExp_Explorer.hxx>
+ #include <opencascade/TopoDS.hxx>
+@@ -64,6 +65,7 @@ MR_SUPPRESS_WARNING( "-Wdeprecated-enum-enum-conversion", 5054 )
+ #include <StepData_StepWriter.hxx>
+ #include <TDataStd_Name.hxx>
+ #include <TDF_ChildIterator.hxx>
++#include <TDF_LabelSequence.hxx>
+ #include <TDocStd_Document.hxx>
+ #include <TopExp_Explorer.hxx>
+ #include <TopoDS.hxx>

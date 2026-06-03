@@ -2,7 +2,7 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO MeshInspector/MeshLib
     REF v${VERSION}
-    SHA512 4b1a3dc117844fe64f73323479015f7bb34bd04067cf454fa50ef54d6fb9ebfb0a6a0cac31008981bb3bf6473bbc3025bc201539d79f0150a7816060966e4f18
+    SHA512 2db4196d5383393fb4533b9193577f5890fe9b4678841ac6f68d3976f68d0f980fcf463fe3e580afa8aa7ee4414db4cdafb4850b3be2e1290c4bd1f481aeef78
     HEAD_REF master
     PATCHES
         devendoring.patch
@@ -12,6 +12,7 @@ vcpkg_from_github(
         fix-iosfwd.patch
         fix-iterator_debug_level.patch
         fix-install-dirs.patch
+        fix-include.patch
 )
 
 vcpkg_from_github(

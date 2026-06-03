@@ -64,6 +64,10 @@
       "baseline": "2026-06-02",
       "port-version": 0
     },
+    "meshinspector-fastmcpp": {
+      "baseline": "2026-05-22",
+      "port-version": 0
+    },
     "meshlib": {
       "baseline": "3.1.1.211",
       "port-version": 0

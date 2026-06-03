@@ -56,6 +56,10 @@
       "baseline": "8.18.2",
       "port-version": 0
     },
+    "macad-parser": {
+      "baseline": "2026-06-02",
+      "port-version": 0
+    },
     "meshlib": {
       "baseline": "3.1.1.211",
       "port-version": 0

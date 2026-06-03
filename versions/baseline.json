@@ -8,6 +8,10 @@
       "baseline": "0.11.0",
       "port-version": 0
     },
+    "fastmcpp": {
+      "baseline": "2026-05-20",
+      "port-version": 0
+    },
     "ffc-h": {
       "baseline": "26.04.01",
       "port-version": 0

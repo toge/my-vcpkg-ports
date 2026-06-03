@@ -1,0 +1,89 @@
+diff -ur clean/src/cli/main.cpp work/src/cli/main.cpp
+--- a/src/cli/main.cpp	2026-05-30 01:13:10.287277945 +0900
++++ b/src/cli/main.cpp	2026-05-30 01:13:10.301332908 +0900
+@@ -1307,7 +1307,7 @@
+         }
+         env[pair.substr(0, eq)] = pair.substr(eq + 1);
+     }
+-    return env;
++    return std::optional<fastmcpp::Json>(env);
+ }
+ 
+ static bool load_env_file_into(const std::filesystem::path& env_file, fastmcpp::Json& env,
+diff -ur clean/src/mcp/handler.cpp work/src/mcp/handler.cpp
+--- a/src/mcp/handler.cpp	2026-05-30 01:13:10.287687478 +0900
++++ b/src/mcp/handler.cpp	2026-05-30 01:13:10.303007517 +0900
+@@ -199,7 +199,7 @@
+ static std::optional<fastmcpp::Json> extract_request_meta(const fastmcpp::Json& params)
+ {
+     if (params.contains("_meta") && params["_meta"].is_object())
+-        return params["_meta"];
++        return std::optional<fastmcpp::Json>(params["_meta"]);
+     return std::nullopt;
+ }
+ 
+diff -ur clean/src/server/security_middleware.cpp work/src/server/security_middleware.cpp
+--- a/src/server/security_middleware.cpp	2026-05-30 01:13:10.288698841 +0900
++++ b/src/server/security_middleware.cpp	2026-05-30 01:13:10.306499520 +0900
+@@ -82,7 +82,7 @@
+         if (stats.timestamps.size() >= max_requests_)
+         {
+             // Return rate limit error
+-            return Json{
++            return std::optional<Json>(Json{
+                 {"error",
+                  Json{{"code", -32000}, // JSON-RPC server error
+                       {"message", "Rate limit exceeded for route: " + route},
+@@ -91,7 +91,7 @@
+                             {"limit", max_requests_},
+                             {"window_seconds",
+                              std::chrono::duration_cast<std::chrono::seconds>(window_).count()},
+-                            {"current_count", stats.timestamps.size()}}}}}};
++                            {"current_count", stats.timestamps.size()}}}}}});
+         }
+ 
+         // Record this request
+@@ -133,11 +133,11 @@
+             current_count_.fetch_sub(1);
+ 
+             // Return concurrency limit error
+-            return Json{{"error", Json{{"code", -32000}, // JSON-RPC server error
++            return std::optional<Json>(Json{{"error", Json{{"code", -32000}, // JSON-RPC server error
+                                        {"message", "Concurrency limit exceeded"},
+                                        {"data", Json{{"route", route},
+                                                      {"limit", max_concurrent_},
+-                                                     {"current", current}}}}}};
++                                                     {"current", current}}}}}});
+         }
+ 
+         return std::nullopt; // Continue to normal handler
+diff -ur clean/src/telemetry.cpp work/src/telemetry.cpp
+--- a/src/telemetry.cpp	2026-05-30 01:13:10.288905666 +0900
++++ b/src/telemetry.cpp	2026-05-30 01:13:10.307668366 +0900
+@@ -99,7 +99,7 @@
+ {
+     if (meta && meta->is_object())
+         return meta;
+-    return fastmcpp::Json::object();
++    return std::optional<fastmcpp::Json>(fastmcpp::Json::object());
+ }
+ 
+ } // namespace
+diff -ur clean/src/util/json_schema.cpp work/src/util/json_schema.cpp
+--- a/src/util/json_schema.cpp	2026-05-30 01:13:10.289052970 +0900
++++ b/src/util/json_schema.cpp	2026-05-30 01:13:10.309800958 +0900
+@@ -122,12 +122,12 @@
+ 
+     std::string pointer = ref.substr(1);
+     if (pointer.empty())
+-        return root;
++        return std::optional<Json>(root);
+ 
+     try
+     {
+         nlohmann::json::json_pointer json_ptr(pointer);
+-        return root.at(json_ptr);
++        return std::optional<Json>(root.at(json_ptr));
+     }
+     catch (...)
+     {

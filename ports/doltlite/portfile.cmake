@@ -1,7 +1,7 @@
 vcpkg_download_distfile(ARCHIVE
     URLS "https://github.com/dolthub/doltlite/releases/download/v${VERSION}/doltlite-amalgamation-${VERSION}.zip"
     FILENAME "doltlite-amalgamation-${VERSION}.zip"
-    SHA512 67dfc8c57a9f69d54e4a45a64ef13afb76c350e3fbea58e50d81095722f4b22e83dbcc331c42b72195ecf81f96794d994769c9f3c1fd3975c9a4a76c99fa3d1a
+    SHA512 f2ed6ee1446859ba652f4017edee78906c73e636bf75051f104ac9afade86707d63f6d24a1696e02803b372ad86af072318f5cc7de2db230ab717c2b68736cb8
 )
 
 vcpkg_extract_source_archive(
@@ -33,7 +33,7 @@ vcpkg_from_github(
     OUT_SOURCE_PATH LICENSE_PATH
     REPO dolthub/doltlite
     REF "v${VERSION}"
-    SHA512 f048d37d285dff82d703d4b5b019e55ad4824c3532f77eae583a229dabd98d4a1ce8bbf63c4735d7d00e0d26f739e8bc748bf33f91ce2e85bd1e9f46ce650af2
+    SHA512 1a035c6ff50b424d030a918c6f1b8c7b7be4f0b8332c5c8df189d6e1a5b9380c4d3729410fd4f038aa6ae965710d5a72bb03f5bee9a6a012233cd298dc915243
     HEAD_REF master
 )
 

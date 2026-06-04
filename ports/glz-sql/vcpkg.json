@@ -1,0 +1,20 @@
+{
+  "name": "glz-sql",
+  "version-date": "2026-06-05",
+  "description": "Header-only SQLite ORM library using Glaze reflection",
+  "homepage": "https://github.com/toge/glz-sql",
+  "license": "MIT",
+  "dependencies": [
+    "glaze",
+    "quill",
+    "sqlite3",
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    },
+    {
+      "name": "vcpkg-cmake-config",
+      "host": true
+    }
+  ]
+}

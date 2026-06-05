@@ -1,6 +1,7 @@
 {
   "name": "frozenchars",
   "version-date": "2026-06-05",
+  "port-version": 1,
   "description": "constexpr char array and string manipulation library",
   "homepage": "https://github.com/toge/frozenchars",
   "license": "MIT",
@@ -13,5 +14,13 @@
       "name": "vcpkg-cmake-config",
       "host": true
     }
-  ]
+  ],
+  "features": {
+    "inja": {
+      "description": "Enable Inja support",
+      "dependencies": [
+        "glaze"
+      ]
+    }
+  }
 }

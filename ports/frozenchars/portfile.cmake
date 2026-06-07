@@ -3,8 +3,8 @@ set(VCPKG_BUILD_TYPE release) # header only library
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO toge/frozenchars
-    REF 34c93fccadcdc21969775fd9fb3a2a3a9d747e5e
-    SHA512 5207e213b809cf8e9b0b3ec43dc2ccdd4f0a7b5d4b84454b9bc81cba61252e0e61a14327dc145a78b66b5c9ad870a6ae09856637d01280bd8ca3d36aabc63a0c
+    REF 795cdefe1cc4f97db0fab751005360243f7dcd23
+    SHA512 2b06bc992a03c624003cf879294f0ed48e6faf4f9acb1779968ccb5367c02e97e0d535b332a9aec300fc2862f674ac671e8554882c3ede70cc756f2f48540a5f
     HEAD_REF main
 )
 

@@ -120,6 +120,10 @@
       "baseline": "0.16.0",
       "port-version": 0
     },
+    "threepp": {
+      "baseline": "2026-06-03",
+      "port-version": 0
+    },
     "tiny-skia-cpp": {
       "baseline": "2026-04-12",
       "port-version": 0

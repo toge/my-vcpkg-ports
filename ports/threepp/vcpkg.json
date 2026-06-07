@@ -1,0 +1,59 @@
+{
+  "name": "threepp",
+  "version": "2026-06-03",
+  "description": "Cross-platform C++20 port of three.js, a 3D library with scene graph, materials, lighting, cameras, and multiple renderer backends",
+  "homepage": "https://github.com/markaren/threepp",
+  "license": "MIT",
+  "supports": "!uwp & !arm",
+  "dependencies": [
+    "earcut-hpp",
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    },
+    {
+      "name": "vcpkg-cmake-config",
+      "host": true
+    }
+  ],
+  "default-features": [
+    "external-glfw"
+  ],
+  "features": {
+    "assimp": {
+      "description": "Enable assimp model importer",
+      "dependencies": [
+        "assimp"
+      ]
+    },
+    "external-glfw": {
+      "description": "Use system-installed GLFW instead of bundled one",
+      "dependencies": [
+        {
+          "name": "glfw3",
+          "platform": "!wasm32"
+        }
+      ]
+    },
+    "physx": {
+      "description": "Enable NVIDIA PhysX physics integration",
+      "dependencies": [
+        "physx"
+      ]
+    },
+    "vulkan": {
+      "description": "Build with Vulkan backend (headers + loader + VMA + glslang)",
+      "dependencies": [
+        {
+          "name": "glslang",
+          "features": [
+            "tools"
+          ]
+        },
+        "vulkan-headers",
+        "vulkan-loader",
+        "vulkan-memory-allocator"
+      ]
+    }
+  }
+}

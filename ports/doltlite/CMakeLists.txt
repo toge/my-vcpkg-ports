@@ -8,6 +8,15 @@ option(DOLTLITE_SQLITE3_COMPAT "Provide sqlite3.h for drop-in compatibility" OFF
 
 add_library(doltlite doltlite.c)
 
+# GCC 16+ and Clang 18+ treat -Wincompatible-pointer-types as error by default.
+# The doltlite amalgamation (v0.11.8+) uses #define Btree orig_Btree to prefix
+# the original SQLite btree symbols, but db->aDb[i].pBt is typed as the prolly
+# engine's Btree*, not orig_Btree*. The structs share the same initial layout,
+# so the assignment is safe. Suppress the warning to match upstream behavior.
+if(CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
+    target_compile_options(doltlite PRIVATE -Wno-incompatible-pointer-types)
+endif()
+
 target_compile_definitions(doltlite PRIVATE
     SQLITE_ENABLE_COLUMN_METADATA=1
     SQLITE_ENABLE_FTS3=1

@@ -8,7 +8,7 @@ index 455539f..af3084b 100644
  else()
 -  find_package(HWY 1.0.7)
 -  if (NOT HWY_FOUND)
-+  find_package(HWY NAMES hwy REQUIRED)
++  find_package(HWY NAMES hwy CONFIG REQUIRED)
 +  add_library(hwy ALIAS hwy::hwy)
 +  if (NOT TARGET hwy::hwy)
      message(FATAL_ERROR

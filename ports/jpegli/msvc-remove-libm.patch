@@ -1,19 +1,19 @@
-diff --git a/lib/jxl_cms.cmake b/lib/jxl_cms.cmake
-index a939c66..9c24797 100644
---- a/lib/jxl_cms.cmake
-+++ b/lib/jxl_cms.cmake
-@@ -71,10 +71,14 @@ install(TARGETS jxl_cms
+diff --git a/lib/jpegli_cms.cmake b/lib/jpegli_cms.cmake
+index 5c13816..e8206ab 100644
+--- a/lib/jpegli_cms.cmake
++++ b/lib/jpegli_cms.cmake
+@@ -71,10 +71,14 @@ install(TARGETS jpegli_cms
  
  if (BUILD_SHARED_LIBS)
-   set(JPEGXL_REQUIRES_TYPE "Requires.private")
+   set(JPEGLI_REQUIRES_TYPE "Requires.private")
 +  if (NOT MSVC)
-   set(JPEGXL_CMS_PRIVATE_LIBS "-lm ${PKGCONFIG_CXX_LIB}")
+   set(JPEGLI_CMS_PRIVATE_LIBS "-lm ${PKGCONFIG_CXX_LIB}")
 +  endif()
  else()
-   set(JPEGXL_REQUIRES_TYPE "Requires")
+   set(JPEGLI_REQUIRES_TYPE "Requires")
 +  if (NOT MSVC)
-   set(JPEGXL_CMS_PRIVATE_LIBS "-lm ${PKGCONFIG_CXX_LIB}")
+   set(JPEGLI_CMS_PRIVATE_LIBS "-lm ${PKGCONFIG_CXX_LIB}")
 +  endif()
  endif()
  
- configure_file("${CMAKE_CURRENT_SOURCE_DIR}/cms/libjxl_cms.pc.in"
+ configure_file("${CMAKE_CURRENT_SOURCE_DIR}/cms/libjpegli_cms.pc.in"

@@ -1,6 +1,6 @@
 {
   "name": "jpegli",
-  "version-date": "2026-03-16",
+  "version-date": "2026-06-01",
   "description": "an improved JPEG encoder and decoder implementation",
   "homepage": "https://github.com/google/jpegli",
   "license": "BSD-3-Clause",
@@ -8,6 +8,7 @@
     "brotli",
     "highway",
     "lcms",
+    "sjpeg",
     {
       "name": "vcpkg-cmake",
       "host": true

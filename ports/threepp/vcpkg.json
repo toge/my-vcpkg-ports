@@ -1,6 +1,6 @@
 {
   "name": "threepp",
-  "version": "2026-06-03",
+  "version": "2026-06-12",
   "description": "Cross-platform C++20 port of three.js, a 3D library with scene graph, materials, lighting, cameras, and multiple renderer backends",
   "homepage": "https://github.com/markaren/threepp",
   "license": "MIT",

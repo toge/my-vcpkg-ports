@@ -3,15 +3,16 @@ set(VCPKG_BUILD_TYPE release) # header only library
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO toge/lexborpp
-    REF f698cac728cc01b0433f226ce8f24dd73b9e930d
-    SHA512 e8a7d19fc132d9cd37045f14d33e03cccce742d6defe0fe834a6d298af23be74559e48000cb062bfd174aed380a45fd6eaddf961a15d0eacbaeb33744b430e7f
+    REF 5521dcc530db1fd39b55c76ebfbaa3a6c59d4dfd
+    SHA512 6fa2695fc02d5c92fd98dd62f610959a454209a5b0ae07da008022cca7121f5167936d4312df89a49f0bf59b6e2305203fd1dd99201f032dc191fa7f8211aa3c
     HEAD_REF main
 )
 
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"
     OPTIONS
-        -DBUILD_TESTING=OFF
+        -DBUILD_TEST=OFF
+        -DBUILD_BENCH=OFF
 )
 
 vcpkg_cmake_install()

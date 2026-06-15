@@ -1,0 +1,39 @@
+diff --git a/src/db/common/rocksdb_context.cc b/src/db/common/rocksdb_context.cc
+index 24176e8..56be48f 100644
+--- a/src/db/common/rocksdb_context.cc
++++ b/src/db/common/rocksdb_context.cc
+@@ -51,14 +51,14 @@ Status RocksdbContext::create(Args args) {
+   create_opts_.create_if_missing = true;
+   prepare_options(std::move(args.merge_op));
+ 
+-  rocksdb::DB *db;
++  std::unique_ptr<rocksdb::DB> db;
+   rocksdb::Status s = rocksdb::DB::Open(create_opts_, args.db_path, &db);
+   if (!s.ok()) {
+     LOG_ERROR("Failed to create RocksDB[%s], code[%d], reason[%s]",
+               args.db_path.c_str(), s.code(), s.ToString().c_str());
+     return Status::InternalError();
+   }
+-  db_.reset(db);
++  db_ = std::move(db);
+ 
+   bool has_default = false;
+   for (const auto &column_name : args.column_names) {
+@@ -180,7 +180,7 @@ Status RocksdbContext::open(Args args, bool read_only) {
+     }
+   }
+ 
+-  rocksdb::DB *db;
++  std::unique_ptr<rocksdb::DB> db;
+   if (read_only) {
+     s = rocksdb::DB::OpenForReadOnly(create_opts_, args.db_path, cf_descriptors,
+                                      &cf_handles_, &db);
+@@ -194,7 +194,7 @@ Status RocksdbContext::open(Args args, bool read_only) {
+     return Status::InternalError();
+   }
+ 
+-  db_.reset(db);
++  db_ = std::move(db);
+   read_only_ = read_only;
+   write_opts_.disableWAL = true;
+   LOG_DEBUG("Opened RocksDB[%s] with Args", args.db_path.c_str());

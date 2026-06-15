@@ -1,0 +1,12 @@
+diff --git a/src/db/index/storage/wal/wal_file.h b/src/db/index/storage/wal/wal_file.h
+index 2d95f22..c45b870 100644
+--- a/src/db/index/storage/wal/wal_file.h
++++ b/src/db/index/storage/wal/wal_file.h
+@@ -13,6 +13,7 @@
+ // limitations under the License.
+ #pragma once
+ 
++#include <cstdint>
+ #include <memory>
+ #include <string>
+ 

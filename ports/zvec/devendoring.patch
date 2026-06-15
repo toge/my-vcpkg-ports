@@ -1,8 +1,17 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index a33e61e..c1e8c78 100644
+index 392dbda..685d63b 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -115,9 +115,74 @@ if(DEFINED ENV{USE_OSS_MIRROR} AND NOT "$ENV{USE_OSS_MIRROR}" STREQUAL "")
+@@ -1,7 +1,7 @@
+ cmake_minimum_required(VERSION 3.13)
+ cmake_policy(SET CMP0077 NEW)
+ project(zvec)
+-set(CC_CXX_STANDARD 17)
++set(CC_CXX_STANDARD 20)
+ 
+ if(MSVC)
+     set(INTTYPES_FORMAT VC7)
+@@ -148,7 +148,82 @@ if(DEFINED ENV{USE_OSS_MIRROR} AND NOT "$ENV{USE_OSS_MIRROR}" STREQUAL "")
  endif()
  message(STATUS "USE_OSS_MIRROR:${USE_OSS_MIRROR}")
  
@@ -18,6 +27,7 @@ index a33e61e..c1e8c78 100644
 +find_package(RocksDB CONFIG REQUIRED)
 +find_package(Protobuf CONFIG REQUIRED)
 +find_package(antlr4-runtime CONFIG REQUIRED)
++find_package(FastPFOR CONFIG REQUIRED)
 +
 +if(TARGET gflags::gflags AND NOT TARGET gflags)
 +    add_library(gflags ALIAS gflags::gflags)
@@ -26,7 +36,6 @@ index a33e61e..c1e8c78 100644
 +elseif(NOT TARGET gflags)
 +    message(FATAL_ERROR "Neither gflags::gflags nor gflags::gflags_static was found")
 +endif()
-+
 +if(TARGET glog::glog AND NOT TARGET glog)
 +    add_library(glog ALIAS glog::glog)
 +endif()
@@ -36,7 +45,6 @@ index a33e61e..c1e8c78 100644
 +if(TARGET RocksDB::rocksdb AND NOT TARGET rocksdb)
 +    add_library(rocksdb ALIAS RocksDB::rocksdb)
 +endif()
-+
 +if(TARGET Parquet::parquet_static AND NOT TARGET Arrow::parquet_static)
 +    add_library(Arrow::parquet_static INTERFACE IMPORTED)
 +    target_link_libraries(Arrow::parquet_static INTERFACE Parquet::parquet_static)
@@ -62,82 +70,70 @@ index a33e61e..c1e8c78 100644
 +    add_library(Arrow::arrow_dataset INTERFACE IMPORTED)
 +    target_link_libraries(Arrow::arrow_dataset INTERFACE ArrowDataset::arrow_dataset_shared)
 +endif()
-+
 +if(NOT TARGET sparsehash)
 +    add_library(sparsehash INTERFACE)
 +endif()
 +if(NOT TARGET magic_enum)
 +    add_library(magic_enum INTERFACE)
 +endif()
-+
 +if(TARGET antlr4_static AND NOT TARGET antlr4)
 +    add_library(antlr4 ALIAS antlr4_static)
 +endif()
++if(TARGET FastPFOR::FastPFOR AND NOT TARGET FastPFOR)
++    add_library(FastPFOR ALIAS FastPFOR::FastPFOR)
++    get_target_property(_fpinc FastPFOR::FastPFOR INTERFACE_INCLUDE_DIRECTORIES)
++    if(_fpinc)
++        list(REMOVE_ITEM _fpinc "/fastpfor")
++        set_target_properties(FastPFOR::FastPFOR PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "${_fpinc}")
++    endif()
++endif()
 +include_directories(${PROJECT_ROOT_DIR}/thirdparty/RaBitQ-Library/RaBitQ-Library-0.1/include)
++
++# Keep vendored deps not in vcpkg
++add_subdirectory(thirdparty/cppjieba cppjieba EXCLUDE_FROM_ALL)
++add_subdirectory(thirdparty/limonp limonp EXCLUDE_FROM_ALL)
  cc_directories(src)
--cc_directories(tests)
  
- if(BUILD_TOOLS)
-     cc_directories(tools)
+ if(BUILD_ZVEC_CORE_ONLY)
 diff --git a/src/core/CMakeLists.txt b/src/core/CMakeLists.txt
-index 76bebd9..1817537 100644
+index 6405c32..60c9e8e 100644
 --- a/src/core/CMakeLists.txt
 +++ b/src/core/CMakeLists.txt
-@@ -42,7 +42,7 @@ endif()
- cc_library(
-     NAME zvec_core STATIC STRICT PACKED
-     SRCS ${ALL_CORE_SRCS}
--    LIBS zvec_ailego zvec_turbo sparsehash magic_enum rabitqlib
-+    LIBS zvec_ailego zvec_turbo sparsehash magic_enum
-     INCS . ${PROJECT_ROOT_DIR}/src/core
-     VERSION "${GIT_SRCS_VER}"
- )
+@@ -71,7 +71,7 @@ if(NOT DISKANN_SUPPORTED)
+   list(FILTER ALL_CORE_SRCS EXCLUDE REGEX ".*/interface/indexes/diskann_index\\.cc")
+ endif()
+ 
+-set(ZVEC_CORE_LIBS zvec_ailego zvec_turbo sparsehash magic_enum rabitqlib)
++set(ZVEC_CORE_LIBS zvec_ailego zvec_turbo sparsehash magic_enum)
+ # The plugin loader uses dlopen/dlsym, so link libdl on Linux.
+ if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+   list(APPEND ZVEC_CORE_LIBS ${CMAKE_DL_LIBS})
 diff --git a/src/core/algorithm/hnsw_rabitq/CMakeLists.txt b/src/core/algorithm/hnsw_rabitq/CMakeLists.txt
-index ed547dc..aaba4f6 100644
+index 09ce72f..8685e54 100644
 --- a/src/core/algorithm/hnsw_rabitq/CMakeLists.txt
 +++ b/src/core/algorithm/hnsw_rabitq/CMakeLists.txt
-@@ -15,7 +15,7 @@ cc_library(
+@@ -20,7 +20,7 @@ cc_library(
      NAME core_knn_hnsw_rabitq
      STATIC SHARED STRICT ALWAYS_LINK
      SRCS *.cc
 -    LIBS core_framework rabitqlib sparsehash
 +    LIBS core_framework sparsehash
      INCS . ${PROJECT_ROOT_DIR}/src ${PROJECT_ROOT_DIR}/src/core ${PROJECT_ROOT_DIR}/src/core/algorithm
+     LDFLAGS "${CORE_KNN_HNSW_RABITQ_LDFLAGS}"
      VERSION "${PROXIMA_ZVEC_VERSION}"
--  )
-\ No newline at end of file
-+  )
-diff --git a/src/core/interface/CMakeLists.txt b/src/core/interface/CMakeLists.txt
-index 9e1a2f6..82b4fa7 100644
---- a/src/core/interface/CMakeLists.txt
-+++ b/src/core/interface/CMakeLists.txt
-@@ -5,6 +5,6 @@ cc_library(
-         NAME core_interface STATIC STRICT ALWAYS_LINK
-         SRCS *.cc indexes/*.cc
-         INCS . ${PROJECT_ROOT_DIR}/src/ ${PROJECT_ROOT_DIR}/src/core
--        LIBS zvec_ailego core_framework sparsehash magic_enum rabitqlib
-+        LIBS zvec_ailego core_framework sparsehash magic_enum
-         VERSION "${PROXIMA_ZVEC_VERSION}"
- )
 diff --git a/src/db/CMakeLists.txt b/src/db/CMakeLists.txt
-index b268927..32dd449 100644
+index 7808b29..fff5af1 100644
 --- a/src/db/CMakeLists.txt
 +++ b/src/db/CMakeLists.txt
-@@ -25,11 +25,11 @@ cc_library(
+@@ -42,7 +42,7 @@ cc_library(
      roaring
      rocksdb
      antlr4
 -    libprotobuf
 +    protobuf::libprotobuf
+     FastPFOR
+     cppjieba
      Arrow::arrow_static
-     Arrow::arrow_compute
-     Arrow::arrow_dataset
-     Arrow::arrow_acero
-   DEPS zvec_proto
-   VERSION "${PROXIMA_ZVEC_VERSION}"
--)
-\ No newline at end of file
-+)
 diff --git a/src/db/common/concurrent_roaring_bitmap.h b/src/db/common/concurrent_roaring_bitmap.h
 index d1c6bd4..7c96404 100644
 --- a/src/db/common/concurrent_roaring_bitmap.h
@@ -153,23 +149,42 @@ index d1c6bd4..7c96404 100644
  #include <roaring/roaring.h>
  #include <zvec/ailego/internal/platform.h>
  #include <zvec/ailego/io/file.h>
+diff --git a/src/db/index/column/fts_column/fts_rocksdb_reducer.h b/src/db/index/column/fts_column/fts_rocksdb_reducer.h
+index 02a6b47..c78aea0 100644
+--- a/src/db/index/column/fts_column/fts_rocksdb_reducer.h
++++ b/src/db/index/column/fts_column/fts_rocksdb_reducer.h
+@@ -17,7 +17,7 @@
+ #include <memory>
+ #include <string>
+ #include <vector>
+-#include <roaring.hh>
++#include <roaring/roaring.hh>
+ #include <zvec/db/status.h>
+ #include "db/common/rocksdb_context.h"
+ #include "db/index/column/fts_column/bm25_scorer.h"
 diff --git a/src/db/index/segment/segment_helper.cc b/src/db/index/segment/segment_helper.cc
-index 2c1038f..7ff91f1 100644
+index 1238a48..338ae15 100644
 --- a/src/db/index/segment/segment_helper.cc
 +++ b/src/db/index/segment/segment_helper.cc
-@@ -30,7 +30,7 @@
- #include "db/index/common/index_filter.h"
- #include "db/index/common/meta.h"
- #include "db/index/storage/forward_writer.h"
--#include "roaring.hh"
+@@ -25,7 +25,7 @@
+ #if RABITQ_SUPPORTED
+ #include "core/algorithm/hnsw_rabitq/rabitq_params.h"
+ #endif
+-#include <roaring.hh>
 +#include <roaring/roaring.hh>
- 
- namespace zvec {
- 
-@@ -836,4 +836,4 @@ Status SegmentHelper::ExecuteDropScalarIndexTask(DropScalarIndexTask &task) {
-       &task.output_scalar_indexer_);
- }
- 
--}  // namespace zvec
-\ No newline at end of file
-+}  // namespace zvec
+ #include "db/common/constants.h"
+ #include "db/common/file_helper.h"
+ #include "db/common/global_resource.h"
+diff --git a/src/db/index/segment/segment_helper.h b/src/db/index/segment/segment_helper.h
+index ab8c3a9..c367a72 100644
+--- a/src/db/index/segment/segment_helper.h
++++ b/src/db/index/segment/segment_helper.h
+@@ -18,7 +18,7 @@
+ #include <string>
+ #include <unordered_map>
+ #include <variant>
+-#include <roaring.hh>
++#include <roaring/roaring.hh>
+ #include <arrow/record_batch.h>
+ #include <arrow/status.h>
+ #include <zvec/db/index_params.h>

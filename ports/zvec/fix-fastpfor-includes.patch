@@ -1,0 +1,36 @@
+--- a/src/db/index/column/fts_column/posting/bitpacked_posting_list.cc
++++ b/src/db/index/column/fts_column/posting/bitpacked_posting_list.cc
+@@ -13,7 +13,7 @@
+ // limitations under the License.
+ 
+ #include "bitpacked_posting_list.h"
+-#include <bitpackinghelpers.h>
++#include <fastpfor/bitpackinghelpers.h>
+ #include <cstdlib>
+ #include <memory>
+ #include <zvec/ailego/logger/logger.h>
+--- a/src/db/index/column/fts_column/posting/bitpacked_simd_scalar.cc
++++ b/src/db/index/column/fts_column/posting/bitpacked_simd_scalar.cc
+@@ -13,7 +13,7 @@
+ // limitations under the License.
+ 
+ #include "bitpacked_simd_scalar.h"
+-#include <bitpackinghelpers.h>
++#include <fastpfor/bitpackinghelpers.h>
+ #include <algorithm>
+ #include <cstring>
+ #include "bitpacked_posting_list.h"
+--- a/src/db/index/column/fts_column/posting/bitpacked_simd_sse41.cc
++++ b/src/db/index/column/fts_column/posting/bitpacked_simd_sse41.cc
+@@ -17,9 +17,9 @@
+ #if defined(__SSE4_1__) || \
+     (defined(_MSC_VER) && (defined(_M_X64) || defined(_M_IX86)))
+ 
+-#include <bitpackinghelpers.h>
++#include <fastpfor/bitpackinghelpers.h>
+ #include <emmintrin.h>  // SSE2
+-#include <simdbitpacking.h>
++#include <fastpfor/simdbitpacking.h>
+ #include <smmintrin.h>  // SSE4.1
+ #include <cstring>
+ #include "bitpacked_posting_list.h"

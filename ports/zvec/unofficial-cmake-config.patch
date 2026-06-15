@@ -1,7 +1,7 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -100,8 +100,47 @@ if(BUILD_TOOLS)
+@@ -235,6 +235,44 @@
      cc_directories(tools)
  endif()
  
@@ -43,9 +43,6 @@ diff --git a/CMakeLists.txt b/CMakeLists.txt
 +    NAMESPACE unofficial::zvec::
 +    DESTINATION "share/unofficial-zvec"
 +)
-+
  git_version(GIT_SRCS_VER ${PROJECT_ROOT_DIR})
  set(CPACK_PACKAGE_VERSION ${GIT_SRCS_VER})
  set(CPACK_PACKAGE_NAME zvec)
- include(CPack)
-

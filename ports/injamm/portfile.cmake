@@ -3,16 +3,16 @@ set(VCPKG_BUILD_TYPE release) # header only library
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO toge/injamm
-    REF 344d680a7b2313710cad277c07e312efa5ea0680
-    SHA512 7bf57cd450e388f4796435e5ab29ba840ad69cdc50cea35d872b6b93f9fc70a4070fb2375c1b2d7b0d10b371cdafd23bfdd6d8ee4db4cfc89f0a9381c0e77c64
+    REF d63a19ca26bc0f88bb24246c9a13315203651ad3
+    SHA512 60d831f67391c2de878725f3accdb9a3cd1159ae98eb38bbf141e612af8cf175f2a201ff4bda56a92c1faf7218348f49eae7d34a5daa5f8341c29413ed20224c
     HEAD_REF main
 )
 
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"
     OPTIONS
-        -DINJAMM_BUILD_TESTS=OFF
-        -DINJAMM_BUILD_EXAMPLES=OFF
+        -DBUILD_TEST=OFF
+        -DBUILD_EXAMPLE=OFF
 )
 
 vcpkg_cmake_install()

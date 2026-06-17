@@ -2,7 +2,7 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO libvips/libvips
     REF "v${VERSION}"
-    SHA512 6861bc7a65137817613448c2e5e44def7845e5537d68e43d245bf3b45eb0fad7ea297bc3864905ae4e33dbf11bc21ec6f76626ff92d15ee1aac6959768fbd256
+    SHA512 3ebb2b5fbe3d7ed35a1f4b591dacf0cfbea3e3f6a379051a86db20eaa26d50cc9b785562c62e4dbd29c4da7c93dd6469a3becb90808cbed258944481e7f2f316
     HEAD_REF master
 )
 

@@ -1,6 +1,6 @@
 {
   "name": "libvips",
-  "version": "8.18.2",
+  "version": "8.18.3",
   "description": "A fast image processing library with low memory needs.",
   "homepage": "https://www.libvips.org/",
   "license": "LGPL-2.1-or-later",

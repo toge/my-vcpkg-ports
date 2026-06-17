@@ -65,7 +65,7 @@
       "port-version": 0
     },
     "libvips": {
-      "baseline": "8.18.2",
+      "baseline": "8.18.3",
       "port-version": 0
     },
     "macad-parser": {

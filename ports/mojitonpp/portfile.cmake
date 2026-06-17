@@ -3,13 +3,15 @@ set(VCPKG_BUILD_TYPE release) # header only library
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO toge/mojitonpp
-    REF 1a45af03e1e5493f8af2a218941992f66a705304
-    SHA512 0f46ff081c8e0aaa31a6ca00fee8b41b3c4dc2c7f6e376c5b3bd26484a3df55b89504a1b2f93aa40912d88fdbb8ac663e1d77bcb537d33e70fc6a038167779b9
+    REF f213234c73d1952065aca2fb3d65e8957938a01d
+    SHA512 f0f53d1e55c1f19ac438f11bbde4853f6a8bfdfeedb0bb391a7d7c2522c0c55f3f292668d18b39b7319a9dd4ccf80cf9c4aaccbca77b649d155d74ea1a0587ea
     HEAD_REF main
 )
 
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"
+    OPTIONS
+        -DBUILD_TEST=OFF
 )
 
 vcpkg_cmake_install()

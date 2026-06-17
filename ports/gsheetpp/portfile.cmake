@@ -1,8 +1,8 @@
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO toge/gsheetpp
-    REF e24836b02ba83edc70dec2a7c863c1e06c3f4240
-    SHA512 42b2fb6e93ce824b5be2152183690e271b375547dd3bc23eac5adb019ca1d5344c3566bd4f9c5652dd18bf11c1e0802d3e83ef0e8b70d5eaeb66930b9b31a4b9
+    REF 433bdc2d9082815d17d7c96cfb8387ca30ae35a0
+    SHA512 84888e0f5da2fad54a5043b87c59dc7aa2b9fc5fea9c6d4e85758e7656cf6fb4f558d4d06b92cf5784892399c4679932a0c0f80617864932e8edc40e3b1ca428
     HEAD_REF main
     PATCHES
         disable-example-and-tests.patch

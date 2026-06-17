@@ -1,6 +1,6 @@
 {
   "name": "gsheetpp",
-  "version-date": "2026-05-04",
+  "version-date": "2026-06-17",
   "description": "Modern C++ Google Sheets API client library",
   "homepage": "https://github.com/toge/gsheetpp",
   "license": "MIT",

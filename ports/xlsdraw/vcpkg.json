@@ -1,0 +1,20 @@
+{
+  "name": "xlsdraw",
+  "version-date": "2026-06-23",
+  "description": "xlsx drawing library",
+  "homepage": "https://github.com/toge/xlsdraw",
+  "license": "MIT",
+  "dependencies": [
+    "fmt",
+    "libzip",
+    "pugixml",
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    },
+    {
+      "name": "vcpkg-cmake-config",
+      "host": true
+    }
+  ]
+}

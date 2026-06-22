@@ -1,6 +1,6 @@
 {
   "name": "injamm",
-  "version-date": "2026-06-18",
+  "version-date": "2026-06-22",
   "description": "subset inja template engine for speed",
   "homepage": "https://github.com/toge/injamm",
   "license": "MIT",
@@ -14,5 +14,13 @@
       "name": "vcpkg-cmake-config",
       "host": true
     }
-  ]
+  ],
+  "features": {
+    "sqlite": {
+      "description": "Enable SQLite extension",
+      "dependencies": [
+        "sqlite3"
+      ]
+    }
+  }
 }

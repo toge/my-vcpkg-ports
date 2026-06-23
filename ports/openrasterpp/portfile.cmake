@@ -1,8 +1,8 @@
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO toge/openrasterpp
-    REF 2aaca5cb0d7bd74cce6ee542801a94d189bf7625
-    SHA512 3fbc6a1c9f320edc2e031df78770f47dd5bd9a2bda3ef9da830ac379a4f64c68e7594cbc84e6d373a8e5977ca83aad0096f3675629bc14f64726b1df686e55b9
+    REF 695803a9bdf95159ea6c14bcd434961f60ba89ac
+    SHA512 8648d591dae1359dbe3fa72a941ed385d08c023bd2482d491f900ea29ae3ac38d057c09dfd6697a9c321c73714fa4a0f3272e9c45f67a1c061733abf073be34d
     HEAD_REF main
 )
 
@@ -18,7 +18,7 @@ vcpkg_check_features(OUT_FEATURE_OPTIONS FEATURE_OPTIONS
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"
     OPTIONS
-        -DENABLE_TESTS=OFF
+        -DBUILD_TEST=OFF
         ${FEATURE_OPTIONS}
 )
 

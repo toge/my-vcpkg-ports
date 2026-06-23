@@ -1,6 +1,6 @@
 {
   "name": "openrasterpp",
-  "version-date": "2026-05-13",
+  "version-date": "2026-06-24",
   "description": "C++ library for reading and writing OpenRaster images",
   "homepage": "https://github.com/toge/openrasterpp",
   "license": "MIT",

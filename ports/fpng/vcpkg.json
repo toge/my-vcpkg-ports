@@ -1,10 +1,10 @@
 {
   "name": "fpng",
   "version-date": "2024-08-26",
+  "port-version": 1,
   "description": "Super fast C++ .PNG writer/reader",
   "homepage": "https://github.com/richgel999/fpng",
   "license": "Unlicense",
-  "supports": "x64 | x86",
   "dependencies": [
     {
       "name": "vcpkg-cmake",

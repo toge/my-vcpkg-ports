@@ -3,8 +3,8 @@ set(VCPKG_BUILD_TYPE release) # header only library
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO toge/glz-util
-    REF 650a1d21bc2df6911e0262332b9fd96c3b757b9b
-    SHA512 eb4ec5ada58055cb56f9bd0abae8c1d69c10aef213dc4273b599f257f07f08fbaf07dca0cb1670a673f6e5055abc0c6b3d01965bd5ef8a4f3ddb5ef7ef9c292a
+    REF 60e9abc3c3ed10bd9331c33e34320ee4a8bec50d
+    SHA512 56babe9c2dcbf4d84b7dd672cb552ecdc0eafd4ba6521e765e3b58ecb776c6b12761f64e41ca90b9738265be8eebc0eb3ee9bbb03c8597d01a28f068352ab3af
     HEAD_REF main
 )
 

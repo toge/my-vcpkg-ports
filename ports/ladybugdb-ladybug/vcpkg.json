@@ -1,7 +1,7 @@
 {
   "name": "ladybugdb-ladybug",
   "version": "0.17.1",
-  "port-version": 3,
+  "port-version": 4,
   "description": "Ladybug is an embedded graph database built for query speed and scalability.",
   "homepage": "https://github.com/ladybugdb/ladybug",
   "license": "MIT",

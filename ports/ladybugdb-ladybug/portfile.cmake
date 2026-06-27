@@ -17,9 +17,6 @@ vcpkg_check_features(
 )
 
 set(EXTRA_OPTIONS "")
-if(VCPKG_TARGET_IS_LINUX AND CMAKE_HOST_SYSTEM_PROCESSOR MATCHES "x86_64|amd64|AMD64")
-    list(APPEND EXTRA_OPTIONS "-DCMAKE_SHARED_LINKER_FLAGS=-Wl,-z,noseparate-code")
-endif()
 
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"

@@ -7,6 +7,7 @@ vcpkg_from_github(
     PATCHES
         unofficial-cmake-config.patch
         include-cstdint.patch
+        fix-alp-encode-avx512.patch
 )
 
 vcpkg_check_features(

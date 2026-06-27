@@ -11,7 +11,7 @@ index 91c6153..9301eec 100644
 +
 +set(_lbug_targets_file "${CMAKE_CURRENT_BINARY_DIR}/unofficial-ladybugdb-ladybug-targets.cmake")
 +file(WRITE "${_lbug_targets_file}" [=[
-+get_filename_component(_IMPORT_PREFIX "${CMAKE_CURRENT_LIST_DIR}/../../.." ABSOLUTE)
++get_filename_component(_IMPORT_PREFIX "${CMAKE_CURRENT_LIST_DIR}/../.." ABSOLUTE)
 +if(NOT TARGET unofficial::ladybugdb::lbug)
 +  add_library(unofficial::ladybugdb::lbug STATIC IMPORTED)
 +  set_target_properties(unofficial::ladybugdb::lbug PROPERTIES IMPORTED_LOCATION "${_IMPORT_PREFIX}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}lbug${CMAKE_STATIC_LIBRARY_SUFFIX}" INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include")

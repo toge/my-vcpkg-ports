@@ -5,7 +5,6 @@ vcpkg_from_github(
     SHA512 5b1df1ef939970e2d85c72dc421d2f60dca5ba667d5a9a9dca80500a36b5cf95c839e2736a6df74ff136d43836e402a10cd0b25a8229cc78e62991b932614ed2
     HEAD_REF master
     PATCHES
-        prefer-system-thirdparty.patch
         unofficial-cmake-config.patch
         include-cstdint.patch
 )
@@ -22,7 +21,6 @@ vcpkg_cmake_configure(
         ${FEATURE_OPTIONS}
         -DBUILD_SINGLE_FILE_HEADER=OFF
         -DBUILD_TESTS=FALSE
-        -DPREFER_SYSTEM_DEPS=ON
 )
 
 vcpkg_cmake_install()

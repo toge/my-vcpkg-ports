@@ -54,7 +54,7 @@
     },
     "ladybugdb-ladybug": {
       "baseline": "0.17.1",
-      "port-version": 2
+      "port-version": 3
     },
     "lexborpp": {
       "baseline": "2026-06-22",

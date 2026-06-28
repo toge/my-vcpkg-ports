@@ -1,0 +1,17 @@
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -39,6 +39,14 @@
+         if(WIN32)
+             set_target_properties(lbug_shared PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
+         endif()
++        if(UNIX AND NOT APPLE)
++            # binutils 2.46 ld.bfd で -z separate-code 既定時に .init セクションが
++            # 非実行セグメントに配置され _init シンボルと不整合となり、ローダが
++            # DT_INIT を呼んだ時点で SIGSEGV する問題を回避する。vcpkg toolchain が
++            # CMAKE_SHARED_LINKER_FLAGS を上書きするため、ターゲットプロパティ
++            # LINK_FLAGS 経由で確実にリンカに渡す。
++            set_target_properties(lbug_shared PROPERTIES LINK_FLAGS "-Wl,-z,noseparate-code")
++        endif()
+ endif()
+ 
+ if(TARGET lbug_shared)

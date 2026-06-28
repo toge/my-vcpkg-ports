@@ -16,7 +16,14 @@ vcpkg_check_features(
         shell BUILD_SHELL
 )
 
-set(EXTRA_OPTIONS "")
+if(VCPKG_TARGET_IS_LINUX AND VCPKG_LIBRARY_LINKAGE STREQUAL "dynamic")
+    # binutils 2.46 ld.bfd の -z separate-code 既定で .init セクションが
+    # 非実行セグメントに配置され _init シンボルと不整合となり、ローダが
+    # DT_INIT を呼んだ時点で SIGSEGV する問題を回避する。
+    set(EXTRA_LINKER_FLAGS "-DCMAKE_SHARED_LINKER_FLAGS=-Wl,-z,noseparate-code")
+else()
+    set(EXTRA_LINKER_FLAGS "")
+endif()
 
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"
@@ -24,7 +31,7 @@ vcpkg_cmake_configure(
         ${FEATURE_OPTIONS}
         -DBUILD_SINGLE_FILE_HEADER=OFF
         -DBUILD_TESTS=FALSE
-        ${EXTRA_OPTIONS}
+        ${EXTRA_LINKER_FLAGS}
 )
 
 vcpkg_cmake_install()

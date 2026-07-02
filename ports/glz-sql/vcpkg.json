@@ -1,7 +1,6 @@
 {
   "name": "glz-sql",
-  "version-date": "2026-06-05",
-  "port-version": 1,
+  "version-date": "2026-07-01",
   "description": "Header-only SQLite ORM library using Glaze reflection",
   "homepage": "https://github.com/toge/glz-sql",
   "license": "MIT",

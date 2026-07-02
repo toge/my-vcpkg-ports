@@ -29,8 +29,8 @@
       "port-version": 0
     },
     "glz-sql": {
-      "baseline": "2026-06-05",
-      "port-version": 1
+      "baseline": "2026-07-01",
+      "port-version": 0
     },
     "glz-util": {
       "baseline": "2026-06-23",

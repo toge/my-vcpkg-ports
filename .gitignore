@@ -1,3 +1,5 @@
 .worktrees/
 .serena/
 docs/superpowers
+.commandcode
+.opencode

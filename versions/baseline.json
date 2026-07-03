@@ -21,8 +21,8 @@
       "port-version": 1
     },
     "frozenchars": {
-      "baseline": "2026-07-02",
-      "port-version": 1
+      "baseline": "2026-07-03",
+      "port-version": 0
     },
     "fsst": {
       "baseline": "2026-04-06",

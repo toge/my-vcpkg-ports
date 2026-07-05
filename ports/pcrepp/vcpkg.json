@@ -1,6 +1,6 @@
 {
   "name": "pcrepp",
-  "version": "2026-06-28",
+  "version": "2026-07-05",
   "description": "A lightweight C++20 wrapper for PCRE2",
   "homepage": "https://github.com/toge/pcrepp",
   "license": "MIT",
@@ -15,5 +15,19 @@
       "name": "vcpkg-cmake-config",
       "host": true
     }
-  ]
+  ],
+  "features": {
+    "ctre": {
+      "description": "Enable CTRE delegate",
+      "dependencies": [
+        "ctre"
+      ]
+    },
+    "glaze": {
+      "description": "Enable glaze reflection",
+      "dependencies": [
+        "glaze"
+      ]
+    }
+  }
 }

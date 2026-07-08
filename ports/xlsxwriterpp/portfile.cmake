@@ -3,8 +3,8 @@ set(VCPKG_BUILD_TYPE release) # header only library
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO toge/xlsxwriterpp
-    REF fe0adba3566e8fd9c4733e95c1ea44cf41a18767
-    SHA512 8a31cf6ad203c7f3ff2c2fcee4ba5114a6074cfd0b3f3ff7978cb5f6b832f03f0fcb430d0a5de38bb44ec355435429d381e44ef5409d9d376425ecea9d3ee353
+    REF a1696a208d1056c3f507aa098deca9ee3320c457
+    SHA512 c49cc5f37712f9c29acc969add3d1898a198d1cc25668d3b2dfe4237c46b338589ac67242c57a42e90d474becde0d01033c117ffa74ace406e76a659abba78ba
     HEAD_REF main
 )
 

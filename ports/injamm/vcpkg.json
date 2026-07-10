@@ -1,6 +1,6 @@
 {
   "name": "injamm",
-  "version-date": "2026-07-08",
+  "version-date": "2026-07-10",
   "description": "subset inja template engine for speed",
   "homepage": "https://github.com/toge/injamm",
   "license": "MIT",

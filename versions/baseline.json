@@ -64,10 +64,6 @@
       "baseline": "1.2.2",
       "port-version": 0
     },
-    "libvips": {
-      "baseline": "8.18.3",
-      "port-version": 0
-    },
     "macad-parser": {
       "baseline": "2026-06-02",
       "port-version": 0

@@ -6,7 +6,7 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO uyha/tree-sitter-cmake
     REF "v${VERSION}"
-    SHA512 85dc552db14d25b4d2bbae7df59d48b9ace722c16db661e8f6ecdb38700d2f70038496c7f040e95499110f0a0c42e3e9b8f48d56136199a9cbe6846b37124cf3
+    SHA512 854f28babe23516dbba8dc74d32fb667f2c7019c92db6ced2e4b49f4ff39f54ad0dd2cb6c908e9e686b2d69bca38033d2f8cf843a2018470d53b40871d20af0d
     HEAD_REF master
     PATCHES
         pkgconfig.diff
@@ -22,5 +22,6 @@ vcpkg_cmake_install()
 vcpkg_fixup_pkgconfig()
 
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")
+file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/share")
 
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE")

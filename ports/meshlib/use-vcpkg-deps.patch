@@ -1,0 +1,31 @@
+diff --git a/source/MRMesh/CMakeLists.txt b/source/MRMesh/CMakeLists.txt
+index 81481de..b525c31 100644
+--- a/source/MRMesh/CMakeLists.txt
++++ b/source/MRMesh/CMakeLists.txt
+@@ -72,7 +72,13 @@ target_link_libraries(${PROJECT_NAME} PRIVATE libzip::zip)
+ # TODO: CMake config
+ target_include_directories(${PROJECT_NAME}
+   PUBLIC
+-    $<BUILD_INTERFACE:${MESHLIB_THIRDPARTY_DIR}/parallel-hashmap>
++    $<BUILD_INTERFACE:${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/include>
++)
++
++target_include_directories(${PROJECT_NAME}
++  PUBLIC
++    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>
++    $<INSTALL_INTERFACE:${MR_INCLUDE_DIR}>
+ )
+ 
+ IF(APPLE)
+diff --git a/source/MRPch/CMakeLists.txt b/source/MRPch/CMakeLists.txt
+index 3ba30cc..a830cbe 100644
+--- a/source/MRPch/CMakeLists.txt
++++ b/source/MRPch/CMakeLists.txt
+@@ -15,7 +15,6 @@ IF(MR_PCH)
+   # TODO: CMake config
+   target_include_directories(${PROJECT_NAME}
+     PRIVATE
+-    $<BUILD_INTERFACE:${MESHLIB_THIRDPARTY_DIR}/parallel-hashmap>
+   )
+ 
+   if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")

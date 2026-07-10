@@ -1,39 +1,53 @@
-diff --git a/source/MRMesh/CMakeLists.txt b/source/MRMesh/CMakeLists.txt
---- a/source/MRMesh/CMakeLists.txt
-+++ b/source/MRMesh/CMakeLists.txt
-@@ -66,6 +66,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE libzip::zip)
- # TODO: CMake config
- target_include_directories(${PROJECT_NAME}
-   PUBLIC
-+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>
-+    $<INSTALL_INTERFACE:${MR_INCLUDE_DIR}>
--    $<BUILD_INTERFACE:${MESHLIB_THIRDPARTY_DIR}/parallel-hashmap>
- )
-
- IF(APPLE)
-   # for Boost.Stacktrace
-   target_compile_definitions(${PROJECT_NAME} PUBLIC _GNU_SOURCE)
 diff --git a/source/MRIOExtras/CMakeLists.txt b/source/MRIOExtras/CMakeLists.txt
+index 8c718cb..c7e727b 100644
 --- a/source/MRIOExtras/CMakeLists.txt
 +++ b/source/MRIOExtras/CMakeLists.txt
-@@ -24,6 +24,12 @@ add_library(${PROJECT_NAME} SHARED ${SOURCES} ${HEADERS})
-
- configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config_cmake.h.in ${CMAKE_CURRENT_SOURCE_DIR}/config_cmake.h)
-
+@@ -32,6 +32,14 @@ target_link_libraries(${PROJECT_NAME}
+     MRMesh
+ )
+ 
 +target_include_directories(${PROJECT_NAME}
 +  PUBLIC
 +    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>
 +    $<INSTALL_INTERFACE:${MR_INCLUDE_DIR}>
-+ )
++)
 +
- target_link_libraries(${PROJECT_NAME}
-   PUBLIC
-     MRMesh
++find_package(XercesC REQUIRED)
++
+ IF(NOT MRIOEXTRAS_NO_XML)
+   target_link_libraries(${PROJECT_NAME} PRIVATE tinyxml2)
+ ENDIF()
+@@ -46,6 +54,8 @@ ENDIF()
+ IF(NOT MRIOEXTRAS_NO_E57)
+   target_link_libraries(${PROJECT_NAME} PRIVATE E57Format)
+ 
++  target_link_libraries(${PROJECT_NAME} PRIVATE XercesC::XercesC)
++
+   IF(MSVC AND DEFINED VCPKG_INSTALLED_DIR AND DEFINED VCPKG_TARGET_TRIPLET)
+     file(GLOB XERCES_DLL_RELEASE "${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin/xerces-c_3_*.dll")
+     file(GLOB XERCES_DLL_DEBUG "${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/debug/bin/xerces-c_3_*.dll")
+diff --git a/source/MRSymbolMesh/CMakeLists.txt b/source/MRSymbolMesh/CMakeLists.txt
+index 12be9f9..b15ca19 100644
+--- a/source/MRSymbolMesh/CMakeLists.txt
++++ b/source/MRSymbolMesh/CMakeLists.txt
+@@ -17,6 +17,12 @@ target_link_libraries(${PROJECT_NAME}
+     Freetype::Freetype
+ )
+ 
++target_include_directories(${PROJECT_NAME}
++  PUBLIC
++    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>
++    $<INSTALL_INTERFACE:${MR_INCLUDE_DIR}>
++)
++
+ install(
+   TARGETS ${PROJECT_NAME}
+   EXPORT ${PROJECT_NAME}
 diff --git a/source/MRVoxels/CMakeLists.txt b/source/MRVoxels/CMakeLists.txt
+index a60e797..82eefed 100644
 --- a/source/MRVoxels/CMakeLists.txt
 +++ b/source/MRVoxels/CMakeLists.txt
-@@ -25,6 +25,12 @@ target_link_libraries(${PROJECT_NAME}
-   PUBLIC
+@@ -32,11 +32,23 @@ target_link_libraries(${PROJECT_NAME}
      MRMesh
      OpenVDB::openvdb
  )
@@ -43,22 +57,17 @@ diff --git a/source/MRVoxels/CMakeLists.txt b/source/MRVoxels/CMakeLists.txt
 +    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>
 +    $<INSTALL_INTERFACE:${MR_INCLUDE_DIR}>
 +)
- # required for static linking
- find_package(blosc CONFIG REQUIRED)
-diff --git a/source/MRSymbolMesh/CMakeLists.txt b/source/MRSymbolMesh/CMakeLists.txt
---- a/source/MRSymbolMesh/CMakeLists.txt
-+++ b/source/MRSymbolMesh/CMakeLists.txt
-@@ -15,6 +15,12 @@ target_link_libraries(${PROJECT_NAME}
-     MRMesh
-   PRIVATE
-     Freetype::Freetype
- )
 +
-+target_include_directories(${PROJECT_NAME}
-+  PUBLIC
-+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>
-+    $<INSTALL_INTERFACE:${MR_INCLUDE_DIR}>
-+ )
-
- install(
-   TARGETS ${PROJECT_NAME}
++find_package(blosc CONFIG REQUIRED)
+ # required for static linking
+ IF(EMSCRIPTEN)
+   target_link_libraries(${PROJECT_NAME} PRIVATE blosc)
+ ENDIF()
+ 
++IF(TARGET blosc_static)
++  target_link_libraries(${PROJECT_NAME} PRIVATE blosc_static)
++ENDIF()
++
+ IF(NOT MRVOXELS_NO_DICOM)
+   find_package(GDCM CONFIG REQUIRED)
+   target_link_libraries(${PROJECT_NAME} PRIVATE gdcmIOD gdcmDICT gdcmDSED gdcmMEXD gdcmMSFF)

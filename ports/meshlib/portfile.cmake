@@ -2,30 +2,16 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO MeshInspector/MeshLib
     REF v${VERSION}
-    SHA512 2db4196d5383393fb4533b9193577f5890fe9b4678841ac6f68d3976f68d0f980fcf463fe3e580afa8aa7ee4414db4cdafb4850b3be2e1290c4bd1f481aeef78
+    SHA512 0410b07132fa7313c3a92ea01ee7ec6f88eb9bc0fad798a71244a5ce6ff65d89d4ef97c08a702b12861473ba8419fd52f936246a75550e7c9d0852a207c443bc
     HEAD_REF master
     PATCHES
-        devendoring.patch
-        fix-cassert.patch
-        fix-exported-include-dirs.patch
         disable-warning-as-error.patch
+        use-vcpkg-deps.patch
+        fix-exported-include-dirs.patch
         fix-iosfwd.patch
         fix-iterator_debug_level.patch
-        fix-install-dirs.patch
         fix-include.patch
 )
-
-vcpkg_from_github(
-    OUT_SOURCE_PATH LAZ_PERF_SOURCE_PATH
-    REPO MeshInspector/laz-perf
-    REF 05ea01542e5c4417c05e7222f920e06276c79324
-    SHA512 de933635f31fb726b359e1058e3666006b236acc0fa5fc20049288fd19446d6f482b34f926a398cb1760e6cae9a6cbd52c2a2dd6bbf3717145f49e3d04404c0a
-    HEAD_REF master
-    PATCHES
-        lazperf-cpp17.patch
-)
-file(REMOVE_RECURSE "${SOURCE_PATH}/thirdparty/laz-perf")
-file(COPY "${LAZ_PERF_SOURCE_PATH}/" DESTINATION "${SOURCE_PATH}/thirdparty/laz-perf")
 
 vcpkg_find_acquire_program(PKGCONFIG)
 set(ENV{PKG_CONFIG} "${PKGCONFIG}")
@@ -37,6 +23,7 @@ vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"
     DISABLE_PARALLEL_CONFIGURE
     OPTIONS
+        -DMESHLIB_USE_VCPKG=ON
         -DBUILD_TESTING=OFF
         -DMR_CXX_STANDARD=20
         -DMR_PCH=OFF
@@ -45,11 +32,10 @@ vcpkg_cmake_configure(
         -DMESHLIB_BUILD_MESHVIEWER=OFF
         -DMESHLIB_BUILD_MRVIEWER=OFF
         -DMESHLIB_BUILD_PYTHON_MODULES=OFF
-        -DMESHLIB_USE_VCPKG=OFF
+        -DMESHLIB_USE_VCPKG=ON
         -DMRMESH_NO_GTEST=ON
-        -DMRIOEXTRAS_NO_CTM=ON # API compatibility issue with openctm
-
 )
+
 vcpkg_cmake_install()
 
 vcpkg_fixup_pkgconfig()

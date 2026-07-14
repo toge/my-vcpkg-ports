@@ -74,7 +74,7 @@
     },
     "meshlib": {
       "baseline": "3.1.3.297",
-      "port-version": 0
+      "port-version": 3
     },
     "misa77": {
       "baseline": "0.2.0",

@@ -1,35 +1,20 @@
 {
   "name": "meshlib",
   "version": "3.1.3.297",
+  "port-version": 3,
   "description": "Mesh processing library",
   "homepage": "https://meshlib.io/",
   "license": null,
   "supports": "!(x86 | arm32)",
   "dependencies": [
-    "blosc",
     "boost",
     "eigen3",
-    "fastmcpp",
     "fmt",
-    "freetype",
-    "gdcm",
     "jsoncpp",
-    "laz-perf",
-    "libe57format",
-    "libharu",
-    "libjpeg-turbo",
     "libzip",
-    "mbedtls",
-    "opencascade",
-    "openctm",
-    "openvdb",
     "parallel-hashmap",
-    "snappy",
     "spdlog",
     "tbb",
-    "tiff",
-    "tinygltf",
-    "tinyxml2",
     "tl-expected",
     {
       "name": "vcpkg-cmake",
@@ -38,6 +23,15 @@
     {
       "name": "vcpkg-cmake-config",
       "host": true
+    },
+    "zlib-ng"
+  ],
+  "features": {
+    "symbolmesh": {
+      "description": "Build the MRSymbolMesh library to generate meshes from text/strings (uses Freetype)",
+      "dependencies": [
+        "freetype"
+      ]
     }
-  ]
+  }
 }

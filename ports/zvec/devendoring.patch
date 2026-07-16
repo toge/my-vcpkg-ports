@@ -1,9 +1,9 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 392dbda..685d63b 100644
+index 956ee55..9a6a879 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -1,7 +1,7 @@
- cmake_minimum_required(VERSION 3.13)
+ cmake_minimum_required(VERSION 3.26)
  cmake_policy(SET CMP0077 NEW)
  project(zvec)
 -set(CC_CXX_STANDARD 17)
@@ -11,11 +11,12 @@ index 392dbda..685d63b 100644
  
  if(MSVC)
      set(INTTYPES_FORMAT VC7)
-@@ -148,7 +148,82 @@ if(DEFINED ENV{USE_OSS_MIRROR} AND NOT "$ENV{USE_OSS_MIRROR}" STREQUAL "")
+@@ -139,10 +139,93 @@ if(DEFINED ENV{USE_OSS_MIRROR} AND NOT "$ENV{USE_OSS_MIRROR}" STREQUAL "")
  endif()
  message(STATUS "USE_OSS_MIRROR:${USE_OSS_MIRROR}")
  
 -cc_directory(thirdparty)
+-cc_directories(src)
 +find_package(Arrow CONFIG REQUIRED)
 +find_package(Parquet CONFIG REQUIRED)
 +find_package(ArrowCompute CONFIG REQUIRED)
@@ -28,7 +29,8 @@ index 392dbda..685d63b 100644
 +find_package(Protobuf CONFIG REQUIRED)
 +find_package(antlr4-runtime CONFIG REQUIRED)
 +find_package(FastPFOR CONFIG REQUIRED)
-+
+ 
+-cc_directories(tests)
 +if(TARGET gflags::gflags AND NOT TARGET gflags)
 +    add_library(gflags ALIAS gflags::gflags)
 +elseif(TARGET gflags::gflags_static AND NOT TARGET gflags)
@@ -70,11 +72,15 @@ index 392dbda..685d63b 100644
 +    add_library(Arrow::arrow_dataset INTERFACE IMPORTED)
 +    target_link_libraries(Arrow::arrow_dataset INTERFACE ArrowDataset::arrow_dataset_shared)
 +endif()
++find_package(sparsehash CONFIG REQUIRED)
 +if(NOT TARGET sparsehash)
-+    add_library(sparsehash INTERFACE)
++    add_library(sparsehash INTERFACE IMPORTED)
++    target_link_libraries(sparsehash INTERFACE sparsehash::sparsehash)
 +endif()
++find_package(magic_enum CONFIG REQUIRED)
 +if(NOT TARGET magic_enum)
-+    add_library(magic_enum INTERFACE)
++    add_library(magic_enum INTERFACE IMPORTED)
++    target_link_libraries(magic_enum INTERFACE magic_enum::magic_enum)
 +endif()
 +if(TARGET antlr4_static AND NOT TARGET antlr4)
 +    add_library(antlr4 ALIAS antlr4_static)
@@ -92,11 +98,18 @@ index 392dbda..685d63b 100644
 +# Keep vendored deps not in vcpkg
 +add_subdirectory(thirdparty/cppjieba cppjieba EXCLUDE_FROM_ALL)
 +add_subdirectory(thirdparty/limonp limonp EXCLUDE_FROM_ALL)
- cc_directories(src)
++add_subdirectory(thirdparty/snowball snowball EXCLUDE_FROM_ALL)
++find_package(utf8proc CONFIG REQUIRED)
++if(NOT TARGET utf8proc)
++    add_library(utf8proc INTERFACE IMPORTED)
++    target_link_libraries(utf8proc INTERFACE utf8proc::utf8proc)
++endif()
++cc_directories(src)
  
- if(BUILD_ZVEC_CORE_ONLY)
+ add_custom_target(clang_tidy_deps DEPENDS zvec_proto ARROW.BUILD glog gflags Lz4.BUILD)
+ 
 diff --git a/src/core/CMakeLists.txt b/src/core/CMakeLists.txt
-index 6405c32..60c9e8e 100644
+index 13e835e..4aec18f 100644
 --- a/src/core/CMakeLists.txt
 +++ b/src/core/CMakeLists.txt
 @@ -71,7 +71,7 @@ if(NOT DISKANN_SUPPORTED)
@@ -105,7 +118,7 @@ index 6405c32..60c9e8e 100644
  
 -set(ZVEC_CORE_LIBS zvec_ailego zvec_turbo sparsehash magic_enum rabitqlib)
 +set(ZVEC_CORE_LIBS zvec_ailego zvec_turbo sparsehash magic_enum)
- # The plugin loader uses dlopen/dlsym, so link libdl on Linux.
+ # The DiskAnn runtime loader uses dlopen/dlsym, so link libdl on Linux.
  if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
    list(APPEND ZVEC_CORE_LIBS ${CMAKE_DL_LIBS})
 diff --git a/src/core/algorithm/hnsw_rabitq/CMakeLists.txt b/src/core/algorithm/hnsw_rabitq/CMakeLists.txt
@@ -122,7 +135,7 @@ index 09ce72f..8685e54 100644
      LDFLAGS "${CORE_KNN_HNSW_RABITQ_LDFLAGS}"
      VERSION "${PROXIMA_ZVEC_VERSION}"
 diff --git a/src/db/CMakeLists.txt b/src/db/CMakeLists.txt
-index 7808b29..fff5af1 100644
+index 69426d1..1eda8b3 100644
 --- a/src/db/CMakeLists.txt
 +++ b/src/db/CMakeLists.txt
 @@ -42,7 +42,7 @@ cc_library(
@@ -133,7 +146,7 @@ index 7808b29..fff5af1 100644
 +    protobuf::libprotobuf
      FastPFOR
      cppjieba
-     Arrow::arrow_static
+     snowball
 diff --git a/src/db/common/concurrent_roaring_bitmap.h b/src/db/common/concurrent_roaring_bitmap.h
 index d1c6bd4..7c96404 100644
 --- a/src/db/common/concurrent_roaring_bitmap.h
@@ -150,7 +163,7 @@ index d1c6bd4..7c96404 100644
  #include <zvec/ailego/internal/platform.h>
  #include <zvec/ailego/io/file.h>
 diff --git a/src/db/index/column/fts_column/fts_rocksdb_reducer.h b/src/db/index/column/fts_column/fts_rocksdb_reducer.h
-index 02a6b47..c78aea0 100644
+index c2e0c9f..b45fbd3 100644
 --- a/src/db/index/column/fts_column/fts_rocksdb_reducer.h
 +++ b/src/db/index/column/fts_column/fts_rocksdb_reducer.h
 @@ -17,7 +17,7 @@

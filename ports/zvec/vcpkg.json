@@ -1,7 +1,6 @@
 {
   "name": "zvec",
-  "version": "0.5.0",
-  "port-version": 2,
+  "version": "0.6.0",
   "description": "A lightweight, lightning-fast, in-process vector database",
   "homepage": "https://github.com/alibaba/zvec",
   "license": "Apache-2.0",
@@ -26,6 +25,7 @@
     "roaring",
     "rocksdb",
     "sparsehash",
+    "utf8proc",
     {
       "name": "vcpkg-cmake",
       "host": true

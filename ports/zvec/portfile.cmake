@@ -2,18 +2,16 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO alibaba/zvec
     REF v${VERSION}
-    SHA512 2728b849c1c52a7cc44e49fe2f3f9ec9a8e8188943750d9a9c06f5badfd418bac0dce056ae41a3be89966fb9462ed8a3a9b15f87fcb938ff9206c747a3246c49
+    SHA512 cb0c32ca4e0d20587f6618c61fe8a8add6c5f0dd345be2ea73858dbf5ffed0f3423588a3e93392c1389187af3ad8eed41da9c26fe70a5493fe3d5d0cc2fc5222
     HEAD_REF main
     PATCHES
         fix-add-library-macro-conflict.patch
         devendoring.patch
         fix-antlr4-13-compat.patch
-        fix-diskann-libaio.patch
         fix-fastpfor-includes.patch
         fix-u8string.patch
         fix-rocksdb-unique-ptr.patch
         fix-wal-cstdint.patch
-        disable-tests.patch
         unofficial-cmake-config.patch
 )
 
@@ -43,6 +41,16 @@ vcpkg_from_github(
     HEAD_REF master
 )
 file(RENAME "${CPPJIEBA_SOURCE_PATH}" "${SOURCE_PATH}/thirdparty/cppjieba/cppjieba-5.6.7")
+
+vcpkg_from_github(
+    OUT_SOURCE_PATH SNOWBALL_SOURCE_PATH
+    REPO snowballstem/snowball
+    REF v3.1.1
+    SHA512 47a33f6319a728238b93b344a29c49b9aeb76bc8202b891da8134660be97d256e35980a25e557637c74fa6a8aff00b7e2d8e406d52b03233b71644989e4be9ac
+    HEAD_REF master
+)
+file(REMOVE_RECURSE "${SOURCE_PATH}/thirdparty/snowball/snowball-3.1.1")
+file(RENAME "${SNOWBALL_SOURCE_PATH}" "${SOURCE_PATH}/thirdparty/snowball/snowball-3.1.1")
 
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"

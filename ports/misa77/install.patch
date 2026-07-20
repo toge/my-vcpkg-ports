@@ -1,8 +1,6 @@
-diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 57f6738..3c4704e 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -38,7 +38,9 @@ add_library(misa77
+@@ -38,7 +38,9 @@
      src/experimental/ecompress.cpp
      src/experimental/isa/etarget_portable.cpp)
  
@@ -13,7 +11,7 @@ index 57f6738..3c4704e 100644
  target_include_directories(misa77 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
  target_compile_features(misa77 PUBLIC cxx_std_20)
  target_compile_options(misa77 PRIVATE -Wall -Wextra -Wpedantic)
-@@ -66,11 +68,15 @@ if(CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64|AMD64|amd64")
+@@ -66,11 +68,15 @@
          PROPERTIES COMPILE_OPTIONS "-march=x86-64")
  endif()
  
@@ -34,7 +32,7 @@ index 57f6738..3c4704e 100644
  endif()
  
  option(MISA77_BUILD_TESTS "Build misa77 tests" ON)
-@@ -80,3 +86,13 @@ if(MISA77_BUILD_TESTS)
+@@ -80,3 +86,27 @@
      target_link_libraries(misa77_roundtrip PRIVATE misa77)
      add_test(NAME roundtrip COMMAND misa77_roundtrip)
  endif()
@@ -49,22 +47,16 @@ index 57f6738..3c4704e 100644
 +        NAMESPACE misa77::
 +        DESTINATION lib/cmake/misa77)
 +
-+set(MISA77_VERSION 0.2.0)
-+file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/misa77Config.cmake
-+"include(CMakeFindDependencyMacro)\n"
-+"include(\"${CMAKE_CURRENT_LIST_DIR}/misa77-targets.cmake\")\n")
-+file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/misa77ConfigVersion.cmake
-+"set(PACKAGE_VERSION \"${MISA77_VERSION}\")\n"
-+"if(PACKAGE_VERSION VERSION_LESS PACKAGE_FIND_VERSION)\n"
-+"  set(PACKAGE_VERSION_COMPATIBLE FALSE)\n"
-+"else()\n"
-+"  set(PACKAGE_VERSION_COMPATIBLE TRUE)\n"
-+"  if(PACKAGE_VERSION VERSION_EQUAL PACKAGE_FIND_VERSION)\n"
-+"    set(PACKAGE_VERSION_EXACT TRUE)\n"
-+"  endif()\n"
-+"endif()\n")
++include(CMakePackageConfigHelpers)
++configure_package_config_file(
++    ${CMAKE_CURRENT_SOURCE_DIR}/misa77Config.cmake.in
++    ${CMAKE_CURRENT_BINARY_DIR}/misa77Config.cmake
++    INSTALL_DESTINATION lib/cmake/misa77)
++write_basic_package_version_file(
++    ${CMAKE_CURRENT_BINARY_DIR}/misa77ConfigVersion.cmake
++    VERSION 0.2.0
++    COMPATIBILITY SameMajorVersion)
 +install(FILES
 +        ${CMAKE_CURRENT_BINARY_DIR}/misa77Config.cmake
 +        ${CMAKE_CURRENT_BINARY_DIR}/misa77ConfigVersion.cmake
 +        DESTINATION lib/cmake/misa77)
-

@@ -1,0 +1,16 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -74,9 +74,9 @@ option(BUILD_ZVEC_TOOLS "Build zvec tools" OFF)
+ option(BUILD_ZVEC_BENCHMARKS "Build zvec benchmarks" OFF)
+ option(BUILD_ZVEC_TESTS "Build zvec tests" OFF)
+ option(BUILD_ZVEC_PYTHON "Build zvec python binding" OFF)
+-option(BUILD_ZVEC_SHARED "Build all-in-one C++ shared library libzvec" ON)
+-option(BUILD_ZVEC_AILEGO_SHARED "Build all-in-one zvec-ailego shared library libzvec_ailego" ON)
+-option(BUILD_ZVEC_CORE_SHARED "Build all-in-one zvec-core shared library libzvec_core" ON)
++option(BUILD_ZVEC_SHARED "Build all-in-one C++ shared library libzvec" OFF)
++option(BUILD_ZVEC_AILEGO_SHARED "Build all-in-one zvec-ailego shared library libzvec_ailego" OFF)
++option(BUILD_ZVEC_CORE_SHARED "Build all-in-one zvec-core shared library libzvec_core" OFF)
+ 
+ message(STATUS "BUILD_ZVEC_TOOLS:${BUILD_ZVEC_TOOLS}")
+ message(STATUS "BUILD_ZVEC_BENCHMARKS:${BUILD_ZVEC_BENCHMARKS}")

@@ -48,3 +48,23 @@ index 57f6738..3c4704e 100644
 +        FILE misa77-targets.cmake
 +        NAMESPACE misa77::
 +        DESTINATION lib/cmake/misa77)
++
++set(MISA77_VERSION 0.2.0)
++file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/misa77Config.cmake
++"include(CMakeFindDependencyMacro)\n"
++"include(\"${CMAKE_CURRENT_LIST_DIR}/misa77-targets.cmake\")\n")
++file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/misa77ConfigVersion.cmake
++"set(PACKAGE_VERSION \"${MISA77_VERSION}\")\n"
++"if(PACKAGE_VERSION VERSION_LESS PACKAGE_FIND_VERSION)\n"
++"  set(PACKAGE_VERSION_COMPATIBLE FALSE)\n"
++"else()\n"
++"  set(PACKAGE_VERSION_COMPATIBLE TRUE)\n"
++"  if(PACKAGE_VERSION VERSION_EQUAL PACKAGE_FIND_VERSION)\n"
++"    set(PACKAGE_VERSION_EXACT TRUE)\n"
++"  endif()\n"
++"endif()\n")
++install(FILES
++        ${CMAKE_CURRENT_BINARY_DIR}/misa77Config.cmake
++        ${CMAKE_CURRENT_BINARY_DIR}/misa77ConfigVersion.cmake
++        DESTINATION lib/cmake/misa77)
+

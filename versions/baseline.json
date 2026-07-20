@@ -640,5 +640,219 @@
       "baseline": "2026-04-23",
       "port-version": 0
     }
+  },
+  "f6265d464b4de3ceacb5b9a0e8be9419a5bbfac9": {
+    "budouxpp": {
+      "baseline": "2026-06-18",
+      "port-version": 0
+    },
+    "doltlite": {
+      "baseline": "0.11.28",
+      "port-version": 0
+    },
+    "fastmcpp": {
+      "baseline": "3.1.0",
+      "port-version": 3
+    },
+    "ffc-h": {
+      "baseline": "26.04.01",
+      "port-version": 0
+    },
+    "fpng": {
+      "baseline": "2024-08-26",
+      "port-version": 1
+    },
+    "frozenchars": {
+      "baseline": "0.2.3",
+      "port-version": 0
+    },
+    "fsst": {
+      "baseline": "2026-04-06",
+      "port-version": 0
+    },
+    "glz-sql": {
+      "baseline": "2026-07-01",
+      "port-version": 0
+    },
+    "glz-util": {
+      "baseline": "2026-06-23",
+      "port-version": 0
+    },
+    "gsheetpp": {
+      "baseline": "2026-06-23",
+      "port-version": 0
+    },
+    "injamm": {
+      "baseline": "2026-07-19",
+      "port-version": 0
+    },
+    "jpegli": {
+      "baseline": "2026-06-01",
+      "port-version": 0
+    },
+    "jsonata-cpp": {
+      "baseline": "0.2.0",
+      "port-version": 0
+    },
+    "ladybugdb-ladybug": {
+      "baseline": "0.18.1",
+      "port-version": 0
+    },
+    "laz-perf": {
+      "baseline": "3.4.0",
+      "port-version": 0
+    },
+    "lexborpp": {
+      "baseline": "2026-07-05",
+      "port-version": 0
+    },
+    "libslz": {
+      "baseline": "1.2.2",
+      "port-version": 0
+    },
+    "macad-parser": {
+      "baseline": "2026-06-02",
+      "port-version": 0
+    },
+    "meshlib": {
+      "baseline": "3.1.3.297",
+      "port-version": 3
+    },
+    "misa77": {
+      "baseline": "0.2.0",
+      "port-version": 1
+    },
+    "mojitonpp": {
+      "baseline": "2026-06-23",
+      "port-version": 0
+    },
+    "mstd": {
+      "baseline": "1.5.3",
+      "port-version": 0
+    },
+    "nitro-gl": {
+      "baseline": "2025-07-11",
+      "port-version": 0
+    },
+    "openctm": {
+      "baseline": "1.0.3",
+      "port-version": 2
+    },
+    "openrasterpp": {
+      "baseline": "2026-06-24",
+      "port-version": 0
+    },
+    "pcre2cpp": {
+      "baseline": "1.2.7",
+      "port-version": 1
+    },
+    "pcrepp": {
+      "baseline": "2026-07-09",
+      "port-version": 0
+    },
+    "plotlypp": {
+      "baseline": "2026-02-06",
+      "port-version": 0
+    },
+    "rlogiacco-circularbuffer": {
+      "baseline": "1.4.0",
+      "port-version": 0
+    },
+    "slothdb": {
+      "baseline": "0.2.7",
+      "port-version": 0
+    },
+    "snappy": {
+      "baseline": "1.2.2",
+      "port-version": 3
+    },
+    "snmp-pp": {
+      "baseline": "3.6.3",
+      "port-version": 0
+    },
+    "sparsehash": {
+      "baseline": "2.0.4",
+      "port-version": 3
+    },
+    "teascript-cpp-library": {
+      "baseline": "0.16.0",
+      "port-version": 0
+    },
+    "threepp": {
+      "baseline": "2026-06-17",
+      "port-version": 0
+    },
+    "tiny-skia-cpp": {
+      "baseline": "2026-04-12",
+      "port-version": 0
+    },
+    "tree-sitter-cmake": {
+      "baseline": "0.7.4",
+      "port-version": 1
+    },
+    "tree-sitter-go": {
+      "baseline": "0.25.0",
+      "port-version": 0
+    },
+    "tree-sitter-python": {
+      "baseline": "0.25.0",
+      "port-version": 0
+    },
+    "tree-sitter-sql": {
+      "baseline": "2026-03-03",
+      "port-version": 0
+    },
+    "ulight": {
+      "baseline": "0.1.0",
+      "port-version": 0
+    },
+    "uuid7pp": {
+      "baseline": "2026-07-09",
+      "port-version": 0
+    },
+    "uuidv7-h": {
+      "baseline": "0.1.6",
+      "port-version": 0
+    },
+    "wuffs": {
+      "baseline": "0.3.4",
+      "port-version": 0
+    },
+    "wxwidgets": {
+      "baseline": "3.3.1",
+      "port-version": 2
+    },
+    "xlsdraw": {
+      "baseline": "2026-06-23",
+      "port-version": 0
+    },
+    "xlsxwriterpp": {
+      "baseline": "2026-07-07",
+      "port-version": 0
+    },
+    "yaml-schema-cpp": {
+      "baseline": "2025-11-10",
+      "port-version": 0
+    },
+    "yase-json": {
+      "baseline": "2026-06-11",
+      "port-version": 0
+    },
+    "zlib-ng": {
+      "baseline": "2.3.3",
+      "port-version": 1
+    },
+    "zvec": {
+      "baseline": "0.6.0",
+      "port-version": 0
+    },
+    "zxc": {
+      "baseline": "0.10.0",
+      "port-version": 0
+    },
+    "zxcpp": {
+      "baseline": "2026-04-23",
+      "port-version": 0
+    }
   }
 }

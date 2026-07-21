@@ -3,8 +3,8 @@ set(VCPKG_BUILD_TYPE release) # header only library
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO toge/injamm
-    REF 89e7fc19081aa16cee130f195682d7d20ac37496
-    SHA512 38e63728a382c7726aa6ca31d4a18244124b10f26f8ecd40b17da8be68f29863c64332d835dbd163e27ad0142d58cb414d4948d585a05a97d0dd679cd63dbf5e
+    REF 3b346f7ac0967f4a23b6c5da112f5edfd5fd40ad
+    SHA512 b83cf07b66ef41e3e590e83e75fdde057f7ded90d37cb633b26a3955c6b8c6f07ea47770e9773f8a706055cc9f419c632cdfad08d33d382fdaba244f4e82dbd6
     HEAD_REF main
 )
 
@@ -12,6 +12,7 @@ vcpkg_check_features(OUT_FEATURE_OPTIONS FEATURE_OPTIONS
     FEATURES
     enum    ENABLE_ENUM
     sqlite3 ENABLE_SQLITE3
+    util    BUILD_UTIL
 )
 
 vcpkg_cmake_configure(

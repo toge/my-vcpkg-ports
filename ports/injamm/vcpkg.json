@@ -1,6 +1,6 @@
 {
   "name": "injamm",
-  "version-date": "2026-07-19",
+  "version-date": "2026-07-21",
   "description": "subset inja template engine for speed",
   "homepage": "https://github.com/toge/injamm",
   "license": "MIT",
@@ -28,6 +28,9 @@
       "dependencies": [
         "sqlite3"
       ]
+    },
+    "util": {
+      "description": "build utility commands"
     }
   }
 }

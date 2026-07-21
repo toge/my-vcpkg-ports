@@ -1,6 +1,7 @@
 {
   "name": "misa77",
   "version": "0.2.0",
+  "port-version": 1,
   "description": "LZ-based compression codec with extremely fast single-threaded decompression",
   "homepage": "https://github.com/welcome-to-the-sunny-side/misa77",
   "license": "MIT",
@@ -19,6 +20,5 @@
       "description": "Build and install the misa command-line tool (POSIX only).",
       "supports": "!windows"
     }
-  },
-  "port-version": 1
+  }
 }

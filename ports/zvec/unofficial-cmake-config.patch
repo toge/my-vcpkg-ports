@@ -1,7 +1,7 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -235,6 +235,44 @@
+@@ -235,6 +235,58 @@
      cc_directories(tools)
  endif()
  
@@ -13,9 +13,23 @@ diff --git a/CMakeLists.txt b/CMakeLists.txt
 +if(TARGET zvec_core)
 +    set_property(TARGET zvec_core PROPERTY EXPORT_NAME core)
 +endif()
++if(TARGET zvec)
++    set_property(TARGET zvec PROPERTY EXPORT_NAME zvec)
++    # cppjieba is header-only and not needed by consumers; remove from interface
++    get_target_property(_zv_links zvec INTERFACE_LINK_LIBRARIES)
++    if(_zv_links)
++        list(REMOVE_ITEM _zv_links cppjieba)
++        set_property(TARGET zvec PROPERTY INTERFACE_LINK_LIBRARIES ${_zv_links})
++    endif()
++    # Replace source-prefixed include dirs with install-relative paths
++    set_property(TARGET zvec PROPERTY INTERFACE_INCLUDE_DIRECTORIES
++        "$<BUILD_INTERFACE:${PROJECT_ROOT_DIR}/src/include>"
++        "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
++    )
++endif()
 +
 +install(
-+    TARGETS zvec_ailego zvec_core zvec_turbo
++    TARGETS zvec_ailego zvec_core zvec_turbo zvec
 +    EXPORT unofficial-zvec-targets
 +    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
 +    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}

@@ -13,6 +13,7 @@ vcpkg_from_github(
         fix-rocksdb-unique-ptr.patch
         fix-wal-cstdint.patch
         unofficial-cmake-config.patch
+        install-snowball.patch
         fix-glog-0.7-api.patch
 )
 
@@ -81,4 +82,9 @@ file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/share"
                     "${CURRENT_PACKAGES_DIR}/include/include"
                     "${CURRENT_PACKAGES_DIR}/debug/include"
 )
-vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE")
+
+vcpkg_install_copyright(
+    FILE_LIST
+        "${SOURCE_PATH}/LICENSE"
+        "${SOURCE_PATH}/thirdparty/snowball/snowball-3.1.1/COPYING"
+)

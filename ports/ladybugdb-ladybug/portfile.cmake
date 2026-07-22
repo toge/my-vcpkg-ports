@@ -2,7 +2,7 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO LadybugDB/ladybug
     REF v${VERSION}
-    SHA512 902a228471bae452ffa96decb3e90aadbfca78c0a8301313c6c367feb665948db814ace663c22413d3b056acc52fcc758f27c59bb68743716cd0dd9e88b2d958
+    SHA512 dc8f1e791ceb1899f048e0058695773498e5b16fcfa257e7342b2b79de9b90460d2f8aff06dcdf8cf07ef7d30775995f3c16a585ffbac2964d8767ead64552c0
     HEAD_REF master
     PATCHES
         unofficial-cmake-config.patch

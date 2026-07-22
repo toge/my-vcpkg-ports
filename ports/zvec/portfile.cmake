@@ -59,6 +59,13 @@ vcpkg_cmake_configure(
         -DCMAKE_CXX_STANDARD=20
         # requires std::partial_ordering, std::strong_ordering
         -DCMAKE_CXX_STANDARD_REQUIRED=ON
+        # ponytail: linking the all-in-one shared libzvec.so fails with
+        # "ld.bfd: failed to set dynamic section sizes: bad value" (too many
+        # exported symbols for the dbg/rel dynamic section). Static libs link
+        # fine and are all the study project needs.
+        -DBUILD_ZVEC_SHARED=OFF
+        -DBUILD_ZVEC_AILEGO_SHARED=OFF
+        -DBUILD_ZVEC_CORE_SHARED=OFF
 )
 
 vcpkg_cmake_install()

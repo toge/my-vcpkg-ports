@@ -13,9 +13,6 @@ vcpkg_check_features(OUT_FEATURE_OPTIONS FEATURE_OPTIONS
         cli MISA77_BUILD_CLI
 )
 
-# Provide the CMake config template consumed by configure_package_config_file in the patched CMakeLists.
-file(COPY "${CMAKE_CURRENT_LIST_DIR}/misa77Config.cmake.in" DESTINATION "${SOURCE_PATH}")
-
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"
     OPTIONS
@@ -24,7 +21,7 @@ vcpkg_cmake_configure(
 )
 
 vcpkg_cmake_install()
-vcpkg_cmake_config_fixup(CONFIG_PATH lib/cmake/misa77)
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")
+vcpkg_cmake_config_fixup(CONFIG_PATH lib/cmake/misa77)
 vcpkg_copy_pdbs()
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE")

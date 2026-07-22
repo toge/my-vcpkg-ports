@@ -1,5 +1,5 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index d45bb24..7d156bb 100644
+index d45bb24..7f3c9b8 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -40,7 +40,9 @@ add_library(misa77
@@ -34,7 +34,7 @@ index d45bb24..7d156bb 100644
  endif()
  
  option(MISA77_BUILD_TESTS "Build misa77 tests" ON)
-@@ -88,3 +94,27 @@ if(MISA77_BUILD_TESTS)
+@@ -88,3 +94,32 @@ if(MISA77_BUILD_TESTS)
      target_link_libraries(misa77_roundtrip PRIVATE misa77)
      add_test(NAME roundtrip COMMAND misa77_roundtrip)
  endif()
@@ -46,12 +46,17 @@ index d45bb24..7d156bb 100644
 +install(DIRECTORY include/misa77 DESTINATION include)
 +install(EXPORT misa77-targets
 +        FILE misa77-targets.cmake
-+        NAMESPACE misa77::
++        NAMESPACE unofficial::misa77::
 +        DESTINATION lib/cmake/misa77)
 +
 +include(CMakePackageConfigHelpers)
++file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/misa77Config.cmake.in"
++[[@PACKAGE_INIT@
++include("${CMAKE_CURRENT_LIST_DIR}/misa77-targets.cmake")
++check_required_components(misa77)
++]])
 +configure_package_config_file(
-+    ${CMAKE_CURRENT_SOURCE_DIR}/misa77Config.cmake.in
++    ${CMAKE_CURRENT_BINARY_DIR}/misa77Config.cmake.in
 +    ${CMAKE_CURRENT_BINARY_DIR}/misa77Config.cmake
 +    INSTALL_DESTINATION lib/cmake/misa77)
 +write_basic_package_version_file(
@@ -59,6 +64,6 @@ index d45bb24..7d156bb 100644
 +    VERSION 0.3.0
 +    COMPATIBILITY SameMajorVersion)
 +install(FILES
-+        ${CMAKE_CURRENT_BINARY_DIR}/misa77Config.cmake
-+        ${CMAKE_CURRENT_BINARY_DIR}/misa77ConfigVersion.cmake
-+        DESTINATION lib/cmake/misa77)
++    ${CMAKE_CURRENT_BINARY_DIR}/misa77Config.cmake
++    ${CMAKE_CURRENT_BINARY_DIR}/misa77ConfigVersion.cmake
++    DESTINATION lib/cmake/misa77)

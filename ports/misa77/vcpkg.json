@@ -1,6 +1,7 @@
 {
   "name": "misa77",
   "version": "0.3.0",
+  "port-version": 1,
   "description": "LZ-based compression codec with extremely fast single-threaded decompression",
   "homepage": "https://github.com/welcome-to-the-sunny-side/misa77",
   "license": "MIT",

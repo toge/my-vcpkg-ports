@@ -13,6 +13,7 @@ vcpkg_from_github(
         fix-rocksdb-unique-ptr.patch
         fix-wal-cstdint.patch
         unofficial-cmake-config.patch
+        fix-glog-0.7-api.patch
 )
 
 vcpkg_from_github(

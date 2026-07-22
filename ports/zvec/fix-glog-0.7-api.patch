@@ -1,0 +1,34 @@
+--- a/src/db/common/glogger.h	2026-07-22 22:20:35.788314174 +0900
++++ b/src/db/common/glogger.h	2026-07-22 22:20:51.131236405 +0900
+@@ -26,13 +26,6 @@
+ #pragma GCC diagnostic pop
+ #endif
+ 
+-namespace google {
+-namespace glog_internal_namespace_ {
+-extern bool IsGoogleLoggingInitialized(void);
+-extern bool ShutdownGoogleLoggingUtilities(void);
+-}  // namespace glog_internal_namespace_
+-}  // namespace google
+-
+ namespace zvec {
+ 
+ class AppendLogger : public ailego::Logger {
+@@ -45,7 +38,7 @@
+ 
+  public:
+   int init(const ailego::Params &params) override {
+-    if (!google::glog_internal_namespace_::IsGoogleLoggingInitialized()) {
++    if (!google::IsGoogleLoggingInitialized()) {
+       std::string log_dir = params.get_as_string("proxima.file.logger.log_dir");
+       std::string log_file =
+           params.get_as_string("proxima.file.logger.log_file");
+@@ -75,7 +68,7 @@
+   }
+ 
+   int cleanup() override {
+-    if (google::glog_internal_namespace_::IsGoogleLoggingInitialized()) {
++    if (google::IsGoogleLoggingInitialized()) {
+       google::DisableLogCleaner();
+       google::ShutdownGoogleLogging();
+     }

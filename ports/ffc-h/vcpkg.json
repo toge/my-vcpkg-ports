@@ -1,6 +1,6 @@
 {
   "name": "ffc-h",
-  "version-string": "26.04.01",
+  "version-string": "26.07.01",
   "description": "Single-header c99 accelerated float/double parsing.",
   "homepage": "https://github.com/kolemannix/ffc.h",
   "license": "Apache-2.0 OR BSL-1.0 OR MIT",

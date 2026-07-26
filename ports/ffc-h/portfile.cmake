@@ -3,7 +3,7 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO kolemannix/ffc.h
     REF "v${VERSION}"
-    SHA512 a1a9a2f5c5af2062c0f2477df0e3cb59ed7733e7dc56bb5dade69a8d47b1a4f5a6f0fc397c02ebf78f4a6d77fc5a543f6dda1a837b73a6bee5e5d729a51df976
+    SHA512 594d69196fd9c7415c0d9435943331e5fb8b9fc1376821c4d5e198a09ac6a425a0b257dfc22f36ab846ad359936f101e11b8e3bbe47efcf55666f5cce9cc9dd4
     HEAD_REF main
 )
 

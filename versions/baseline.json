@@ -72,6 +72,10 @@
       "baseline": "1.2.2",
       "port-version": 0
     },
+    "lottiepp": {
+      "baseline": "2026-07-26",
+      "port-version": 0
+    },
     "macad-parser": {
       "baseline": "2026-06-02",
       "port-version": 0

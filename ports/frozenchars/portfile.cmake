@@ -4,7 +4,7 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO toge/frozenchars
     REF v${VERSION}
-    SHA512 473f909ef556d84e4292bebbcec58dd2aba2e32c2376e6f050036aa5db1460d6eceb64ca7e5c866ba9ded08ea023286228ac81e65290549fd4d966cab318b6b7
+    SHA512 7ef7722670da6c1afa8ec1be8e8dc1a7bbe5fc7dbcead4ec4f6d65feef40151248e2ec5ca39326d699914c19d23be9999616e03efe3115123db68c063a96ff71
     HEAD_REF main
 )
 

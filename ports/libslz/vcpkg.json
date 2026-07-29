@@ -1,6 +1,6 @@
 {
   "name": "libslz",
-  "version-string": "1.3.0",
+  "version-string": "1.3.1",
   "description": "Stateless zlib-compatible compression library",
   "homepage": "https://github.com/wtarreau/libslz",
   "license": "MIT",

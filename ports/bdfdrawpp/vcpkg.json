@@ -1,6 +1,7 @@
 {
   "name": "bdfdrawpp",
   "version-date": "2026-07-30",
+  "port-version": 1,
   "description": "BDF parser and text-to-bitmap renderer",
   "homepage": "https://github.com/toge/bdfdrawpp",
   "license": "MIT",
@@ -13,5 +14,13 @@
       "name": "vcpkg-cmake-config",
       "host": true
     }
-  ]
+  ],
+  "features": {
+    "zxc": {
+      "description": "Enable zxc compression support",
+      "dependencies": [
+        "zxc"
+      ]
+    }
+  }
 }

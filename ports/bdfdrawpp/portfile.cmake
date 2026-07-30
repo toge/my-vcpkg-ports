@@ -3,15 +3,21 @@ set(VCPKG_BUILD_TYPE release) # header only library
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO toge/bdfdrawpp
-    REF 0bf7cd3fac62c1dd8322f6948bf0c77c0604f717
-    SHA512 902c957929c92e2f1ee88132eb11d494e30431ddd98560f152a9a94dc451488d51fb0cb416a5237e819ab838380b040200e5209cfbf38d4608583c0beb72ecbd
+    REF 88fb3567a4e5ceb5521e38d1b031710c427ac574
+    SHA512 3d8642155012070c4cef50782c11b4374cbdedd6b79d23cf740e2d752ed340dddf55f47da5e9c024042cc22bda6d2a09094387cd11eaa978174bd6b383a2249f
     HEAD_REF main
+)
+
+vcpkg_check_features(OUT_FEATURE_OPTIONS FEATURE_OPTIONS
+    FEATURES
+    zxc     ENABLE_ZXC
 )
 
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"
     OPTIONS
         -DBUILD_TEST=OFF
+        ${FEATURE_OPTIONS}
 )
 
 vcpkg_cmake_install()

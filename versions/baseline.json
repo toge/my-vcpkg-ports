@@ -1,8 +1,8 @@
 {
   "default": {
     "bdfdrawpp": {
-      "baseline": "2026-07-30",
-      "port-version": 3
+      "baseline": "2026-07-31",
+      "port-version": 0
     },
     "budouxpp": {
       "baseline": "2026-06-18",
@@ -25,7 +25,7 @@
       "port-version": 1
     },
     "frozenchars": {
-      "baseline": "0.3.1",
+      "baseline": "0.3.2",
       "port-version": 0
     },
     "fsst": {
@@ -73,7 +73,7 @@
       "port-version": 0
     },
     "lottiepp": {
-      "baseline": "2026-07-26",
+      "baseline": "2026-08-01",
       "port-version": 0
     },
     "macad-parser": {

@@ -1,6 +1,6 @@
 {
   "name": "bdfdrawpp",
-  "version-date": "2026-07-31",
+  "version-date": "2026-08-03",
   "description": "BDF parser and text-to-bitmap renderer",
   "homepage": "https://github.com/toge/bdfdrawpp",
   "license": "MIT",

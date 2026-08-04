@@ -1,6 +1,6 @@
 {
   "name": "frozenchars",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "constexpr char array and string manipulation library",
   "homepage": "https://github.com/toge/frozenchars",
   "license": "MIT",

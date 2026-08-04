@@ -1,0 +1,15 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -53,7 +53,10 @@
+ #------------------------------------------------------------------------------
+ 
+ add_subdirectory(src)
+-add_subdirectory(dict)
++option(BUILD_DICT "Build dictionary data" ON)
++if(BUILD_DICT)
++  add_subdirectory(dict)
++endif()
+ if(BUILD_TESTING)
+   enable_testing()
+   add_subdirectory(test)

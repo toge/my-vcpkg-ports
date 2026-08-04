@@ -8,6 +8,10 @@
       "baseline": "2026-06-18",
       "port-version": 0
     },
+    "cmigemo": {
+      "baseline": "1.4.0",
+      "port-version": 0
+    },
     "doltlite": {
       "baseline": "0.11.38",
       "port-version": 0

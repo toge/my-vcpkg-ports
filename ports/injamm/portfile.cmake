@@ -3,8 +3,8 @@ set(VCPKG_BUILD_TYPE release) # header only library
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO toge/injamm
-    REF 8aaeae08e2a384cff15dd7d046e6e4fed51ea5da
-    SHA512 416897f6fd0ef816dd5471b0c1f66aadca31eb099689a511046ca1d707010f5c6dd1d1d87ce3eb7256268364365969222ca12f3ca6ff3a40c21ef6549bc1a8c0
+    REF 1be4afb9a82ea3893bb860fcf7b82726eaab0e74
+    SHA512 de293ffb5f49ceb69397aa370d24846d500d71d22068b6d04ed931495ca53b08cfb0f12b72a0ff78aa4bb689e1ffa1b963050ed3d98da0be4b004bf477064c75
     HEAD_REF main
 )
 

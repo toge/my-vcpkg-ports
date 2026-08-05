@@ -2,7 +2,7 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO MeshInspector/MeshLib
     REF v${VERSION}
-    SHA512 0410b07132fa7313c3a92ea01ee7ec6f88eb9bc0fad798a71244a5ce6ff65d89d4ef97c08a702b12861473ba8419fd52f936246a75550e7c9d0852a207c443bc
+    SHA512 2008a82bc5bb46c5388e9fca46d58867c537c8a5d4e0e15b9b27dd531a3151cc7545f673b20348aef44c16e05bdd973ee4264569d695810c5ce8f30d7a274e46
     HEAD_REF master
     PATCHES
         disable-warning-as-error.patch

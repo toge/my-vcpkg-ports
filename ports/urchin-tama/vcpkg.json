@@ -1,0 +1,17 @@
+{
+  "name": "urchin-tama",
+  "version": "1.0.0",
+  "description": "C++ library of moving average indicators for technical analysis",
+  "homepage": "https://github.com/501urchin/tama",
+  "license": null,
+  "dependencies": [
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    },
+    {
+      "name": "vcpkg-cmake-config",
+      "host": true
+    }
+  ]
+}

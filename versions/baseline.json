@@ -180,6 +180,10 @@
       "baseline": "0.1.0",
       "port-version": 0
     },
+    "urchin-tama": {
+      "baseline": "1.0.0",
+      "port-version": 0
+    },
     "uuid7pp": {
       "baseline": "2026-07-09",
       "port-version": 0

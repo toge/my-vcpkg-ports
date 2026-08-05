@@ -1,0 +1,76 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 48be43b..392f4e2 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -8,12 +8,14 @@ set(CMAKE_CXX_EXTENSIONS OFF)
+ file(GLOB_RECURSE TAMA_SOURCES CONFIGURE_DEPENDS src/*.cpp)
+ 
+ add_library(tama ${TAMA_SOURCES})
+-target_include_directories(tama PUBLIC include)
+-target_compile_options(tama PRIVATE -Wall -Wextra -Wpedantic)
+-
++target_include_directories(tama PUBLIC
++    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
++    $<INSTALL_INTERFACE:include>
++)
+ target_compile_options(tama PRIVATE
+-    $<$<CONFIG:Release>:-O3 -march=native -flto>
+-    $<$<CONFIG:Debug>:-O0 -march=native -g>
++    $<$<CXX_COMPILER_ID:GNU,Clang,AppleClang>:-Wall -Wextra -Wpedantic>
++    $<$<AND:$<CONFIG:Release>,$<CXX_COMPILER_ID:GNU,Clang,AppleClang>>:-O3 -march=native -flto>
++    $<$<AND:$<CONFIG:Debug>,$<CXX_COMPILER_ID:GNU,Clang,AppleClang>>:-O0 -march=native -g>
+ )
+ 
+ 
+@@ -22,9 +24,9 @@ if (TAMA_RUN_BUILD)
+     add_executable(tama_run examples/main.cpp)
+     target_link_libraries(tama_run PRIVATE tama)
+     target_compile_options(tama_run PRIVATE
+-        $<$<CONFIG:Release>:-O3 -ffast-math -march=native -flto>
+-        $<$<CONFIG:Debug>:-O0 -march=native -g>
+-        -Wall
++        $<$<AND:$<CONFIG:Release>,$<CXX_COMPILER_ID:GNU,Clang,AppleClang>>:-O3 -ffast-math -march=native -flto>
++        $<$<AND:$<CONFIG:Debug>,$<CXX_COMPILER_ID:GNU,Clang,AppleClang>>:-O0 -march=native -g>
++        $<$<CXX_COMPILER_ID:GNU,Clang,AppleClang>:-Wall>
+     )
+ endif()
+ 
+@@ -33,3 +35,38 @@ if (TAMA_BUILD_TESTS)
+     enable_testing()
+     add_subdirectory(tests)
+ endif()
++
++include(CMakePackageConfigHelpers)
++
++install(TARGETS tama
++    EXPORT tamaTargets
++    ARCHIVE DESTINATION lib
++    LIBRARY DESTINATION lib
++    RUNTIME DESTINATION bin
++)
++
++install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/ DESTINATION include)
++
++install(EXPORT tamaTargets
++    FILE tamaTargets.cmake
++    NAMESPACE unofficial::tama::
++    DESTINATION lib/cmake/tama
++)
++
++configure_package_config_file(
++    ${CMAKE_CURRENT_SOURCE_DIR}/cmake/tamaConfig.cmake.in
++    ${CMAKE_CURRENT_BINARY_DIR}/tamaConfig.cmake
++    INSTALL_DESTINATION lib/cmake/tama
++)
++
++write_basic_package_version_file(
++    ${CMAKE_CURRENT_BINARY_DIR}/tamaConfigVersion.cmake
++    VERSION ${PROJECT_VERSION}
++    COMPATIBILITY SameMajorVersion
++)
++
++install(FILES
++    ${CMAKE_CURRENT_BINARY_DIR}/tamaConfig.cmake
++    ${CMAKE_CURRENT_BINARY_DIR}/tamaConfigVersion.cmake
++    DESTINATION lib/cmake/tama
++)

@@ -3,8 +3,8 @@ set(VCPKG_BUILD_TYPE release) # header only library
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO toge/injamm
-    REF 1be4afb9a82ea3893bb860fcf7b82726eaab0e74
-    SHA512 de293ffb5f49ceb69397aa370d24846d500d71d22068b6d04ed931495ca53b08cfb0f12b72a0ff78aa4bb689e1ffa1b963050ed3d98da0be4b004bf477064c75
+    REF 306eef7ed69beffeae99deda7fba6ed0b60e90d8
+    SHA512 0adede5254ea33194251572600ff37e5cbead7cc88eec7c6866708ab15f88ebdf21e3ad1608bd433ee6b5a522182ee614ac1bce691e198ed0289a83b8e0543ca
     HEAD_REF main
 )
 
@@ -26,6 +26,48 @@ vcpkg_cmake_configure(
 vcpkg_cmake_install()
 vcpkg_cmake_config_fixup(CONFIG_PATH "lib/cmake/injamm")
 vcpkg_cmake_config_fixup(PACKAGE_NAME injamm-sqlite3 CONFIG_PATH "lib/cmake/injamm-sqlite3")
+
+# When the enum feature is disabled, the installed injammConfig.cmake contains
+# a dead "if(OFF) ... endif()" block with add_library(enchantum::enchantum ...).
+# vcpkg's heuristic usage-message scanner picks up that add_library() text and
+# incorrectly advertises enchantum::enchantum in the usage instructions even
+# though it is not needed. Strip the entire dead block to fix this.
+if(NOT "enum" IN_LIST FEATURES)
+    set(_injamm_config "${CURRENT_PACKAGES_DIR}/share/injamm/injammConfig.cmake")
+    if(EXISTS "${_injamm_config}")
+        file(READ "${_injamm_config}" _config_contents)
+        string(REPLACE "\n" ";" _config_lines "${_config_contents}")
+        set(_filtered_lines "")
+        set(_skip FALSE)
+        set(_depth 0)
+        foreach(_line IN LISTS _config_lines)
+            string(STRIP "${_line}" _stripped)
+            if(_stripped STREQUAL "if(OFF)" AND NOT _skip)
+                set(_skip TRUE)
+                set(_depth 0)
+                continue()
+            endif()
+            if(_skip)
+                if(_stripped MATCHES "^if\\(")
+                    math(EXPR _depth "${_depth} + 1")
+                endif()
+                if(_stripped STREQUAL "endif()")
+                    if(_depth EQUAL 0)
+                        set(_skip FALSE)
+                        continue()
+                    endif()
+                    math(EXPR _depth "${_depth} - 1")
+                    continue()
+                endif()
+                continue()
+            endif()
+            list(APPEND _filtered_lines "${_line}")
+        endforeach()
+        string(REPLACE ";" "\n" _filtered_contents "${_filtered_lines}")
+        file(WRITE "${_injamm_config}" "${_filtered_contents}")
+    endif()
+endif()
+
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug" "${CURRENT_PACKAGES_DIR}/lib")
 
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE")

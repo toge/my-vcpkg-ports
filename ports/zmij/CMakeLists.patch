@@ -1,0 +1,60 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -6,14 +6,51 @@
+ option(ZMIJ_USE_SIMD "Use SIMD instructions" ON)
+ 
+ add_library(zmij zmij.cc zmij.h)
+-target_include_directories(zmij PUBLIC .)
++target_include_directories(zmij PUBLIC
++    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
++    $<INSTALL_INTERFACE:include>
++)
+ target_compile_features(zmij PRIVATE ${ZMIJ_STANDARD})
+ if (NOT ZMIJ_USE_SIMD)
+   target_compile_definitions(zmij PRIVATE "ZMIJ_USE_SIMD=0")
+ endif ()
+-add_executable(example example.cc)
+-target_link_libraries(example zmij)
++option(ZMIJ_BUILD_EXAMPLE "Build example" OFF)
++option(ZMIJ_BUILD_TEST "Build tests" OFF)
++if (ZMIJ_BUILD_EXAMPLE)
++  add_executable(example example.cc)
++  target_link_libraries(example zmij)
++endif ()
++if (ZMIJ_BUILD_TEST)
++  set(CMAKE_CTEST_ARGUMENTS "--output-on-failure")
++  enable_testing()
++  add_subdirectory(test)
++endif ()
++
++install(TARGETS zmij EXPORT zmij-targets
++        RUNTIME DESTINATION bin
++        LIBRARY DESTINATION lib
++        ARCHIVE DESTINATION lib)
++install(FILES zmij.h zmij-c.h DESTINATION include)
++install(EXPORT zmij-targets
++        FILE zmij-targets.cmake
++        NAMESPACE zmij::
++        DESTINATION lib/cmake/zmij)
+ 
+-set(CMAKE_CTEST_ARGUMENTS "--output-on-failure")
+-enable_testing()
+-add_subdirectory(test)
++include(CMakePackageConfigHelpers)
++file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/zmijConfig.cmake.in"
++[[@PACKAGE_INIT@
++include("${CMAKE_CURRENT_LIST_DIR}/zmij-targets.cmake")
++check_required_components(zmij)
++]])
++configure_package_config_file(
++    ${CMAKE_CURRENT_BINARY_DIR}/zmijConfig.cmake.in
++    ${CMAKE_CURRENT_BINARY_DIR}/zmijConfig.cmake
++    INSTALL_DESTINATION lib/cmake/zmij)
++write_basic_package_version_file(
++    ${CMAKE_CURRENT_BINARY_DIR}/zmijConfigVersion.cmake
++    VERSION 1.1
++    COMPATIBILITY SameMajorVersion)
++install(FILES
++    ${CMAKE_CURRENT_BINARY_DIR}/zmijConfig.cmake
++    ${CMAKE_CURRENT_BINARY_DIR}/zmijConfigVersion.cmake
++    DESTINATION lib/cmake/zmij)

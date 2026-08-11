@@ -224,6 +224,10 @@
       "baseline": "2.3.3",
       "port-version": 1
     },
+    "zmij": {
+      "baseline": "1.1",
+      "port-version": 0
+    },
     "zvec": {
       "baseline": "0.6.0",
       "port-version": 3

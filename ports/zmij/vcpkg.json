@@ -1,0 +1,17 @@
+{
+  "name": "zmij",
+  "version": "1.1",
+  "description": "A double-to-string conversion algorithm based on Schubfach and xjb",
+  "homepage": "https://github.com/vitaut/zmij",
+  "license": "MIT",
+  "dependencies": [
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    },
+    {
+      "name": "vcpkg-cmake-config",
+      "host": true
+    }
+  ]
+}

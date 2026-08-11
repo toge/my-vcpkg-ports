@@ -239,6 +239,10 @@
     "zxcpp": {
       "baseline": "2026-04-23",
       "port-version": 0
+    },
+    "enchantum": {
+      "baseline": "0.4.0",
+      "port-version": 1
     }
   }
 }

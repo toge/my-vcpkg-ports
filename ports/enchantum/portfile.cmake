@@ -18,7 +18,7 @@ vcpkg_cmake_install()
 # ${CMAKE_CURRENT_LIST_DIR}/enchantumTargets.cmake (i.e. share/enchantum/),
 # which fails with "include could not find requested file".
 # Also move the config files out of the top-level cmake/ dir.
-vcpkg_cmake_config_fixup(CONFIG_PATH "cmake" DO_NOT_DELETE)
+vcpkg_cmake_config_fixup(CONFIG_PATH "cmake" DO_NOT_DELETE_PARENT_CONFIG_PATH)
 file(GLOB _targets_files "${CURRENT_PACKAGES_DIR}/share/enchantum/cmake/*")
 foreach(_file IN LISTS _targets_files)
     get_filename_component(_name "${_file}" NAME)

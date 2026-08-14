@@ -33,7 +33,7 @@
       "port-version": 1
     },
     "frozenchars": {
-      "baseline": "0.3.8",
+      "baseline": "0.5.0",
       "port-version": 0
     },
     "fsst": {

@@ -2,10 +2,8 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO koron/cmigemo
     REF v${VERSION}
-    SHA512 a0f4b485ed38255b803517514da82364ce461950866649c6630b2b0350d849171a7b1d1ec2a89c22cc26fba19302ad221de91b1d6bb5356bc64cf020075e162d
+    SHA512 24ec37c288bbe6c08faf140b2bbe455f61dd41981138abde8204436d4d00ea90d07a9d16fcce23e9def5c65d8de6f35dd04db0378272ec3a7af110553953e0d0
     HEAD_REF main
-    PATCHES
-        disable-dict.patch
 )
 
 vcpkg_cmake_configure(

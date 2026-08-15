@@ -1,0 +1,16 @@
+diff --git a/lib/CMakeLists.txt b/lib/CMakeLists.txt
+index e3f2a39..4f9231f 100644
+--- a/lib/CMakeLists.txt
++++ b/lib/CMakeLists.txt
+@@ -19,6 +19,11 @@ endif()
+ add_library(nfs ${SOURCES})
+ target_link_libraries(nfs PRIVATE ${CORE_LIBRARIES} PUBLIC ${SYSTEM_LIBRARIES})
+ 
++target_include_directories(nfs PUBLIC
++    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
++    $<INSTALL_INTERFACE:include>
++)
++
+ # Set version properties for the library
+ set_target_properties(nfs PROPERTIES
+     VERSION ${PROJECT_VERSION}

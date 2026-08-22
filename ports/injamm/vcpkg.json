@@ -1,7 +1,6 @@
 {
   "name": "injamm",
-  "version-date": "2026-08-20",
-  "port-version": 1,
+  "version-date": "2026-08-23",
   "description": "subset inja template engine for speed",
   "homepage": "https://github.com/toge/injamm",
   "license": "MIT",
@@ -22,12 +21,6 @@
       "description": "Enable enum",
       "dependencies": [
         "enchantum"
-      ]
-    },
-    "sqlite3": {
-      "description": "Enable SQLite3 extension",
-      "dependencies": [
-        "sqlite3"
       ]
     },
     "util": {

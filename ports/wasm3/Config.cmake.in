@@ -1,0 +1,27 @@
+get_filename_component(_wasm3_import_prefix "${CMAKE_CURRENT_LIST_DIR}/../.." ABSOLUTE)
+
+find_library(WASM3_LIBRARY_RELEASE NAMES m3 PATHS "${_wasm3_import_prefix}/lib" NO_DEFAULT_PATH)
+find_library(WASM3_LIBRARY_DEBUG NAMES m3 PATHS "${_wasm3_import_prefix}/debug/lib" NO_DEFAULT_PATH)
+
+if(NOT WASM3_LIBRARY_RELEASE AND NOT WASM3_LIBRARY_DEBUG)
+    message(FATAL_ERROR "wasm3 library not found in ${_wasm3_import_prefix}")
+endif()
+
+if(NOT TARGET unofficial::wasm3::wasm3)
+    add_library(unofficial::wasm3::wasm3 UNKNOWN IMPORTED)
+    set_target_properties(unofficial::wasm3::wasm3 PROPERTIES
+        INTERFACE_INCLUDE_DIRECTORIES "${_wasm3_import_prefix}/include"
+        IMPORTED_LINK_INTERFACE_LANGUAGES "C"
+    )
+    if(UNIX)
+        set_property(TARGET unofficial::wasm3::wasm3 APPEND PROPERTY INTERFACE_LINK_LIBRARIES "m")
+    endif()
+    if(WASM3_LIBRARY_RELEASE)
+        set_property(TARGET unofficial::wasm3::wasm3 APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
+        set_target_properties(unofficial::wasm3::wasm3 PROPERTIES IMPORTED_LOCATION_RELEASE "${WASM3_LIBRARY_RELEASE}")
+    endif()
+    if(WASM3_LIBRARY_DEBUG)
+        set_property(TARGET unofficial::wasm3::wasm3 APPEND PROPERTY IMPORTED_CONFIGURATIONS DEBUG)
+        set_target_properties(unofficial::wasm3::wasm3 PROPERTIES IMPORTED_LOCATION_DEBUG "${WASM3_LIBRARY_DEBUG}")
+    endif()
+endif()

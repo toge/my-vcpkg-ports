@@ -1,0 +1,13 @@
+{
+  "name": "wasm3",
+  "version-date": "2026-08-23",
+  "description": "Fast WebAssembly interpreter",
+  "homepage": "https://github.com/wasm3/wasm3",
+  "license": "MIT",
+  "dependencies": [
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    }
+  ]
+}

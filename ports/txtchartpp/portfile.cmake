@@ -3,8 +3,8 @@ set(VCPKG_BUILD_TYPE release) # header only library
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO toge/txtchartpp
-    REF af6af3e67145ff4fab810beffe73d25f929e435c
-    SHA512 3ba12a03e84fc97beaa60f29be744f571a269a9d3cb83fac47f64d8143651198963243b4e804dd5fd23fa729111346fed8a973eeee87712b2b4eb095426fee7f
+    REF d37194140ac822c62368aa0acb50a5eafc6096ad
+    SHA512 4039817f5524e50a06862f2f3b67837af77b50bed81e96dfeed8c19e2c287e7c7e027abc819f19af3bb3f7308ba7dcfa9e54761e937912ae6f671218f9f020c3
     HEAD_REF main
 )
 

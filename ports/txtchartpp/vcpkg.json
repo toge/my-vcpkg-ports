@@ -1,6 +1,6 @@
 {
   "name": "txtchartpp",
-  "version-date": "2026-08-18",
+  "version-date": "2026-08-27",
   "description": "C++ header-only ASCII line chart drawing library compatible with asciichartpy",
   "homepage": "https://github.com/toge/txtchartpp",
   "license": "MIT",

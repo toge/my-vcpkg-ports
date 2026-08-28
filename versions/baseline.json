@@ -209,7 +209,7 @@
       "port-version": 0
     },
     "wasm3": {
-      "baseline": "2026-08-23",
+      "baseline": "0.9.0",
       "port-version": 0
     },
     "wuffs": {

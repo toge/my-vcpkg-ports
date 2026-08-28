@@ -1,5 +1,5 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 956ee55..9a6a879 100644
+index 07ec8ac..ea281fb 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -1,7 +1,7 @@
@@ -11,12 +11,11 @@ index 956ee55..9a6a879 100644
  
  if(MSVC)
      set(INTTYPES_FORMAT VC7)
-@@ -139,10 +139,93 @@ if(DEFINED ENV{USE_OSS_MIRROR} AND NOT "$ENV{USE_OSS_MIRROR}" STREQUAL "")
+@@ -177,11 +177,98 @@ if(DEFINED ENV{USE_OSS_MIRROR} AND NOT "$ENV{USE_OSS_MIRROR}" STREQUAL "")
  endif()
  message(STATUS "USE_OSS_MIRROR:${USE_OSS_MIRROR}")
  
 -cc_directory(thirdparty)
--cc_directories(src)
 +find_package(Arrow CONFIG REQUIRED)
 +find_package(Parquet CONFIG REQUIRED)
 +find_package(ArrowCompute CONFIG REQUIRED)
@@ -29,8 +28,7 @@ index 956ee55..9a6a879 100644
 +find_package(Protobuf CONFIG REQUIRED)
 +find_package(antlr4-runtime CONFIG REQUIRED)
 +find_package(FastPFOR CONFIG REQUIRED)
- 
--cc_directories(tests)
++
 +if(TARGET gflags::gflags AND NOT TARGET gflags)
 +    add_library(gflags ALIAS gflags::gflags)
 +elseif(TARGET gflags::gflags_static AND NOT TARGET gflags)
@@ -99,54 +97,22 @@ index 956ee55..9a6a879 100644
 +add_subdirectory(thirdparty/cppjieba cppjieba EXCLUDE_FROM_ALL)
 +add_subdirectory(thirdparty/limonp limonp EXCLUDE_FROM_ALL)
 +add_subdirectory(thirdparty/snowball snowball EXCLUDE_FROM_ALL)
++# RaBitQ: zvec 同梱の wrapper がパッチ適用と runtime dispatch 用
++# rabitqlib_runtime のビルドを担う (apply_patch_once は utils.cmake で定義)
++include(${PROJECT_ROOT_DIR}/cmake/utils.cmake)
++add_subdirectory(thirdparty/RaBitQ-Library thirdparty/RaBitQ-Library EXCLUDE_FROM_ALL)
 +find_package(utf8proc CONFIG REQUIRED)
 +if(NOT TARGET utf8proc)
 +    add_library(utf8proc INTERFACE IMPORTED)
 +    target_link_libraries(utf8proc INTERFACE utf8proc::utf8proc)
 +endif()
-+cc_directories(src)
+ cc_directories(src)
  
- add_custom_target(clang_tidy_deps DEPENDS zvec_proto ARROW.BUILD glog gflags Lz4.BUILD)
+-cc_directories(tests)
+-
+ add_custom_target(clang_tidy_deps DEPENDS ARROW.BUILD glog gflags Lz4.BUILD)
  
-diff --git a/src/core/CMakeLists.txt b/src/core/CMakeLists.txt
-index 13e835e..4aec18f 100644
---- a/src/core/CMakeLists.txt
-+++ b/src/core/CMakeLists.txt
-@@ -71,7 +71,7 @@ if(NOT DISKANN_SUPPORTED)
-   list(FILTER ALL_CORE_SRCS EXCLUDE REGEX ".*/interface/indexes/diskann_index\\.cc")
- endif()
- 
--set(ZVEC_CORE_LIBS zvec_ailego zvec_turbo sparsehash magic_enum rabitqlib)
-+set(ZVEC_CORE_LIBS zvec_ailego zvec_turbo sparsehash magic_enum)
- # The DiskAnn runtime loader uses dlopen/dlsym, so link libdl on Linux.
- if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
-   list(APPEND ZVEC_CORE_LIBS ${CMAKE_DL_LIBS})
-diff --git a/src/core/algorithm/hnsw_rabitq/CMakeLists.txt b/src/core/algorithm/hnsw_rabitq/CMakeLists.txt
-index 09ce72f..8685e54 100644
---- a/src/core/algorithm/hnsw_rabitq/CMakeLists.txt
-+++ b/src/core/algorithm/hnsw_rabitq/CMakeLists.txt
-@@ -20,7 +20,7 @@ cc_library(
-     NAME core_knn_hnsw_rabitq
-     STATIC SHARED STRICT ALWAYS_LINK
-     SRCS *.cc
--    LIBS core_framework rabitqlib sparsehash
-+    LIBS core_framework sparsehash
-     INCS . ${PROJECT_ROOT_DIR}/src ${PROJECT_ROOT_DIR}/src/core ${PROJECT_ROOT_DIR}/src/core/algorithm
-     LDFLAGS "${CORE_KNN_HNSW_RABITQ_LDFLAGS}"
-     VERSION "${PROXIMA_ZVEC_VERSION}"
-diff --git a/src/db/CMakeLists.txt b/src/db/CMakeLists.txt
-index 69426d1..1eda8b3 100644
---- a/src/db/CMakeLists.txt
-+++ b/src/db/CMakeLists.txt
-@@ -42,7 +42,7 @@ cc_library(
-     roaring
-     rocksdb
-     antlr4
--    libprotobuf
-+    protobuf::libprotobuf
-     FastPFOR
-     cppjieba
-     snowball
+ if(BUILD_TOOLS)
 diff --git a/src/db/common/concurrent_roaring_bitmap.h b/src/db/common/concurrent_roaring_bitmap.h
 index d1c6bd4..7c96404 100644
 --- a/src/db/common/concurrent_roaring_bitmap.h
@@ -176,7 +142,7 @@ index c2e0c9f..b45fbd3 100644
  #include "db/common/rocksdb_context.h"
  #include "db/index/column/fts_column/bm25_scorer.h"
 diff --git a/src/db/index/segment/segment_helper.cc b/src/db/index/segment/segment_helper.cc
-index 1238a48..338ae15 100644
+index e3f4f40..e3fcdd0 100644
 --- a/src/db/index/segment/segment_helper.cc
 +++ b/src/db/index/segment/segment_helper.cc
 @@ -25,7 +25,7 @@
@@ -189,7 +155,7 @@ index 1238a48..338ae15 100644
  #include "db/common/file_helper.h"
  #include "db/common/global_resource.h"
 diff --git a/src/db/index/segment/segment_helper.h b/src/db/index/segment/segment_helper.h
-index ab8c3a9..c367a72 100644
+index e2c5ccb..d5c74b5 100644
 --- a/src/db/index/segment/segment_helper.h
 +++ b/src/db/index/segment/segment_helper.h
 @@ -18,7 +18,7 @@
@@ -201,3 +167,25 @@ index ab8c3a9..c367a72 100644
  #include <arrow/record_batch.h>
  #include <arrow/status.h>
  #include <zvec/db/index_params.h>
+diff --git a/thirdparty/RaBitQ-Library/CMakeLists.txt b/thirdparty/RaBitQ-Library/CMakeLists.txt
+index c7b493d..b5e91d0 100644
+--- a/thirdparty/RaBitQ-Library/CMakeLists.txt
++++ b/thirdparty/RaBitQ-Library/CMakeLists.txt
+@@ -2,7 +2,7 @@ set(RABITQ_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/RaBitQ-Library-0.1)
+ 
+ add_library(rabitqlib INTERFACE)
+ target_include_directories(
+-    rabitqlib SYSTEM INTERFACE "${RABITQ_SOURCE_DIR}/include"
++    rabitqlib SYSTEM INTERFACE "$<BUILD_INTERFACE:${RABITQ_SOURCE_DIR}/include>"
+   )
+ 
+ if(RABITQ_SUPPORTED)
+@@ -52,7 +52,7 @@ if(RABITQ_SUPPORTED)
+       ${RABITQ_AVX512_POPCNT_SOURCES}
+   )
+   target_include_directories(
+-      rabitqlib_runtime SYSTEM PUBLIC "${RABITQ_SOURCE_DIR}/include"
++      rabitqlib_runtime SYSTEM PUBLIC "$<BUILD_INTERFACE:${RABITQ_SOURCE_DIR}/include>"
+   )
+   set_target_properties(
+       rabitqlib_runtime PROPERTIES POSITION_INDEPENDENT_CODE ON

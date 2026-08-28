@@ -2,12 +2,12 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO alibaba/zvec
     REF v${VERSION}
-    SHA512 cb0c32ca4e0d20587f6618c61fe8a8add6c5f0dd345be2ea73858dbf5ffed0f3423588a3e93392c1389187af3ad8eed41da9c26fe70a5493fe3d5d0cc2fc5222
+    SHA512 27c33959910ffe4b18237d0c28191a711335a5d0f406e5dbbe9d54d5e6412712412ac30d9584a96ff978d5acad40f9b4f965799210505b7cd1d502bd879dca73
     HEAD_REF main
     PATCHES
         fix-add-library-macro-conflict.patch
         devendoring.patch
-        fix-antlr4-13-compat.patch
+        antlr4-13-regen.patch
         fix-fastpfor-includes.patch
         fix-u8string.patch
         fix-rocksdb-unique-ptr.patch
@@ -20,8 +20,8 @@ vcpkg_from_github(
 vcpkg_from_github(
     OUT_SOURCE_PATH RABITQ_SOURCE_PATH
     REPO VectorDB-NTU/RaBitQ-Library
-    REF 89480d88748cdee87c7b4cdd6194ce4b9ff250d8
-    SHA512 74016824d7eba1131a25dec2df25989df47c0c3bec5879ad0725b41e928dbdaf9622b50e99870279282eba261d6e7a23e3259b28d28f219f687538c36c75e54a
+    REF 540242ea0a68926f1b827bf1f9add844f07a427b
+    SHA512 d0a2f1f85e83037679a89e9102ab0ea0d4170811f9fb00b65d9f22f9f3e1242ee121cf5a493b91e7afefe6ffad194fd01551f26e12d1c01cdacf64ed23a99dd7
     HEAD_REF main
 )
 file(RENAME "${RABITQ_SOURCE_PATH}" "${SOURCE_PATH}/thirdparty/RaBitQ-Library/RaBitQ-Library-0.1")

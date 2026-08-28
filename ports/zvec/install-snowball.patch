@@ -1,8 +1,8 @@
 diff --git a/thirdparty/snowball/CMakeLists.txt b/thirdparty/snowball/CMakeLists.txt
-index 92d6756..ee5c8c5 100644
+index c8d8c20..fbee503 100644
 --- a/thirdparty/snowball/CMakeLists.txt
 +++ b/thirdparty/snowball/CMakeLists.txt
-@@ -98,3 +98,23 @@ if(NOT TARGET snowball)
+@@ -98,3 +98,15 @@ if(NOT TARGET snowball)
  endif()
  
  set(snowball_FOUND TRUE PARENT_SCOPE)
@@ -17,12 +17,4 @@ index 92d6756..ee5c8c5 100644
 +set_property(TARGET snowball PROPERTY INTERFACE_SYSTEM_INCLUDE_DIRECTORIES
 +    "$<BUILD_INTERFACE:${SNOWBALL_SOURCE_DIR}/include>"
 +    "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
-+)
-+
-+install(TARGETS snowball
-+    EXPORT unofficial-zvec-targets
-+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-+)
-+install(FILES ${SNOWBALL_SOURCE_DIR}/include/libstemmer.h
-+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 +)

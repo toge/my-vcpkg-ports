@@ -1,26 +1,26 @@
 diff --git a/cmake/bazel.cmake b/cmake/bazel.cmake
-index 262f721..98c6242 100644
+index e6e29f1..da75dee 100644
 --- a/cmake/bazel.cmake
 +++ b/cmake/bazel.cmake
-@@ -585,7 +585,7 @@ function(_absolute_paths _RESULT)
+@@ -617,7 +617,7 @@ function(_absolute_paths _RESULT)
  endfunction()
  
  ## Add both shared and static library
 -macro(_add_library _NAME _OPTION)
 +macro(_zvec_add_library _NAME _OPTION)
    add_library(${_NAME}_objects OBJECT ${_OPTION} ${ARGN})
-   add_library(
-       ${_NAME}_static STATIC ${_OPTION} $<TARGET_OBJECTS:${_NAME}_objects>
-@@ -926,7 +926,7 @@ function(cc_library)
+   if(IOS)
+     # iOS has no shared libraries, so the main target is static as well.
+@@ -996,7 +996,7 @@ function(cc_library)
    endif()
  
    if(CC_ARGS_SHARED AND CC_ARGS_STATIC)
 -    _add_library(${CC_ARGS_NAME} "${EXCLUDE_OPTION}" ${SOURCE_FILES})
 +    _zvec_add_library(${CC_ARGS_NAME} "${EXCLUDE_OPTION}" ${SOURCE_FILES})
-   elseif(CC_ARGS_SHARED)
-     add_library(${CC_ARGS_NAME} SHARED ${EXCLUDE_OPTION} ${SOURCE_FILES})
-   elseif(CC_ARGS_STATIC)
-@@ -1523,7 +1523,7 @@ function(cc_proto_library)
+   elseif(CC_ARGS_OBJECTS)
+     _add_static_library_with_objects(
+       ${CC_ARGS_NAME} "${EXCLUDE_OPTION}" ${SOURCE_FILES}
+@@ -1620,7 +1620,7 @@ function(cc_proto_library)
  
    # Compile C++ sources
    if(CC_ARGS_SHARED AND CC_ARGS_STATIC)
@@ -29,7 +29,7 @@ index 262f721..98c6242 100644
    elseif(CC_ARGS_SHARED)
      add_library(${CC_ARGS_NAME} SHARED ${EXCLUDE_OPTION} ${CC_SRCS})
    elseif(CC_ARGS_STATIC)
-@@ -1759,7 +1759,7 @@ function(cuda_library)
+@@ -1857,7 +1857,7 @@ function(cuda_library)
    endif()
  
    if(CUDA_ARGS_SHARED AND CUDA_ARGS_STATIC)

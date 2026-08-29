@@ -1,6 +1,6 @@
 {
   "name": "pcre2cpp",
-  "version-string": "1.2.7",
+  "version": "1.2.7",
   "port-version": 1,
   "description": "C++ wrapper around PCRE2 with CMake package exports and component targets",
   "homepage": "https://github.com/MAIPA01/pcre2cpp",

@@ -15,6 +15,6 @@ vcpkg_cmake_install()
 vcpkg_cmake_config_fixup(PACKAGE_NAME ffc CONFIG_PATH lib/cmake/ffc)
 file(COPY "${CMAKE_CURRENT_LIST_DIR}/ffcConfig.cmake" DESTINATION "${CURRENT_PACKAGES_DIR}/share/ffc/")
 
-file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/lib")
+file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include" "${CURRENT_PACKAGES_DIR}/debug/share" "${CURRENT_PACKAGES_DIR}/lib")
 
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE-APACHE" "${SOURCE_PATH}/LICENSE-BOOST" "${SOURCE_PATH}/LICENSE-MIT")

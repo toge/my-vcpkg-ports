@@ -8,7 +8,7 @@ vcpkg_from_github(
         fix-pcre2-targets-and-consumer-interface.patch
 )
 
-set(VCPKG_BUILD_TYPE release)
+set(VCPKG_BUILD_TYPE release) # header only library
 
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"

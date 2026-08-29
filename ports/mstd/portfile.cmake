@@ -9,7 +9,7 @@ vcpkg_from_github(
         fix-missing-standard-includes.patch
 )
 
-set(VCPKG_BUILD_TYPE release)
+set(VCPKG_BUILD_TYPE release) # header only library
 
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"

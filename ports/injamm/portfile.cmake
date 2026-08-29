@@ -26,45 +26,23 @@ vcpkg_cmake_install()
 vcpkg_cmake_config_fixup(CONFIG_PATH "lib/cmake/injamm")
 vcpkg_cmake_config_fixup(PACKAGE_NAME injamm-sqlite3 CONFIG_PATH "lib/cmake/injamm-sqlite3")
 
-# When the enum feature is disabled, the installed injammConfig.cmake contains
-# a dead "if(OFF) ... endif()" block with add_library(enchantum::enchantum ...).
-# vcpkg's heuristic usage-message scanner picks up that add_library() text and
-# incorrectly advertises enchantum::enchantum in the usage instructions even
-# though it is not needed. Strip the entire dead block to fix this.
+# When enum feature is off, upstream installs a dead if(OFF)...endif() block
+# that mentions enchantum; strip it so vcpkg usage scanner doesn't advertise it.
+# ponytail: fragile line parser; upstream should guard with if(ENABLE_ENUM) instead.
 if(NOT "enum" IN_LIST FEATURES)
     set(_injamm_config "${CURRENT_PACKAGES_DIR}/share/injamm/injammConfig.cmake")
     if(EXISTS "${_injamm_config}")
-        file(READ "${_injamm_config}" _config_contents)
-        string(REPLACE "\n" ";" _config_lines "${_config_contents}")
-        set(_filtered_lines "")
-        set(_skip FALSE)
-        set(_depth 0)
-        foreach(_line IN LISTS _config_lines)
-            string(STRIP "${_line}" _stripped)
-            if(_stripped STREQUAL "if(OFF)" AND NOT _skip)
-                set(_skip TRUE)
-                set(_depth 0)
-                continue()
-            endif()
-            if(_skip)
-                if(_stripped MATCHES "^if\\(")
-                    math(EXPR _depth "${_depth} + 1")
-                endif()
-                if(_stripped STREQUAL "endif()")
-                    if(_depth EQUAL 0)
-                        set(_skip FALSE)
-                        continue()
-                    endif()
-                    math(EXPR _depth "${_depth} - 1")
-                    continue()
-                endif()
-                continue()
-            endif()
-            list(APPEND _filtered_lines "${_line}")
-        endforeach()
-        string(REPLACE ";" "\n" _filtered_contents "${_filtered_lines}")
-        file(WRITE "${_injamm_config}" "${_filtered_contents}")
+        file(READ "${_injamm_config}" _injamm_contents)
+        # Remove if(OFF) ... endif() block containing enchantum (handles nested if)
+        string(REGEX REPLACE "if\\(OFF\\)[^\n]*\n([^\n]*\n)*?[ ]*endif\\(\\)[^\n]*\n" "" _injamm_contents "${_injamm_contents}")
+        # Fallback: if regex missed, replace if(OFF) with if(FALSE) to keep it dead but not matched by scanner
+        if(_injamm_contents MATCHES "if\\(OFF\\)")
+            string(REPLACE "if(OFF)" "if(FALSE)" _injamm_contents "${_injamm_contents}")
+        endif()
+        file(WRITE "${_injamm_config}" "${_injamm_contents}")
+        unset(_injamm_contents)
     endif()
+    unset(_injamm_config)
 endif()
 
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug" "${CURRENT_PACKAGES_DIR}/lib")

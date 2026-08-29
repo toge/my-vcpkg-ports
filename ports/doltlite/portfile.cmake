@@ -24,7 +24,7 @@ vcpkg_cmake_configure(
 
 vcpkg_cmake_install()
 
-vcpkg_cmake_config_fixup(PACKAGE_NAME unofficial-doltlite)
+vcpkg_cmake_config_fixup(PACKAGE_NAME unofficial-doltlite CONFIG_PATH lib/cmake/unofficial-doltlite)
 
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/share")

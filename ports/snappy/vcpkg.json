@@ -4,7 +4,7 @@
   "port-version": 3,
   "description": "A fast compressor/decompressor.",
   "homepage": "https://github.com/google/snappy",
-  "license": null,
+  "license": "BSD-3-Clause",
   "dependencies": [
     {
       "name": "vcpkg-cmake",

@@ -1,0 +1,5 @@
+The package uuidv7-h is header-only (single file):
+
+    #include "uuidv7.h"
+
+No CMake target is provided. Add ${VCPKG_ROOT}/include to your include path.

@@ -1,0 +1,5 @@
+The package teascript-cpp-library is header-only:
+
+    #include <teascript/teascript.hpp>
+
+No CMake target is provided. Add ${VCPKG_ROOT}/include to your include path.

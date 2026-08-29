@@ -1,0 +1,4 @@
+The package pcre2cpp provides CMake targets:
+
+    find_package(pcre2cpp CONFIG REQUIRED)
+    target_link_libraries(main PRIVATE pcre2cpp::pcre2cpp)

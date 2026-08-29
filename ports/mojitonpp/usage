@@ -1,0 +1,4 @@
+The package mojitonpp provides CMake targets:
+
+    find_package(mojitonpp CONFIG REQUIRED)
+    target_link_libraries(main PRIVATE mojitonpp::mojitonpp)

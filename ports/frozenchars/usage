@@ -1,0 +1,4 @@
+The package frozenchars provides CMake targets:
+
+    find_package(frozenchars CONFIG REQUIRED)
+    target_link_libraries(main PRIVATE frozenchars::frozenchars)

@@ -1,0 +1,4 @@
+The package yase-json provides CMake targets:
+
+    find_package(yase-json CONFIG REQUIRED)
+    target_link_libraries(main PRIVATE yase-json::yase-json)

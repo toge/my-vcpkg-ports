@@ -1,0 +1,4 @@
+The package zxcpp provides CMake targets:
+
+    find_package(zxcpp CONFIG REQUIRED)
+    target_link_libraries(main PRIVATE zxcpp::zxcpp)

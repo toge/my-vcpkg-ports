@@ -1,0 +1,6 @@
+The package wuffs is header-only (single file):
+
+    #include "wuffs-v0.3.c"
+    // or add ${VCPKG_ROOT}/include to include path and include as above
+
+wuffs is a single-file library, no CMake target is provided.

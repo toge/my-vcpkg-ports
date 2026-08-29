@@ -1,0 +1,4 @@
+The package uuid7pp provides CMake targets:
+
+    find_package(uuid7pp CONFIG REQUIRED)
+    target_link_libraries(main PRIVATE uuid7pp::uuid7pp)

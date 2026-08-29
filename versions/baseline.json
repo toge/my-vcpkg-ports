@@ -53,7 +53,7 @@
       "port-version": 0
     },
     "injamm-sqlite3": {
-      "baseline": "2026-08-26",
+      "baseline": "2026-08-29",
       "port-version": 0
     },
     "jinja2cpp": {

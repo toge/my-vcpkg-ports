@@ -1,0 +1,39 @@
+{
+  "name": "jinja2cpp",
+  "version-date": "2026-03-10",
+  "description": "Jinja2 C++ (and for C++) almost full-conformance template engine implementation",
+  "homepage": "https://github.com/jinja2cpp/Jinja2Cpp",
+  "license": "MPL-2.0",
+  "dependencies": [
+    "boost-algorithm",
+    "boost-any",
+    "boost-assert",
+    "boost-atomic",
+    "boost-filesystem",
+    "boost-json",
+    "boost-lexical-cast",
+    "boost-numeric-conversion",
+    "boost-optional",
+    "boost-regex",
+    "boost-variant",
+    "expected-lite",
+    "fmt",
+    "optional-lite",
+    "rapidjson",
+    "string-view-lite",
+    "variant-lite",
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    },
+    {
+      "name": "vcpkg-cmake-config",
+      "host": true
+    }
+  ],
+  "features": {
+    "std-regex": {
+      "description": "Use std::regex instead of boost::regex"
+    }
+  }
+}

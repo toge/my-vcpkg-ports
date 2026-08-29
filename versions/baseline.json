@@ -56,6 +56,10 @@
       "baseline": "2026-08-26",
       "port-version": 0
     },
+    "jinja2cpp": {
+      "baseline": "2026-03-10",
+      "port-version": 0
+    },
     "jpegli": {
       "baseline": "2026-06-01",
       "port-version": 0

@@ -1,0 +1,177 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index e59aa86..1dd7788 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -410,7 +410,7 @@ if(JINJA2CPP_INSTALL)
+             InstallTargets
+         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+-        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/static
++        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+         FILE_SET HEADERS
+     )
+ 
+@@ -418,7 +418,7 @@ if(JINJA2CPP_INSTALL)
+         FILES
+             ${CMAKE_BINARY_DIR}/jinja2cpp.pc
+         DESTINATION
+-            ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig
++            ${CMAKE_INSTALL_LIBDIR}/pkgconfig
+     )
+ 
+     install(
+diff --git a/cmake/public/jinja2cpp-config-deps-external.cmake.in b/cmake/public/jinja2cpp-config-deps-external.cmake.in
+index 9a18989..a942c19 100644
+--- a/cmake/public/jinja2cpp-config-deps-external.cmake.in
++++ b/cmake/public/jinja2cpp-config-deps-external.cmake.in
+@@ -36,9 +36,18 @@ macro (Jinja2CppAddBoostDep name)
+     endif ()
+ endmacro ()
+ 
++include(CMakeFindDependencyMacro)
++find_dependency(Boost CONFIG COMPONENTS algorithm any filesystem json lexical_cast numeric_conversion optional regex system variant)
++
+ Jinja2CppAddBoostDep(variant)
+ Jinja2CppAddBoostDep(filesystem)
+ Jinja2CppAddBoostDep(algorithm)
++Jinja2CppAddBoostDep(json)
++Jinja2CppAddBoostDep(regex)
++Jinja2CppAddBoostDep(lexical_cast)
++Jinja2CppAddBoostDep(numeric_conversion)
++Jinja2CppAddBoostDep(optional)
++Jinja2CppAddBoostDep(any)
+ 
+ set_property(TARGET jinja2cpp PROPERTY
+   INTERFACE_LINK_LIBRARIES ${JINJA2CPP_INTERFACE_LINK_LIBRARIES}
+diff --git a/thirdparty/external_boost_deps.cmake b/thirdparty/external_boost_deps.cmake
+index 1a06511..fa6e5ef 100644
+--- a/thirdparty/external_boost_deps.cmake
++++ b/thirdparty/external_boost_deps.cmake
+@@ -38,16 +38,52 @@ if (boost_algorithm_FOUND AND
+    boost_json_FOUND AND
+    boost_optional_FOUND AND
+    boost_variant_FOUND AND boost_regex_FOUND)
+-   imported_target_alias(boost_algorithm          ALIAS boost_algorithm::boost_algorithm)
+-   imported_target_alias(boost_any                ALIAS boost_any::boost_any)
+-   imported_target_alias(boost_filesystem         ALIAS boost_filesystem::boost_filesystem)
+-   imported_target_alias(boost_numeric_conversion ALIAS numeric_conversion::numeric_conversion)
+-   imported_target_alias(boost_json               ALIAS boost_json::boost_json)
+-   imported_target_alias(boost_optional           ALIAS boost_optional::boost_optional)
+-   imported_target_alias(boost_variant            ALIAS boost_variant::boost_variant)
+-   imported_target_alias(boost_regex              ALIAS boost_regex::boost_regex)
+-   imported_target_alias(boost_lexical_cast       ALIAS boost_regex::lexical_cast)
+-
++   if(TARGET Boost::algorithm)
++       imported_target_alias(boost_algorithm          ALIAS Boost::algorithm)
++   elseif(TARGET boost_algorithm::boost_algorithm)
++       imported_target_alias(boost_algorithm          ALIAS boost_algorithm::boost_algorithm)
++   endif()
++   if(TARGET Boost::any)
++       imported_target_alias(boost_any                ALIAS Boost::any)
++   elseif(TARGET boost_any::boost_any)
++       imported_target_alias(boost_any                ALIAS boost_any::boost_any)
++   endif()
++   if(TARGET Boost::filesystem)
++       imported_target_alias(boost_filesystem         ALIAS Boost::filesystem)
++   elseif(TARGET boost_filesystem::boost_filesystem)
++       imported_target_alias(boost_filesystem         ALIAS boost_filesystem::boost_filesystem)
++   endif()
++   if(TARGET Boost::numeric_conversion)
++       imported_target_alias(boost_numeric_conversion ALIAS Boost::numeric_conversion)
++   elseif(TARGET numeric_conversion::numeric_conversion)
++       imported_target_alias(boost_numeric_conversion ALIAS numeric_conversion::numeric_conversion)
++   endif()
++   if(TARGET Boost::json)
++       imported_target_alias(boost_json               ALIAS Boost::json)
++   elseif(TARGET boost_json::boost_json)
++       imported_target_alias(boost_json               ALIAS boost_json::boost_json)
++   endif()
++   if(TARGET Boost::optional)
++       imported_target_alias(boost_optional           ALIAS Boost::optional)
++   elseif(TARGET boost_optional::boost_optional)
++       imported_target_alias(boost_optional           ALIAS boost_optional::boost_optional)
++   endif()
++   if(TARGET Boost::variant)
++       imported_target_alias(boost_variant            ALIAS Boost::variant)
++   elseif(TARGET boost_variant::boost_variant)
++       imported_target_alias(boost_variant            ALIAS boost_variant::boost_variant)
++   endif()
++   if(TARGET Boost::regex)
++       imported_target_alias(boost_regex              ALIAS Boost::regex)
++   elseif(TARGET boost_regex::boost_regex)
++       imported_target_alias(boost_regex              ALIAS boost_regex::boost_regex)
++   endif()
++   if(TARGET Boost::lexical_cast)
++       imported_target_alias(boost_lexical_cast       ALIAS Boost::lexical_cast)
++   elseif(TARGET boost_regex::lexical_cast)
++       imported_target_alias(boost_lexical_cast       ALIAS boost_regex::lexical_cast)
++   endif()
++   
+ else ()
+     find_package(Boost
+         COMPONENTS
+@@ -64,13 +100,31 @@ else ()
+         ${FIND_BOOST_PACKAGE_QUIET} REQUIRED)
+ 
+     if (Boost_FOUND)
+-        imported_target_alias(boost_algorithm          ALIAS Boost::boost)
+-        imported_target_alias(boost_any                ALIAS Boost::boost_any)
++        if(TARGET Boost::algorithm)
++            imported_target_alias(boost_algorithm          ALIAS Boost::algorithm)
++        elseif(TARGET Boost::boost)
++            imported_target_alias(boost_algorithm          ALIAS Boost::boost)
++        endif()
++        if(TARGET Boost::any)
++            imported_target_alias(boost_any                ALIAS Boost::any)
++        elseif(TARGET Boost::boost_any)
++            imported_target_alias(boost_any                ALIAS Boost::boost_any)
++        elseif(TARGET Boost::boost)
++            imported_target_alias(boost_any                ALIAS Boost::boost)
++        endif()
+         imported_target_alias(boost_filesystem         ALIAS Boost::filesystem)
+         imported_target_alias(boost_numeric_conversion ALIAS Boost::numeric_conversion)
+         imported_target_alias(boost_json               ALIAS Boost::json)
+-        imported_target_alias(boost_optional           ALIAS Boost::boost)
+-        imported_target_alias(boost_variant            ALIAS Boost::boost)
++        if(TARGET Boost::optional)
++            imported_target_alias(boost_optional           ALIAS Boost::optional)
++        elseif(TARGET Boost::boost)
++            imported_target_alias(boost_optional           ALIAS Boost::boost)
++        endif()
++        if(TARGET Boost::variant)
++            imported_target_alias(boost_variant            ALIAS Boost::variant)
++        elseif(TARGET Boost::boost)
++            imported_target_alias(boost_variant            ALIAS Boost::boost)
++        endif()
+         imported_target_alias(boost_regex              ALIAS Boost::regex)
+         imported_target_alias(boost_lexical_cast       ALIAS Boost::lexical_cast)
+     endif ()
+diff --git a/thirdparty/thirdparty-external.cmake b/thirdparty/thirdparty-external.cmake
+index a0de94a..429853c 100644
+--- a/thirdparty/thirdparty-external.cmake
++++ b/thirdparty/thirdparty-external.cmake
+@@ -27,7 +27,23 @@ macro (find_hdr_package PKG_NAME HDR_PATH)
+ 
+     if(${PKG_NAME}_FOUND)
+         if (NOT TARGET ${PKG_NAME})
+-            imported_target_alias(${PKG_NAME} ALIAS "${PKG_NAME}::${PKG_NAME}")
++            if(TARGET nonstd::${PKG_NAME})
++                imported_target_alias(${PKG_NAME} ALIAS nonstd::${PKG_NAME})
++            elseif(TARGET ${PKG_NAME}::${PKG_NAME})
++                imported_target_alias(${PKG_NAME} ALIAS "${PKG_NAME}::${PKG_NAME}")
++            elseif("${PKG_NAME}" STREQUAL "fmt-header-only" AND TARGET fmt::fmt-header-only)
++                imported_target_alias(${PKG_NAME} ALIAS fmt::fmt-header-only)
++            elseif("${PKG_NAME}" STREQUAL "fmt-header-only" AND TARGET fmt::fmt)
++                imported_target_alias(${PKG_NAME} ALIAS fmt::fmt)
++            else()
++                message(WARNING "Package ${PKG_NAME} found but no known target; creating interface target")
++                if(NOT TARGET ${PKG_NAME})
++                    add_library(${PKG_NAME} INTERFACE)
++                    if(DEFINED ${PKG_NAME}_INCLUDE_DIR)
++                        target_include_directories(${PKG_NAME} INTERFACE "${${PKG_NAME}_INCLUDE_DIR}")
++                    endif()
++                endif()
++            endif()
+         endif ()
+     else()
+         message(FATAL_ERROR "${PKG_NAME} not found!")

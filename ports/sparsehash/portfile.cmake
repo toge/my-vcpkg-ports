@@ -16,16 +16,9 @@ if(VCPKG_TARGET_IS_WINDOWS)
 
 else()
 
-	vcpkg_execute_required_process(
-		COMMAND ${SOURCE_PATH}/configure ${OPTIONS} --prefix=${CURRENT_PACKAGES_DIR}
-		WORKING_DIRECTORY ${SOURCE_PATH}
-		LOGNAME configure-${TARGET_TRIPLET}
-	)
-
-	vcpkg_execute_required_process(
-		COMMAND make -j ${VCPKG_CONCURRENCY} install
-		WORKING_DIRECTORY ${SOURCE_PATH}
-		LOGNAME install-${TARGET_TRIPLET}
+	vcpkg_configure_make(
+		SOURCE_PATH "${SOURCE_PATH}"
+		AUTOCONFIG
 	)
 
 endif()

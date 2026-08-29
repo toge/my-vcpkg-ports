@@ -3,7 +3,7 @@
   "version-date": "2025-07-11",
   "description": "Headers only C++11 OpenGL Vector Graphics library, that can run on all OpenGL/ES version",
   "homepage": "https://github.com/micro-gl/nitro-gl",
-  "license": null,
+  "license": "MIT",
   "dependencies": [
     {
       "name": "vcpkg-cmake",

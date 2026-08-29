@@ -68,6 +68,10 @@
       "baseline": "0.2.0",
       "port-version": 0
     },
+    "kainjow-mustache": {
+      "baseline": "2025-06-15",
+      "port-version": 0
+    },
     "keikoupp": {
       "baseline": "2026-08-26",
       "port-version": 0

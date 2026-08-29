@@ -1,0 +1,22 @@
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+
+add_library(kainjow_mustache INTERFACE IMPORTED)
+target_include_directories(kainjow_mustache INTERFACE "${PACKAGE_PREFIX_DIR}/include")
+
+# Upstream target name is `mustache` (INTERFACE). Provide aliases for compatibility.
+if(NOT TARGET mustache)
+    add_library(mustache ALIAS kainjow_mustache)
+endif()
+if(NOT TARGET mustache::mustache)
+    add_library(mustache::mustache ALIAS kainjow_mustache)
+endif()
+if(NOT TARGET kainjow::mustache)
+    add_library(kainjow::mustache ALIAS kainjow_mustache)
+endif()
+if(NOT TARGET kainjow_mustache::kainjow_mustache)
+    add_library(kainjow_mustache::kainjow_mustache ALIAS kainjow_mustache)
+endif()
+
+check_required_components(kainjow-mustache)

@@ -1,0 +1,17 @@
+{
+  "name": "kainjow-mustache",
+  "version-date": "2025-06-15",
+  "description": "Mustache text templates for modern C++ (header-only, zero dependencies)",
+  "homepage": "https://github.com/kainjow/Mustache",
+  "license": "BSL-1.0",
+  "dependencies": [
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    },
+    {
+      "name": "vcpkg-cmake-config",
+      "host": true
+    }
+  ]
+}

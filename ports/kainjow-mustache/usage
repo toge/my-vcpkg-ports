@@ -1,0 +1,10 @@
+kainjow-mustache provides CMake targets:
+
+    find_package(kainjow-mustache CONFIG REQUIRED)
+    target_link_libraries(main PRIVATE kainjow_mustache)
+    # or: kainjow_mustache::kainjow_mustache, kainjow::mustache, mustache::mustache
+
+Or alternatively:
+
+    find_package(mustache CONFIG REQUIRED)
+    target_link_libraries(main PRIVATE mustache::mustache)

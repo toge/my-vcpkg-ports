@@ -14,4 +14,6 @@ file(REMOVE_RECURSE "${SOURCE_PATH}/include/teascript/thirdparty")
 
 file(COPY ${SOURCE_PATH}/include/teascript DESTINATION "${CURRENT_PACKAGES_DIR}/include")
 
+file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include" "${CURRENT_PACKAGES_DIR}/debug/share")
+
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE.TXT")

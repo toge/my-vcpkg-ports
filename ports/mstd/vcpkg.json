@@ -1,6 +1,6 @@
 {
   "name": "mstd",
-  "version-string": "1.5.3",
+  "version": "1.5.3",
   "description": "Modern C++ header-only utility library used by pcre2cpp",
   "homepage": "https://github.com/MAIPA01/mstd",
   "license": "BSD-3-Clause",

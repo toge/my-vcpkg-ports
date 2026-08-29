@@ -17,4 +17,14 @@ vcpkg_cmake_configure(SOURCE_PATH ${SOURCE_PATH}
 vcpkg_cmake_install()
 vcpkg_cmake_config_fixup(PACKAGE_NAME unofficial-fpng CONFIG_PATH "lib/cmake/unofficial-fpng")
 
-file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")
+file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include" "${CURRENT_PACKAGES_DIR}/debug/share")
+
+# Unlicense is embedded in README; generate copyright file from it
+file(READ "${SOURCE_PATH}/README.md" _fpng_readme)
+string(REGEX MATCH "Unlicense[^\n]*\n[^\n]*" _fpng_license "${_fpng_readme}")
+if(_fpng_license STREQUAL "")
+    set(_fpng_license "Unlicense - public domain")
+endif()
+file(WRITE "${CURRENT_PACKAGES_DIR}/share/${PORT}/copyright" "${_fpng_license}\nSee https://unlicense.org/ for details.\n")
+unset(_fpng_readme)
+unset(_fpng_license)

@@ -1,4 +1,6 @@
 if(VCPKG_TARGET_IS_LINUX OR VCPKG_TARGET_IS_BSD)
+    # ponytail: libslz.so crashes after vcpkg RUNPATH rewrite; globally disabling
+    # RPATH fixup hides the issue. Revisit if upstream fixes RUNPATH handling.
     # libslz.so is healthy before vcpkg's ELF RUNPATH rewrite and crashes after it.
     set(VCPKG_FIXUP_ELF_RPATH OFF)
 endif()

@@ -1,4 +1,5 @@
 if(VCPKG_TARGET_IS_WINDOWS)
+    # ponytail: tree-sitter parsers use static linkage on Windows (upstream lacks DLL export)
     vcpkg_check_linkage(ONLY_STATIC_LIBRARY)
 endif()
 

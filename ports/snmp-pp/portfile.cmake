@@ -26,9 +26,15 @@ vcpkg_cmake_install()
 
 vcpkg_cmake_config_fixup(PACKAGE_NAME snmp++ CONFIG_PATH lib/cmake/snmp++)
 
-file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")
+file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include" "${CURRENT_PACKAGES_DIR}/debug/share")
 
-# Extract license from source file
+# Extract license from source file (Snmp++ has no separate LICENSE file)
 file(READ "${SOURCE_PATH}/src/address.cpp" ADDRESS_CPP_CONTENT)
 string(REGEX MATCH [[/\*=====.+=====\*/]] LICENSE_CONTENT "${ADDRESS_CPP_CONTENT}")
+if(LICENSE_CONTENT STREQUAL "")
+    # fallback: use first 100 lines of address.cpp header
+    string(SUBSTRING "${ADDRESS_CPP_CONTENT}" 0 4000 LICENSE_CONTENT)
+endif()
 file(WRITE "${CURRENT_PACKAGES_DIR}/share/${PORT}/copyright" "${LICENSE_CONTENT}")
+unset(ADDRESS_CPP_CONTENT)
+unset(LICENSE_CONTENT)

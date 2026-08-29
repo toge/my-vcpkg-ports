@@ -10,4 +10,6 @@ vcpkg_from_github(
 
 file(COPY "${SOURCE_PATH}/release/c/wuffs-v0.3.c" DESTINATION "${CURRENT_PACKAGES_DIR}/include")
 
+file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include" "${CURRENT_PACKAGES_DIR}/debug/share")
+
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE")

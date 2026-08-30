@@ -1,6 +1,7 @@
 {
   "name": "plotlypp",
   "version-date": "2026-02-06",
+  "port-version": 2,
   "description": "A C++ interface to the Plotly.js figure spec, for creating interactive data visualizations.",
   "homepage": "https://github.com/jimmyorourke/plotlypp",
   "license": "MIT",
@@ -14,6 +15,5 @@
       "name": "vcpkg-cmake-config",
       "host": true
     }
-  ],
-  "port-version": 1
+  ]
 }

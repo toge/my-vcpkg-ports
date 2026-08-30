@@ -1,4 +1,0 @@
-The package plotlypp provides CMake targets:
-
-    find_package(plotlypp CONFIG REQUIRED)
-    target_link_libraries(main PRIVATE plotlypp::plotlypp)

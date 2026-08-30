@@ -1,4 +1,0 @@
-The package ffc-h provides CMake targets:
-
-    find_package(ffc CONFIG REQUIRED)
-    target_link_libraries(main PRIVATE ffc::ffc)

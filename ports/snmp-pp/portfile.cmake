@@ -1,7 +1,7 @@
 vcpkg_download_distfile(ARCHIVE
     URLS "https://www.agentpp.com/download/snmp++-${VERSION}.tar.gz"
     FILENAME "snmp++-${VERSION}.tar.gz"
-    SHA512 9f7290b946ff7fa4f9cebd10cfa57cdb60cb8895dc10db56aa31a03b853c0aee033f13b924ce67d880b3bd8009545149aeb1430423b3bbb64b6b256766bb3863
+    SHA512 c86983dd36f127dc69434b18ace7cb00fdd7300d43cfd446e75519bd1adb9745c74621ca78323fdce63d2b2b4d4f805c58325839ff1a8343da981bc67c6352d4
 )
 
 vcpkg_extract_source_archive(

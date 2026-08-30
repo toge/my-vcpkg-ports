@@ -54,7 +54,7 @@
     },
     "injamm": {
       "baseline": "2026-08-30",
-      "port-version": 1
+      "port-version": 0
     },
     "injamm-sqlite3": {
       "baseline": "2026-08-29",

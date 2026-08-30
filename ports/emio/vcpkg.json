@@ -1,0 +1,17 @@
+{
+  "name": "emio",
+  "version": "0.9.0",
+  "description": "Character input/output library for embedded systems",
+  "homepage": "https://github.com/Viatorus/emio",
+  "license": "MIT",
+  "dependencies": [
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    },
+    {
+      "name": "vcpkg-cmake-config",
+      "host": true
+    }
+  ]
+}

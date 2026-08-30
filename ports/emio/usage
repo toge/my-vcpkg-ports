@@ -1,0 +1,4 @@
+The package emio provides CMake targets:
+
+    find_package(emio CONFIG REQUIRED)
+    target_link_libraries(main PRIVATE emio::emio)

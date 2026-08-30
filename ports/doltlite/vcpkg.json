@@ -19,5 +19,6 @@
     "sqlite3-compat": {
       "description": "Provide sqlite3.h for drop-in compatibility with SQLite"
     }
-  }
+  },
+  "port-version": 1
 }

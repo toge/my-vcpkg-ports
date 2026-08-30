@@ -146,7 +146,7 @@
     },
     "redismm": {
       "baseline": "2026-08-02",
-      "port-version": 0
+      "port-version": 1
     },
     "rlogiacco-circularbuffer": {
       "baseline": "1.4.0",

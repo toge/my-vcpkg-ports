@@ -82,7 +82,7 @@
     },
     "laz-perf": {
       "baseline": "3.4.0",
-      "port-version": 0
+      "port-version": 1
     },
     "lexborpp": {
       "baseline": "2026-08-25",

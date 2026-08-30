@@ -30,7 +30,7 @@
     },
     "frozenchars": {
       "baseline": "0.5.3",
-      "port-version": 0
+      "port-version": 1
     },
     "fsst": {
       "baseline": "2026-04-06",

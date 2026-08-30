@@ -222,7 +222,7 @@
     },
     "wuffs": {
       "baseline": "0.3.4",
-      "port-version": 0
+      "port-version": 1
     },
     "wxwidgets": {
       "baseline": "3.3.1",

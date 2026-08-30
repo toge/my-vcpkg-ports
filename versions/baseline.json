@@ -54,7 +54,7 @@
     },
     "injamm-sqlite3": {
       "baseline": "2026-08-29",
-      "port-version": 0
+      "port-version": 1
     },
     "jinja2cpp": {
       "baseline": "2026-03-10",
@@ -241,8 +241,6 @@
       "port-version": 0
     },
     "yase-json": {
-      "baseline": "2026-08-26",
-      "port-version": 1
     },
     "zlib-ng": {
       "baseline": "2.3.3",

@@ -142,7 +142,7 @@
     },
     "plotlypp": {
       "baseline": "2026-02-06",
-      "port-version": 0
+      "port-version": 1
     },
     "redismm": {
       "baseline": "2026-08-02",

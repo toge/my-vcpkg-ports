@@ -1,6 +1,7 @@
 {
   "name": "macad-parser",
   "version-date": "2026-06-02",
+  "port-version": 2,
   "description": "Header-only C++23+ MAC/EUI-64 address parser/formatter with SIMD acceleration",
   "homepage": "https://github.com/toge/macad-parser",
   "license": "MIT",
@@ -14,6 +15,5 @@
       "name": "vcpkg-cmake-config",
       "host": true
     }
-  ],
-  "port-version": 1
+  ]
 }

@@ -1,6 +1,7 @@
 {
   "name": "lexborpp",
   "version-date": "2026-08-25",
+  "port-version": 2,
   "description": "C++ wrapper for Lexbor",
   "homepage": "https://github.com/toge/lexborpp",
   "license": "MIT",
@@ -14,6 +15,5 @@
       "name": "vcpkg-cmake-config",
       "host": true
     }
-  ],
-  "port-version": 1
+  ]
 }

@@ -162,7 +162,7 @@
     },
     "snmp-pp": {
       "baseline": "3.6.3",
-      "port-version": 0
+      "port-version": 1
     },
     "sparsehash": {
       "baseline": "2.0.4",

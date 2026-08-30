@@ -1,6 +1,7 @@
 {
   "name": "mojitonpp",
   "version-date": "2026-06-23",
+  "port-version": 2,
   "description": "sort library for mixed strings and numbers",
   "homepage": "https://github.com/toge/mojitonpp",
   "license": "MIT",
@@ -15,6 +16,5 @@
       "name": "vcpkg-cmake-config",
       "host": true
     }
-  ],
-  "port-version": 1
+  ]
 }

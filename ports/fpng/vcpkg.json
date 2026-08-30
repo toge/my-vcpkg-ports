@@ -1,7 +1,7 @@
 {
   "name": "fpng",
   "version-date": "2024-08-26",
-  "port-version": 1,
+  "port-version": 2,
   "description": "Super fast C++ .PNG writer/reader",
   "homepage": "https://github.com/richgel999/fpng",
   "license": "Unlicense",

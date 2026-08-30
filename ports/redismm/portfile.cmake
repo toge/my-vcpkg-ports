@@ -3,8 +3,8 @@ set(VCPKG_BUILD_TYPE release) # header only library
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO toge/redismm
-    REF 388f4535afce753c00e109909be138c90b285acc
-    SHA512 79e3e6e18c1cfaf2b2433352ab3f39465ad2dedcaab115ce20a16314e14d4c79bad42e217e23a631fe60a67339e9be26797b3f2b8d3c0c99a63a2fff56fbcded
+    REF f83bb45727fe2027a12a8d59afd7b9a5f6a5f084
+    SHA512 2d73233ee4dd9cce7c78aed48996e6dfb740060f6a5101942a2d2d33401cd0218c343dff59549e45a32043db04cadb7aaf6e466c5a4f631d72b83256cd77d7b9
     HEAD_REF main
 )
 
@@ -19,5 +19,3 @@ vcpkg_cmake_config_fixup(CONFIG_PATH "lib/cmake/redismm")
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include" "${CURRENT_PACKAGES_DIR}/debug/share")
 
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE")
-
-file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")

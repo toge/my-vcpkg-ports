@@ -1,6 +1,6 @@
 {
   "name": "emio",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Character input/output library for embedded systems",
   "homepage": "https://github.com/Viatorus/emio",
   "license": "MIT",

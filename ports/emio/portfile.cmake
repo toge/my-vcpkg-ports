@@ -3,8 +3,8 @@ set(VCPKG_BUILD_TYPE release) # header only library
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO Viatorus/emio
-    REF 0.9.0
-    SHA512 58c656d89c638234e49928aa02ed98097f94fc13570ff3076400a58cc301a839927f0993a20ad8f0ee02016fa5d3b3fecd07c4ba54d8e2eb96aa48154e3662ff
+    REF ${VERSION}
+    SHA512 8065a7b9da86df46eaeadfe38d2fea25b33198eba0d95eef94c5a2d4ecda49ae98394a421e30029e1ecb281446e55b8ddbaaad496ad9ff8598b536804f988cb7
     HEAD_REF master
 )
 
@@ -18,5 +18,3 @@ vcpkg_cmake_config_fixup(CONFIG_PATH "share/emio")
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug" "${CURRENT_PACKAGES_DIR}/lib")
 
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE")
-
-file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")

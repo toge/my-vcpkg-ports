@@ -174,7 +174,7 @@
     },
     "teascript-cpp-library": {
       "baseline": "0.17.0",
-      "port-version": 1
+      "port-version": 2
     },
     "threepp": {
       "baseline": "2026-08-21",

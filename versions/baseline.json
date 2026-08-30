@@ -245,6 +245,8 @@
       "port-version": 0
     },
     "yase-json": {
+      "baseline": "2026-06-11",
+      "port-version": 0
     },
     "zlib-ng": {
       "baseline": "2.3.3",

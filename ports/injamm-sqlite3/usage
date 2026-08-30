@@ -1,4 +1,0 @@
-The package injamm-sqlite3 provides CMake targets:
-
-    find_package(injamm-sqlite3 CONFIG REQUIRED)
-    target_link_libraries(main PRIVATE injamm-sqlite3::injamm-sqlite3)

@@ -1,6 +1,7 @@
 {
   "name": "xlsxwriterpp",
   "version-date": "2026-07-07",
+  "port-version": 2,
   "description": "C++ wrapper for libxlsxwriter",
   "homepage": "https://github.com/toge/xlsxwriterpp",
   "license": "MIT",
@@ -14,6 +15,5 @@
       "name": "vcpkg-cmake-config",
       "host": true
     }
-  ],
-  "port-version": 1
+  ]
 }

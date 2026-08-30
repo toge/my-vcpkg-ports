@@ -1,6 +1,7 @@
 {
   "name": "laz-perf",
   "version": "3.4.0",
+  "port-version": 2,
   "description": "Alternative LAZ implementation for C++ and JavaScript",
   "homepage": "https://github.com/MeshInspector/laz-perf",
   "license": "Apache-2.0",
@@ -13,6 +14,5 @@
       "name": "vcpkg-cmake-config",
       "host": true
     }
-  ],
-  "port-version": 1
+  ]
 }

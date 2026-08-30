@@ -1,4 +1,0 @@
-The package injamm provides CMake targets:
-
-    find_package(injamm CONFIG REQUIRED)
-    target_link_libraries(main PRIVATE injamm::injamm)

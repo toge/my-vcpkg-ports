@@ -1,11 +1,11 @@
 {
   "name": "injamm",
   "version-date": "2026-08-30",
+  "port-version": 1,
   "description": "subset inja template engine for speed",
   "homepage": "https://github.com/toge/injamm",
   "license": "MIT",
   "dependencies": [
-    "fast-float",
     "glaze",
     {
       "name": "vcpkg-cmake",

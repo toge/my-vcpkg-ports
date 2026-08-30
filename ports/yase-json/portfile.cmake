@@ -1,3 +1,5 @@
+set(VCPKG_BUILD_TYPE release) # header only library
+
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO toge/yase-json
@@ -5,8 +7,6 @@ vcpkg_from_github(
     SHA512 c1888d31106e42b0a6e824fef1aa86a3e524fd34df544bb32a2d547d7c8c449a76bf97d910657f649eaa326c7f89bcd596828a17abd2cff7e04b317dd09a2294
     HEAD_REF main
 )
-
-set(VCPKG_BUILD_TYPE release) # header only library
 
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"
@@ -20,5 +20,3 @@ vcpkg_cmake_config_fixup(CONFIG_PATH lib/cmake/yase-json)
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include" "${CURRENT_PACKAGES_DIR}/debug/share" "${CURRENT_PACKAGES_DIR}/lib")
 
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE")
-
-file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")

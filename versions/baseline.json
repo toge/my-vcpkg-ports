@@ -86,7 +86,7 @@
     },
     "lexborpp": {
       "baseline": "2026-08-25",
-      "port-version": 0
+      "port-version": 1
     },
     "libnfs": {
       "baseline": "7.0.0",

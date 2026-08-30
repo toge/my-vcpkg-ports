@@ -118,7 +118,7 @@
     },
     "mstd": {
       "baseline": "1.5.3",
-      "port-version": 0
+      "port-version": 1
     },
     "nitro-gl": {
       "baseline": "2025-07-11",

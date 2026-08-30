@@ -1,6 +1,7 @@
 {
   "name": "glz-util",
   "version-date": "2026-08-07",
+  "port-version": 2,
   "description": "A collection of utility functions and classes for glaze",
   "homepage": "https://github.com/toge/glz-util",
   "license": "MIT",
@@ -14,6 +15,5 @@
       "name": "vcpkg-cmake-config",
       "host": true
     }
-  ],
-  "port-version": 1
+  ]
 }

@@ -214,7 +214,7 @@
     },
     "uuidv7-h": {
       "baseline": "0.1.6",
-      "port-version": 0
+      "port-version": 1
     },
     "wasm3": {
       "baseline": "0.9.0",

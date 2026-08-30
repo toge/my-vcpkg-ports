@@ -26,5 +26,6 @@
     "util": {
       "description": "build utility commands"
     }
-  }
+  },
+  "port-version": 1
 }

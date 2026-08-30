@@ -234,7 +234,7 @@
     },
     "xlsxwriterpp": {
       "baseline": "2026-07-07",
-      "port-version": 0
+      "port-version": 1
     },
     "yaml-schema-cpp": {
       "baseline": "2025-11-10",

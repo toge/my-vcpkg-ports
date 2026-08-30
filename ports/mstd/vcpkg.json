@@ -1,6 +1,6 @@
 {
   "name": "mstd",
-  "version": "1.5.3",
+  "version": "1.5.6",
   "description": "Modern C++ header-only utility library used by pcre2cpp",
   "homepage": "https://github.com/MAIPA01/mstd",
   "license": "BSD-3-Clause",
@@ -14,6 +14,5 @@
       "name": "vcpkg-cmake-config",
       "host": true
     }
-  ],
-  "port-version": 1
+  ]
 }

@@ -2,7 +2,7 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO MAIPA01/mstd
     REF "v${VERSION}"
-    SHA512 97a207b164b1b2ed2a4ba759d7ee1570693358e648eccc734df206b2395133e387a88ca9da0efe0a38f4adfe3b12adac78b966b9dc1bd563d37ff6aeea139bf6
+    SHA512 b19fa6a0eb017dd56938567de064b2673b56fdccf31de47f99fbc516ab1084a5c9fef77133ebda45079adb7aab8016524779fca9932875df2c9b050eb4c149e7
     HEAD_REF main
     PATCHES
         fix-consumer-interface.patch

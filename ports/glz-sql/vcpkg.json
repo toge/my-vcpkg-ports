@@ -16,5 +16,6 @@
       "name": "vcpkg-cmake-config",
       "host": true
     }
-  ]
+  ],
+  "port-version": 1
 }

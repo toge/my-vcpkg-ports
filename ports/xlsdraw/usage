@@ -1,4 +1,0 @@
-The package xlsdraw provides CMake targets:
-
-    find_package(xlsdraw CONFIG REQUIRED)
-    target_link_libraries(main PRIVATE xlsdraw::xlsdraw)

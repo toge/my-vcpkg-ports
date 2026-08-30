@@ -1,6 +1,7 @@
 {
   "name": "uuid7pp",
   "version-date": "2026-08-25",
+  "port-version": 2,
   "description": "C++ UUIDv7 header only library",
   "homepage": "https://github.com/toge/uuid7pp",
   "license": "MIT",
@@ -14,6 +15,5 @@
       "name": "vcpkg-cmake-config",
       "host": true
     }
-  ],
-  "port-version": 1
+  ]
 }

@@ -1,4 +1,0 @@
-The package glz-sql provides CMake targets:
-
-    find_package(glz-sql CONFIG REQUIRED)
-    target_link_libraries(main PRIVATE glz-sql::glz-sql)

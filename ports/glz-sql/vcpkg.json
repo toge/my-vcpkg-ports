@@ -1,6 +1,7 @@
 {
   "name": "glz-sql",
   "version-date": "2026-07-01",
+  "port-version": 2,
   "description": "Header-only SQLite ORM library using Glaze reflection",
   "homepage": "https://github.com/toge/glz-sql",
   "license": "MIT",
@@ -16,6 +17,5 @@
       "name": "vcpkg-cmake-config",
       "host": true
     }
-  ],
-  "port-version": 1
+  ]
 }

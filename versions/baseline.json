@@ -81,7 +81,7 @@
       "port-version": 2
     },
     "ladybugdb-ladybug": {
-      "baseline": "0.19.1",
+      "baseline": "0.20.0",
       "port-version": 0
     },
     "laz-perf": {

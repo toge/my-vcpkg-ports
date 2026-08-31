@@ -3,8 +3,8 @@ set(VCPKG_BUILD_TYPE release) # header only library
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO toge/redismm
-    REF f83bb45727fe2027a12a8d59afd7b9a5f6a5f084
-    SHA512 2d73233ee4dd9cce7c78aed48996e6dfb740060f6a5101942a2d2d33401cd0218c343dff59549e45a32043db04cadb7aaf6e466c5a4f631d72b83256cd77d7b9
+    REF 23cf3d07dc59ab454f5ca851c033db72d74ed14d
+    SHA512 547606793f7acabbeb4c136c2f874ef421fb9ec92fa323ec82af924fcce7654c83bfc93f7bfbeb5ff12393306cb0a89022bc6a85bfec362b42d41cf72c2aed3f
     HEAD_REF main
 )
 

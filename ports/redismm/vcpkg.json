@@ -1,6 +1,6 @@
 {
   "name": "redismm",
-  "version-date": "2026-08-31",
+  "version-date": "2026-09-01",
   "description": "redis like embedded kvs based on RocksDB",
   "homepage": "https://github.com/toge/redismm",
   "license": "MIT",

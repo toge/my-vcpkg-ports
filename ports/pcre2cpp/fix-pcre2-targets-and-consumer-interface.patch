@@ -1,8 +1,22 @@
-diff -ruN a/cmake/pcre2cppConfig.cmake.in b/cmake/pcre2cppConfig.cmake.in
---- a/cmake/pcre2cppConfig.cmake.in	2026-04-29 22:38:43.026548787 +0900
-+++ b/cmake/pcre2cppConfig.cmake.in	2026-04-29 22:38:43.048786872 +0900
-@@ -4,22 +4,34 @@
- 
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 3050c45..3f6b61b 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -36,6 +36,8 @@ else()
+ 	set(BUILD_STATIC_LIBS ON)
+ endif()
+
++find_package(mstd CONFIG REQUIRED)
++find_package(pcre2 CONFIG REQUIRED)
+ include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/third_party.cmake)
+
+ if (PCRE2CPP_ENABLE_CLANG_TIDY)
+diff --git a/cmake/pcre2cppConfig.cmake.in b/cmake/pcre2cppConfig.cmake.in
+index dda7a5f..c94bc3c 100644
+--- a/cmake/pcre2cppConfig.cmake.in
++++ b/cmake/pcre2cppConfig.cmake.in
+@@ -4,22 +4,34 @@ include(CMakeFindDependencyMacro)
+
  find_dependency(pcre2 REQUIRED)
  if(pcre2_FOUND)
 -    add_library(@PROJECT_NAMESPACE@pcre2-8_imported INTERFACE IMPORTED)
@@ -17,7 +31,7 @@ diff -ruN a/cmake/pcre2cppConfig.cmake.in b/cmake/pcre2cppConfig.cmake.in
      else()
          target_compile_definitions(@PROJECT_NAMESPACE@pcre2-8_imported INTERFACE PCRE2CPP_DISABLE_UTF8)
      endif()
- 
+
 -    add_library(@PROJECT_NAMESPACE@pcre2-16_imported INTERFACE IMPORTED)
 -    if(TARGET pcre2-16)
 +    if(NOT TARGET @PROJECT_NAMESPACE@pcre2-16_imported)
@@ -30,7 +44,7 @@ diff -ruN a/cmake/pcre2cppConfig.cmake.in b/cmake/pcre2cppConfig.cmake.in
      else()
          target_compile_definitions(@PROJECT_NAMESPACE@pcre2-16_imported INTERFACE PCRE2CPP_DISABLE_UTF16)
      endif()
- 
+
 -    add_library(@PROJECT_NAMESPACE@pcre2-32_imported INTERFACE IMPORTED)
 -    if(TARGET pcre2-32)
 +    if(NOT TARGET @PROJECT_NAMESPACE@pcre2-32_imported)
@@ -42,18 +56,19 @@ diff -ruN a/cmake/pcre2cppConfig.cmake.in b/cmake/pcre2cppConfig.cmake.in
          target_link_libraries(@PROJECT_NAMESPACE@pcre2-32_imported INTERFACE pcre2-32)
      else()
          target_compile_definitions(@PROJECT_NAMESPACE@pcre2-32_imported INTERFACE PCRE2CPP_DISABLE_UTF32)
-diff -ruN a/pcre2cpp/CMakeLists.txt b/pcre2cpp/CMakeLists.txt
---- a/pcre2cpp/CMakeLists.txt	2026-04-29 22:38:42.801551809 +0900
-+++ b/pcre2cpp/CMakeLists.txt	2026-04-29 22:38:43.048674152 +0900
-@@ -92,6 +92,7 @@
- 
+diff --git a/pcre2cpp/CMakeLists.txt b/pcre2cpp/CMakeLists.txt
+index 913d736..f0ec160 100644
+--- a/pcre2cpp/CMakeLists.txt
++++ b/pcre2cpp/CMakeLists.txt
+@@ -92,6 +92,7 @@ target_compile_definitions(${PROJECT_NAME} INTERFACE    $<BUILD_INTERFACE:
+
  # region COMPILE_OPTIONS
  target_compile_options(${PROJECT_NAME} INTERFACE
 +    $<BUILD_INTERFACE:
          # MSVC/clang with MSVC frontend
          $<$<OR:$<CXX_COMPILER_ID:MSVC>,$<AND:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_FRONTEND_VARIANT:MSVC>>>:
              $<$<CONFIG:Release>:
-@@ -119,6 +120,7 @@
+@@ -119,6 +120,7 @@ target_compile_options(${PROJECT_NAME} INTERFACE
              -Werror
              -fno-strict-aliasing
          >
@@ -61,15 +76,15 @@ diff -ruN a/pcre2cpp/CMakeLists.txt b/pcre2cpp/CMakeLists.txt
          $<BUILD_INTERFACE:$<$<AND:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_FRONTEND_VARIANT:GNU>,$<BOOL:${PCRE2CPP_BUILD_COVERAGE}>>:
              --coverage
              -fcoverage-mcdc
-@@ -130,6 +132,7 @@
- 
+@@ -130,6 +132,7 @@ target_compile_options(${PROJECT_NAME} INTERFACE
+
  # region LINK_OPTIONS
  target_link_options(${PROJECT_NAME} INTERFACE
 +    $<BUILD_INTERFACE:
          # MSVC/clang with MSVC frontend
          $<$<OR:$<CXX_COMPILER_ID:MSVC>,$<AND:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_FRONTEND_VARIANT:MSVC>>>:
              $<$<CONFIG:Release>:/LTCG>
-@@ -140,6 +143,7 @@
+@@ -140,6 +143,7 @@ target_link_options(${PROJECT_NAME} INTERFACE
              $<$<CONFIG:Release>:-flto>
              -static
          >

@@ -137,8 +137,8 @@
       "port-version": 0
     },
     "pcre2cpp": {
-      "baseline": "1.2.7",
-      "port-version": 2
+      "baseline": "1.3.0",
+      "port-version": 0
     },
     "pcrepp": {
       "baseline": "2026-08-25",

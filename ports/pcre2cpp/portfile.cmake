@@ -2,7 +2,7 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO MAIPA01/pcre2cpp
     REF "v${VERSION}"
-    SHA512 32e468b020ed15bd41c08c6b7486573afa09ff43252449411b40a9c1d3102ccb94bcfe766cf2de8adbadf620b05b919296d06c610abf460bfdb0727749e7f6a4
+    SHA512 84d14768f9c369f2054e38bffebdbe72ace061d2d44acb34731ac9ac31076961c7cdd424e298becc474e35182dedf854a2ffaa943a3e952a52f031a80f16ac8b
     HEAD_REF main
     PATCHES
         fix-pcre2-targets-and-consumer-interface.patch
@@ -22,6 +22,7 @@ vcpkg_cmake_configure(
         -DPCRE2CPP_ENABLE_CLANG_TIDY=OFF
         -DPCRE2CPP_ENABLE_CXX20=ON
         -DPCRE2CPP_DISABLE_ASSERT_ON_RELEASE=ON
+        -DPCRE2CPP_BUILD_EXAMPLES=OFF
 )
 
 vcpkg_cmake_install()

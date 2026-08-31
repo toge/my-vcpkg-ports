@@ -1,7 +1,6 @@
 {
   "name": "injamm-sqlite3",
-  "version-date": "2026-08-29",
-  "port-version": 2,
+  "version-date": "2026-08-31",
   "description": "header-only C++23 library to render HTML directly from sqlite3_stmt with the injamm template engine",
   "homepage": "https://github.com/toge/injamm-sqlite3",
   "license": "MIT",

@@ -2,7 +2,7 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO koron/cmigemo
     REF v${VERSION}
-    SHA512 4fae2fa7ba0f0069a1fa6a291c21f6990dfad1ea6586965394bdff44c97b464a1b44410b5968cb59aefea40ff7db9d34cabee8ce5f7aee36b3911dbff31664be
+    SHA512 210e291430e3cd500b6c75c17160b5cc2a33818cfbcab121cd57b6544d4af41b166d5412562a4ec1ecb856c5783cb9c810f099ae4f0f7f1ffba59a0a83f9d5a2
     HEAD_REF main
 )
 

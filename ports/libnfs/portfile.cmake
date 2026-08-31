@@ -2,7 +2,7 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO sahlberg/libnfs
     REF "libnfs-${VERSION}"
-    SHA512 16464129a827af897af35120d8b495993ea9bc56889fa815230e6fd999f391834256a83f3b58060b4c8e0c5d0608e2ca76f3716cff05ca15c40551a2be4aa8ad
+    SHA512 59e26c1131370482b8da0eba54da54c6270a8c9f683bd7ad74a95ff06a7fc9fd744ff60c04bb3d44d6278acb6e57b3f7f0d4825e6e8f53c9e216dd000cd1c001
     HEAD_REF master
     PATCHES
         fix-exported-target.patch

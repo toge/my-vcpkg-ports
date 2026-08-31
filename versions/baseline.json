@@ -93,7 +93,7 @@
       "port-version": 2
     },
     "libnfs": {
-      "baseline": "7.0.0",
+      "baseline": "7.0.1",
       "port-version": 0
     },
     "libslz": {

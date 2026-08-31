@@ -3,8 +3,8 @@ vcpkg_check_linkage(ONLY_DYNAMIC_LIBRARY)
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO joanvallve/yaml-schema-cpp
-    REF 24623cc5c4a5acb63dea9581ebcd84601bac1da1
-    SHA512 d7622401ebce65b107eb363af88868fef4725c50ce0aa659a4510223275a3bc6b9d1fc1c71946247ea0142f7bc460f39c02f91e3c6466fdadacb9ec2d4f7fe38
+    REF ef8c4ae80c00dc822a95c8f26db1f9146f9092e4
+    SHA512 ef9cfce968447bf34b8fc45e37472f09aa74e9fe7e3bc3f0f63e2298ed520b94aa0a03f6022ab371af428e9526745d23172d2ac64b21f7cc4d732746eb8ba1b6
     HEAD_REF main
     PATCHES
         remove-root-dir-for-tests.patch

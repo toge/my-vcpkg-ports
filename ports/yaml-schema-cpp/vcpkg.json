@@ -1,6 +1,6 @@
 {
   "name": "yaml-schema-cpp",
-  "version-date": "2025-11-10",
+  "version-date": "2026-05-04",
   "description": "a C++ library for specification and validation of YAML files.",
   "homepage": "https://github.com/joanvallve/yaml-schema-cpp",
   "license": "MIT",

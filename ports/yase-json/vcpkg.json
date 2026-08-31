@@ -1,7 +1,6 @@
 {
   "name": "yase-json",
-  "version-date": "2026-08-26",
-  "port-version": 2,
+  "version-date": "2026-09-01",
   "description": "json compression library",
   "homepage": "https://github.com/toge/yase-json",
   "license": "MIT",

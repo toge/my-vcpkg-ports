@@ -1,0 +1,28 @@
+{
+  "name": "wamr",
+  "version": "2.4.5",
+  "description": "WebAssembly Micro Runtime (WAMR) - interpreter (fast/classic), AOT, Fast-JIT selectable",
+  "homepage": "https://github.com/bytecodealliance/wasm-micro-runtime",
+  "license": "Apache-2.0 WITH LLVM-exception",
+  "dependencies": [
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    },
+    {
+      "name": "vcpkg-cmake-config",
+      "host": true
+    }
+  ],
+  "features": {
+    "aot": {
+      "description": "Enable AOT runtime (requires wamrc to pre-compile .wasm -> .aot)"
+    },
+    "classic-interp": {
+      "description": "Use classic interpreter instead of fast interpreter (saves ~2x memory, ~0.5x speed)"
+    },
+    "fast-jit": {
+      "description": "Enable Fast JIT (asmjit/zydis, ~50% of AOT speed, fast startup). Not supported on Windows."
+    }
+  }
+}

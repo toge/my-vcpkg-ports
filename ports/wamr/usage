@@ -1,0 +1,34 @@
+wamr provides CMake target iwasm::vmlib:
+
+    find_package(iwasm CONFIG REQUIRED)
+    target_link_libraries(main PRIVATE iwasm::vmlib)
+
+Headers:
+
+    #include "wasm_export.h"
+    #include "wasm_c_api.h"
+    #include "lib_export.h"
+
+Default (no features) is fast interpreter only:
+
+    vcpkg install wamr
+
+Features:
+
+    classic-interp - classic interpreter instead of fast (saves ~2x memory, ~0.5x speed)
+        vcpkg install wamr[classic-interp]
+        # cmake: -DWAMR_BUILD_FAST_INTERP=0 (INVERTED)
+
+    aot - enable AOT runtime (requires wamrc to compile .wasm -> .aot)
+        vcpkg install wamr[aot]
+        wamrc -o app.aot app.wasm
+        iwasm app.aot   # via libiwasm: wasm_runtime_load() handles both .wasm and .aot
+
+    fast-jit - enable Fast JIT (asmjit/zydis, ~50% of AOT speed, not on Windows)
+        vcpkg install wamr[fast-jit]
+        # Linux/macOS only; on Windows upstream forces FAST_JIT=0
+
+Combine:
+
+    vcpkg install wamr[aot,fast-jit]          # AOT + Fast JIT
+    vcpkg install wamr[aot,classic-interp]    # AOT + classic interpreter

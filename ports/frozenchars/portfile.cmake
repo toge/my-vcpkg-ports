@@ -4,14 +4,14 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO toge/frozenchars
     REF v${VERSION}
-    SHA512 0adb57604511b0dd72b4ed9a61ba59e03e77c57c55bf76db2dbe06ab87e8763f93ef573d0a6b799bafc7b7a15c4c94726d412506b6cbd6a44c8fb2a0b0b249d7
+    SHA512 3c92d4443d081ceb548dab550272adacbf776c44148d81394a6f92ce3f2ab59fa7478edeb680ce57c0e1079d42f728deaf412cc4d58f052e7731d64f811430fe
     HEAD_REF main
 )
 
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"
     OPTIONS
-        -DFROZENCHARS_BUILD_TEST=OFF
+        -DBUILD_TEST=OFF
 )
 
 vcpkg_cmake_install()

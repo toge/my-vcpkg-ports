@@ -1,7 +1,6 @@
 {
   "name": "mojitonpp",
-  "version-date": "2026-06-23",
-  "port-version": 2,
+  "version-date": "2026-09-06",
   "description": "sort library for mixed strings and numbers",
   "homepage": "https://github.com/toge/mojitonpp",
   "license": "MIT",

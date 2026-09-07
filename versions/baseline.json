@@ -77,8 +77,8 @@
       "port-version": 0
     },
     "keikoupp": {
-      "baseline": "2026-08-26",
-      "port-version": 2
+      "baseline": "2026-09-06",
+      "port-version": 0
     },
     "ladybugdb-ladybug": {
       "baseline": "0.20.0",

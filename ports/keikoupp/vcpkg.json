@@ -1,7 +1,6 @@
 {
   "name": "keikoupp",
-  "version-date": "2026-08-26",
-  "port-version": 2,
+  "version-date": "2026-09-06",
   "description": "C++23 header-only time series change point detection (spike, level shift, trend)",
   "homepage": "https://github.com/toge/keikoupp",
   "license": "MIT",

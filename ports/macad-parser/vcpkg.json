@@ -1,7 +1,6 @@
 {
   "name": "macad-parser",
-  "version-date": "2026-06-02",
-  "port-version": 2,
+  "version-date": "2026-09-06",
   "description": "Header-only C++23+ MAC/EUI-64 address parser/formatter with SIMD acceleration",
   "homepage": "https://github.com/toge/macad-parser",
   "license": "MIT",

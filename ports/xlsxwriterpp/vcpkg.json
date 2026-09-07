@@ -1,7 +1,6 @@
 {
   "name": "xlsxwriterpp",
-  "version-date": "2026-07-07",
-  "port-version": 2,
+  "version-date": "2026-09-06",
   "description": "C++ wrapper for libxlsxwriter",
   "homepage": "https://github.com/toge/xlsxwriterpp",
   "license": "MIT",

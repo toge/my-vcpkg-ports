@@ -3,8 +3,8 @@ set(VCPKG_BUILD_TYPE release) # header only library
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO toge/yase-json
-    REF 730c4adba7b3ea5830b1276af55491d61a00be53
-    SHA512 1d24426f365e7148a4fbf0b05a74a2d2436c8895ec525297663afc85ba916eb32330faa6486941d959a4227bdf12a7ffbba61fd0162ed27120025d25d646bc81
+    REF a9b020439fb48a8983ebb2d2eea5e7b501dda395
+    SHA512 cec1c3075bb13e3f9c48abe2c6dadd359bfd2d8858fd13a7f3236df142eb3a3e2a3c78ed0d1b9827070e96d32c1bdce2f50c8b307dd144bcc8a5f6d4b466973b
     HEAD_REF main
 )
 

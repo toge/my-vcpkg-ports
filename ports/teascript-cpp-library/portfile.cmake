@@ -4,7 +4,7 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO Florian-Thake/TeaScript-Cpp-Library
     REF v${VERSION}
-    SHA512 3246c179cc1c1e6372dfc2ea11f332016190bebd3841bf35ce168838b35ec20d0107b60f6708300d032b1a0a17575ad60e53b425ffb3a97081d4d5859ff2fa11
+    SHA512 4e094fe4c0c771ef892e5e5035dcca763bdf3d0c7e6d713786e13812636999d5232bfb0a748dd2599560c11c1baae5e9ef2e9b044184e9eb676fbc98bc5c371e
     HEAD_REF main
     PATCHES
         devendoring.patch

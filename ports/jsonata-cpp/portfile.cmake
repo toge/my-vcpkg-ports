@@ -2,7 +2,7 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO rayokota/jsonata-cpp
     REF v${VERSION}
-    SHA512 bd4bb8db1d2c0c23bad675dccc3c25ea60b0482a01405bffadbeaf3c09d391e4913a1eebdb585697473fb039bbb56ef1b54c069ef87690a88d9c8780be491f7d
+    SHA512 8fde461d3f9e8b3e68c82d2683e1eccfb5a16add0406381867ee687bd2e0fa938a3a10974e4a8b356d2b636d86c550d0e3e773e2e182c0e27177ee79b8f16242
     HEAD_REF master
 )
 

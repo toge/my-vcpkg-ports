@@ -19,6 +19,7 @@ vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"
     OPTIONS
         ${FEATURE_OPTIONS}
+        -DZXC_USE_SYSTEM_RAPIDHASH=ON
         -DZXC_NATIVE_ARCH=ON
         -DZXC_ENABLE_LTO=OFF
         -DZXC_BUILD_TESTS=OFF

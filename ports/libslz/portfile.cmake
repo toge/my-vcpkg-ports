@@ -9,7 +9,7 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO wtarreau/libslz
     REF "v${VERSION}"
-    SHA512 1510507bd4afbe0282ebe82b0af6aa5a3189d393426f52370634ad74b3319c111263b6cf21a728f6e66e0cd36beaa90a8185b99fcf54622e33dba429f078ca3e
+    SHA512 dd5936cddbc8aa6981407fd7c4b78a457c43459b91333f9f3af59c1c4a4fb7a8808f39c643833608c5bd0db7b16350c7a0ae365597c20cb7a0c8fb306d02529e
     HEAD_REF master
     PATCHES
         add-cmake-build.patch

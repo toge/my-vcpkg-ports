@@ -13,7 +13,7 @@
       "port-version": 0
     },
     "doltlite": {
-      "baseline": "0.51.11",
+      "baseline": "0.51.12",
       "port-version": 0
     },
     "emio": {
@@ -150,6 +150,10 @@
     },
     "rlogiacco-circularbuffer": {
       "baseline": "1.4.0",
+      "port-version": 0
+    },
+    "rtxui": {
+      "baseline": "0.1.4",
       "port-version": 0
     },
     "slothdb": {

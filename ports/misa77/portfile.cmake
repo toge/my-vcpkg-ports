@@ -2,10 +2,8 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO welcome-to-the-sunny-side/misa77
     REF "v${VERSION}"
-    SHA512 a5e68121e55e831853fe06f98cd0da4e39064ec3a1001a9c2de4cb7f9ad007d7cce91a6109160c0a072bb99ce69534f2f6c65d8d3e6ac9387db151f183dd457e
+    SHA512 88f49f4183fb586ba5f91de4372e966477ee692e6263378c31ce4f6c93a8ea96bfd3df3140c29e4d6f4fe4ccca01dea11c1074de3f3a51744508581d1f683984
     HEAD_REF main
-    PATCHES
-        install.patch
 )
 
 vcpkg_check_features(OUT_FEATURE_OPTIONS FEATURE_OPTIONS

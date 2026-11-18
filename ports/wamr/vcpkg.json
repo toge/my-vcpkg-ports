@@ -1,6 +1,6 @@
 {
   "name": "wamr",
-  "version": "2.4.5",
+  "version": "2.4.6",
   "description": "WebAssembly Micro Runtime (WAMR) - interpreter (fast/classic), AOT, Fast-JIT selectable",
   "homepage": "https://github.com/bytecodealliance/wasm-micro-runtime",
   "license": "Apache-2.0 WITH LLVM-exception",

@@ -2,7 +2,7 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO bytecodealliance/wasm-micro-runtime
     REF WAMR-${VERSION}
-    SHA512 3aadee3befdd9a8f4fb45c13800e98145ef5492843b08715d9d6787dc9261fb345cc9005d9544efb184f53c83dfe495c176d97b0f05c729db76069f3e3aea60e
+    SHA512 8737b3e92fccb2fab9384485a76f4b8994bcba47ce0452545a6b8205b2d3cd3f8a2869c81fa03a2e1fabcb534838fc4ce937087746b112e48b1ef6386c388dfd
     HEAD_REF main
 )
 
